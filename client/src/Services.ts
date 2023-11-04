@@ -1,0 +1,19 @@
+export const services = {
+  postData : async(url: string, body: object ) =>{
+    try {
+      const data = await fetch(`${url}`,{
+        method: 'POST',
+        headers: {'content-type':'application/json'},
+        body: JSON.stringify(body)
+      })
+
+      const response = await data.json();
+      console.log(response);
+
+      return response
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
