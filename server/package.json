@@ -2,13 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "build": "tsc",
     "tsc": "tsc",
     "test": "jest",
     "start": "tsc & node .",
-    "dev": "ts-node-dev --respawn --transpile-only src/config/index.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/config/server.ts"
   },
   "dependencies": {
     "@types/jest": "^29.5.5",
@@ -45,4 +44,3 @@
   "license": "ISC",
   "description": ""
 }
-
