@@ -1,83 +1,75 @@
+import { Link } from "react-router-dom";
 
 const Register = () => {
-
-    const compañias = ["jazztel", "Orange", "Simio"];
+  const company = ["jazztel", "Orange", "Simio"];
 
   return (
     <>
-       <div className="container py-4 px-3 mx-auto">
-          <form>
-        <div className="mb-3 mt-2">
-          <label htmlFor="requiredSelect" className="form-label is-required">
-            Select company<span className="visually-hidden"> (required)</span>
-          </label>
-          <select id="requiredSelect" className="form-select" required>
-            <option value="">Select company</option>
-            {compañias.map((a) => {
-              return (
-                <option key={a} value="">
-                  {a}
-                </option>
-              );
-            })}
-          </select>
-        </div>
+      <div className="container py-4 px-3 mx-auto">
+        <form className="row g-3">
+          <div className="col-md-6">
+            <label htmlFor="inputEmail4" className="form-label">
+              Name
+            </label>
+            <input type="text" className="form-control" id="inputEmail4" />
+          </div>
 
-        {/* input */}
+          <div className="col-md-6">
+            <label htmlFor="inputPassword4" className="form-label">
+              Last Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="inputPassword4"
+            />
+          </div>
 
-        <div className="mb-3">
-          <label htmlFor="exampleFormControlInput1" className="form-label">
-            Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="exampleFormControlInput1"
-            placeholder="Name"
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="exampleFormControlInput1" className="form-label">
-            Lastname
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="exampleFormControlInput1"
-            placeholder="Lastname"
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="exampleFormControlInput1" className="form-label">
-            Postal Code
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="exampleFormControlInput1"
-            placeholder="Postal Code"
-          />
-        </div>
-
-        <div className="mb-3 form-check">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="exampleCheck1"
-          />
-          <label className="form-check-label" htmlFor="exampleCheck1">
-            I accept the Terms
-          </label>
-        </div>
-        <button type="submit" className="btn btn-primary mt-2">
-          Submit
-        </button>
-      </form>
+          <div className="col-md-6">
+            <label htmlFor="inputCity" className="form-label">
+              DNI
+            </label>
+            <input type="text" className="form-control" id="inputCity" />
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="inputState" className="form-label">
+              Company
+            </label>
+            <select id="inputState" className="form-select">
+              <option selected>Select Company</option>
+              {company.map((a)=>{
+                return <option value={a}>{a}</option>
+              })}
+            </select>
+          </div>
+          <div className="col-md-2">
+            <label htmlFor="inputZip" className="form-label">
+              Postal Code
+            </label>
+            <input type="text" className="form-control" id="inputZip" />
+          </div>
+          <p>Please read the Terms and Conditions and privacy policy</p>
+          <div className="col-12">
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="gridCheck"
+              />
+              <label className="form-check-label" htmlFor="gridCheck">
+              I accept the terms and conditions
+              </label>
+            </div>
+          </div>
+          <div className="col-12">
+            <Link type="submit" className="btn btn-primary mt-2" to={'/send-data'}>
+              Sign in
+            </Link>
+          </div>
+        </form>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Register;

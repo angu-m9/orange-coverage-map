@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
-import StyledLogin from "./StyleLogin";
 import { services } from "../../../services";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface FormData {
   Email: string;
@@ -27,22 +26,14 @@ const Login = () => {
     }
   };
 
+
   return (
-    <StyledLogin>
-      <h1>Login User</h1>
-
-      <form action="" onSubmit={handleSubmit(postData)}>
-        <label htmlFor="">
-          <input type="email" {...register("Email")} />
-        </label>
-
-        <label htmlFor="">
-          <input type="password" {...register("Contraseña")} />
-        </label>
-
-        <input type="submit" className="button" />
-      </form>
-    </StyledLogin>
+    <>
+      <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: '70vh' }}>
+      <img src="src/assets/icons/register-icon.svg" alt="register-icon" className="m-3" style={{ width: '70%', height: '80%' }}/>
+      <Link type="button" className="btn btn-primary" to={'/register'} >Register</Link>
+      </div>
+    </>
   );
 };
 
