@@ -11,7 +11,7 @@ const HeaderAdmin = () => {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <div className="navbar-brand">
-            <a className="stretched-link" href="#">
+            <Link to="/" className="stretched-link">
               <img
                 src="src/assets/images/logo-orange.svg"
                 width="50"
@@ -19,7 +19,7 @@ const HeaderAdmin = () => {
                 alt="Boosted - Back to Home"
                 loading="lazy"
               />
-            </a>
+            </Link>
           </div>
           <button
             className="navbar-toggler"
@@ -37,16 +37,16 @@ const HeaderAdmin = () => {
             id="navbarText"
           >
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <Link to={"/map-coverage"} className="nav-item" style={decoration}>
-                <a className="nav-link active" aria-current="page" href="#">
+              <li className="nav-item">
+                <Link to="/map-coverage" className="nav-link active" style={decoration}>
                   Map
-                </a>
-              </Link>
-              <Link to={"/data-list"} className="nav-item" style={decoration}>
-                <a className="nav-link" href="#">
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/data-list" className="nav-link" style={decoration}>
                   Data
-                </a>
-              </Link>
+                </Link>
+              </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">
                   Sign off
@@ -61,3 +61,4 @@ const HeaderAdmin = () => {
 };
 
 export default HeaderAdmin;
+

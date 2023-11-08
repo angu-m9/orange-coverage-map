@@ -1,0 +1,11 @@
+{
+    "datos":[
+        {
+            "id": 1,
+            "date": "20/05/23",
+            "red":"4G",
+            "Company": "Orange",
+            "Location": "Madrid"
+        }
+    ]
+}

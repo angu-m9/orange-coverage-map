@@ -6,7 +6,8 @@ const Register = () => {
   return (
     <>
       <div className="container py-4 px-3 mx-auto">
-        <form className="row g-3">
+
+        <form className="row g-3 ">
           <div className="col-md-6">
             <label htmlFor="inputEmail4" className="form-label">
               Name
