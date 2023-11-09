@@ -1,11 +1,169 @@
 {
-    "datos":[
-        {
-            "id": 1,
-            "date": "20/05/23",
-            "red":"4G",
-            "Company": "Orange",
-            "Location": "Madrid"
-        }
-    ]
+  "datos": [
+    {
+      "id": 1,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 2,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 3,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 4,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 5,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 6,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 7,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 8,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 9,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 10,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 11,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 12,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 13,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 14,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    }
+  ],
+  "admins": [
+    {
+      "admin_name": "usuario ",
+      "admin_password": "1234567",
+      "id": 1
+    },
+    {
+      "admin_name": "usuario ",
+      "admin_password": "1234567",
+      "id": 2
+    },
+    {
+      "admin_name": "usuario",
+      "admin_password": "12345",
+      "id": 3
+    },
+    {
+      "admin_name": "usuario",
+      "admin_password": "12345",
+      "id": 4
+    },
+    {
+      "admin_name": "usuario",
+      "admin_password": "123456",
+      "id": 5
+    },
+    {
+      "admin_name": "usuario",
+      "admin_password": "123456",
+      "id": 6
+    },
+    {
+      "admin_name": "usuario",
+      "admin_password": "1234567",
+      "id": 7
+    },
+    {
+      "admin_name": "usuario",
+      "admin_password": "1234567",
+      "id": 8
+    },
+    {
+      "admin_name": "usuario",
+      "admin_password": "1234567",
+      "id": 9
+    },
+    {
+      "admin_name": "usuario",
+      "admin_password": "1234567",
+      "id": 10
+    },
+    {
+      "admin_name": "usuario",
+      "admin_password": "1234567",
+      "id": 11
+    },
+    {
+      "admin_name": "usuario2",
+      "admin_password": "1234567",
+      "id": 12
+    },
+    {
+      "admin_name": "usuario",
+      "admin_password": "1234567",
+      "id": 13
+    }
+  ]
 }

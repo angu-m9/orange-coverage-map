@@ -1,12 +1,9 @@
 import { Outlet } from "react-router-dom"
-import Header from "../components/templates/Header/Header"
 
 const Root = () => {
   return (
     <>
-      <Header />
       <Outlet/>
-
     </>
   )
 }

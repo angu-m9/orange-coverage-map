@@ -1,4 +1,4 @@
-const Header = () => {
+const Header = ({title}:{title:string}) => {
   return (
     <>
       <header>
@@ -14,7 +14,7 @@ const Header = () => {
                   loading="lazy"
                 />
               </a>
-              <h1 className="title"></h1>
+              <h1 className="title">{title}</h1>
             </div>
           </div>
         </nav>

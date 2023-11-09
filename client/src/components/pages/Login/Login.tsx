@@ -1,34 +1,14 @@
-import { useForm } from "react-hook-form";
-import { services } from "../../../services";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Header from "../../templates/Header/Header";
 
-interface FormData {
-  Email: string;
-  Contraseña: string;
-}
+
 
 const Login = () => {
-  const { register, handleSubmit } = useForm<FormData>();
-  const navigate = useNavigate();
-
-  const postData = (data: FormData) => {
-    console.log(data);
-
-    const response: any = services.postData("http", data);
-
-    if (response.token) {
-      localStorage.setItem("token", response.token);
-      console.log("Successful Authentication");
-      navigate("/Home");
-      console.log(null);
-    } else {
-      console.log("invelid credencial");
-    }
-  };
 
 
   return (
     <>
+      <Header title="Login User" />
       <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: '70vh' }}>
 
       <div className="d-flex align-items-center justify-content-center h-100">

@@ -1,130 +1,66 @@
-import { CSVLink } from "react-csv";
+import CsvDownloader from "react-csv-downloader";
 import { useLoaderData } from "react-router";
-
+import HeaderAdmin from "../../templates/HeaderAdmin/HeaderAdmin";
 
 const DataList = () => {
-  const div = {
+  const divStyle = {
     height: "30rem",
     width: "100%",
     overflow: "scroll",
     border: "solid 0.1rem gray",
   };
 
-  const {response} = useLoaderData();
+  const { response } = useLoaderData();
 
-  console.log(response)
+  const columns = [
+    { id: "id", displayName: "#" },
+    { id: "date", displayName: "Date" },
+    { id: "red", displayName: "Red" },
+    { id: "Company", displayName: "Company" },
+    { id: "Location", displayName: "Location" },
+  ];
 
+ 
   return (
-    <>
-      <div className="container py-4 px-3 mx-auto b-1 text-center">
-        <div style={div}>
-
-          <table className="table">
-            <caption className="visually-hidden">
-              Boosted tables basic look
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Date</th>
-                <th scope="col">Red</th>
-                <th scope="col">Company</th>
-                <th scope="col">Location</th>
+ <>
+ <HeaderAdmin mapCoverage={''} dataList={'active'}/>
+    <div className="container py-4 px-3 mx-auto b-1 text-center">
+      <div style={divStyle}>
+        <table className="table">
+          <thead>
+            <tr>
+              {columns.map((col) => (
+                <th key={col.id} scope="col">
+                  {col.displayName}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {response.map((row) => (
+              <tr key={row.id}>
+                {columns.map((col) => (
+                  <td key={col.id}>{row[col.id]}</td>
+                ))}
               </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@mdo</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <button type="button" className="btn btn-primary m-4">EXPORT</button>
+            ))}
+          </tbody>
+        </table>
       </div>
 
-    
+      <CsvDownloader
+        filename="datos"
+        extension=".csv"
+        columns={columns}
+        datas={response}
+        text="EXPORT"
+      >
+        <button className="btn btn-primary m-4">Download CSV</button>
+      </CsvDownloader>
+    </div>
     </>
   );
 };
 
 export default DataList;
+

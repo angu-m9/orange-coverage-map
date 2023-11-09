@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
 
-const HeaderAdmin = () => {
+const HeaderAdmin = ({ mapCoverage, dataList }: { mapCoverage: string, dataList: string }) => {
 
-    const decoration = {
-        textDecoration : 'none'
-    }
+  const decoration = {
+    textDecoration: 'none'
+  }
 
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        
         <div className="container-fluid">
           <div className="navbar-brand">
-            <Link to="/" className="stretched-link">
+            <div className="stretched-link">
               <img
                 src="src/assets/images/logo-orange.svg"
                 width="50"
@@ -19,7 +20,7 @@ const HeaderAdmin = () => {
                 alt="Boosted - Back to Home"
                 loading="lazy"
               />
-            </Link>
+            </div>
           </div>
           <button
             className="navbar-toggler"
@@ -38,19 +39,20 @@ const HeaderAdmin = () => {
           >
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link to="/map-coverage" className="nav-link active" style={decoration}>
+                <Link to="/map-coverage" className={`nav-link ${mapCoverage}`} style={decoration}>
                   Map
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/data-list" className="nav-link" style={decoration}>
+                <Link to="/data-list" className={`nav-link ${dataList}`} style={decoration}>
                   Data
                 </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Sign off
-                </a>
+
+                <Link to={'/login-admin'} className="nav-link">
+                  Close
+                </Link>
               </li>
             </ul>
           </div>
