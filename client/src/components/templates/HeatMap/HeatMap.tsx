@@ -1,18 +1,30 @@
-import { MapContainer, TileLayer } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
-const SimpleMap = () => {
-  const madridCoordinates = [40.4168, -3.7038];
-  const zoom = 13;
-
-  return (
-    <MapContainer center={madridCoordinates} zoom={zoom} style={{ height: '500px', width: '100%' }}>
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      />
-    </MapContainer>
-  );
+const containerStyle = {
+  width: '400px',
+  height: '400px'
 };
 
-export default SimpleMap;
+const center = {
+  lat: -34.397,
+  lng: 150.644
+};
+
+function HeatMap() {
+  return (
+    <LoadScript
+      googleMapsApiKey="AIzaSyChiXdkf8cjkHN06UbJ9-L_PRDz9MxSYII"
+    >
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={10}
+        mapTypeId='roadmap'
+      >
+
+      </GoogleMap>
+    </LoadScript>
+  )
+}
+
+export default HeatMap;

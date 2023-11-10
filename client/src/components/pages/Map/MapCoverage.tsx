@@ -1,5 +1,5 @@
 import HeaderAdmin from "../../templates/HeaderAdmin/HeaderAdmin";
-import Heatmap from "../../templates/HeatMap/HeatMap";
+import HeatMap from "../../templates/HeatMap/HeatMap";
 
 const MapCoverage = () => {
   const text = {
@@ -34,7 +34,7 @@ const MapCoverage = () => {
         <div className="row">
           <div className="col-12 d-flex justify-content-center align-items-center">
 
-          <Heatmap />
+          <HeatMap />
 
           </div>
           <div className="col-12 d-flex justify-content-center align-content-center flex-wrap gap-2 mt-3">
