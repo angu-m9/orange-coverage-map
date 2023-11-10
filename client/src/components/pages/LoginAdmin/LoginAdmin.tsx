@@ -19,9 +19,9 @@ const LoginAdmin = () => {
   console.log(response);
 
   const post= (data:FormData)=>{
-    console.log(data)
+    // console.log(data)
 
-   services.postData('http://localhost:3000/admins', data)
+  // services.postData('http://localhost:3000/admins', data)
     
     const find = response.some((a:FormData) => a.admin_name === data.admin_name && a.admin_password === data.admin_password);
 

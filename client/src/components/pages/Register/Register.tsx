@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Register = () => {
-  const company = ["jazztel", "Orange", "Simio"];
+  const company = ["Jazztel", "Orange", "Simyo"];
 
   const {
     register,
@@ -144,7 +144,7 @@ const Register = () => {
           </div>
           <div className="col-12">
             <button type="submit" className="btn btn-primary mt-2">
-              Sign in
+              Register
             </button>
           </div>
         </form>

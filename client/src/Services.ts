@@ -3,7 +3,7 @@ export const services = {
     try {
       const data = await fetch(`${url}`);
       const response = await data.json();
-      console.log(response)
+      // console.log(response)
       return {response}
       
     } catch (error) {

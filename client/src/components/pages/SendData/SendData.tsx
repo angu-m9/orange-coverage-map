@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Header from "../../templates/Header/Header";
 import Modal from "../../templates/Modal/Modal";
+import { services } from "../../../Services";
+import { number } from "yargs";
 const SendData = () => {
   const [change, setChange] = useState(false);
   const [index, setIndex] = useState(0);
@@ -10,7 +12,10 @@ const SendData = () => {
   };
 
   const handleSignIn = () => {
-    setChange(true);
+    setInterval(()=>{
+      setChange(true);
+    },7000)
+    
 
     const nextIndex = () => {
       setIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -26,6 +31,7 @@ const SendData = () => {
     setTimeout(() => {
       clearInterval(repeat);
     }, 7000);
+    send()
   };
 
   const images = [
@@ -34,6 +40,46 @@ const SendData = () => {
     "src/assets/icons/send-data-2.svg",
     "src/assets/icons/send-data-3.svg",
   ];
+
+  const send =()=>{
+
+    const index = Math.floor(Math.random() * 6)
+
+    const data = [
+      {
+        "date": "10/11/23",
+        "red": "2G",
+        "Company": "Orange",
+        "Location": "Madrid"
+      },
+      {
+        "date": "10/11/23",
+        "red": "3G",
+        "Company": "Jazztel",
+        "Location": "Barcelona"
+      },
+      {
+        "date": "10/11/23",
+        "red": "2G",
+        "Company": "Simyo",
+        "Location": "Sevilla"
+      },
+      {
+        "date": "10/11/23",
+        "red": "2G",
+        "Company": "Simyo",
+        "Location": "Murcia"
+      },
+      {
+        "date": "10/11/23",
+        "red": "2G",
+        "Company": "Jazztel",
+        "Location": "Zaragoza"
+      },
+    ]
+
+    services.postData('http://localhost:3000/datos', data[index])
+  }
 
   return (
     <>

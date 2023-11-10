@@ -20,47 +20,45 @@ const DataList = () => {
     { id: "Location", displayName: "Location" },
   ];
 
- 
   return (
- <>
- <HeaderAdmin mapCoverage={''} dataList={'active'}/>
-    <div className="container py-4 px-3 mx-auto b-1 text-center">
-      <div style={divStyle}>
-        <table className="table">
-          <thead>
-            <tr>
-              {columns.map((col) => (
-                <th key={col.id} scope="col">
-                  {col.displayName}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {response.map((row) => (
-              <tr key={row.id}>
+    <>
+      <HeaderAdmin mapCoverage={""} dataList={"active"} />
+      <div className="container py-4 px-3 mx-auto b-1 text-center">
+        <div style={divStyle}>
+          <table className="table">
+            <thead>
+              <tr>
                 {columns.map((col) => (
-                  <td key={col.id}>{row[col.id]}</td>
+                  <th key={col.id} scope="col">
+                    {col.displayName}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {response.map((row) => (
+                <tr key={row.id}>
+                  {columns.map((col) => (
+                    <td key={col.id}>{row[col.id]}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      <CsvDownloader
-        filename="datos"
-        extension=".csv"
-        columns={columns}
-        datas={response}
-        text="EXPORT"
-      >
-        <button className="btn btn-primary m-4">Download CSV</button>
-      </CsvDownloader>
-    </div>
+        <CsvDownloader
+          filename="datos"
+          extension=".csv"
+          columns={columns}
+          datas={response}
+          text="EXPORT"
+        >
+          <button className="btn btn-primary m-4">Download CSV</button>
+        </CsvDownloader>
+      </div>
     </>
   );
 };
 
 export default DataList;
-
