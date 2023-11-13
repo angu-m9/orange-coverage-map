@@ -1,0 +1,132 @@
+{
+  "datos": [
+    {
+      "id": 1,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 2,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 3,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 4,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 5,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 6,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 7,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 8,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 9,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 10,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 11,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 12,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 13,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "id": 14,
+      "date": "20/05/23",
+      "red": "4G",
+      "Company": "Orange",
+      "Location": "Madrid"
+    },
+    {
+      "date": "10/11/23",
+      "red": "2G",
+      "Company": "Simyo",
+      "Location": "Murcia",
+      "id": 15
+    },
+    {
+      "date": "10/11/23",
+      "red": "3G",
+      "Company": "Jazztel",
+      "Location": "Barcelona",
+      "id": 16
+    }
+  ],
+  "admins": [
+    {
+      "admin_name": "usuario",
+      "admin_password": "1234567",
+      "id": 1
+    },
+    {
+      "user_name": "USUARIO",
+      "user_last_name": "usuario",
+      "user_dni": "77777777X",
+      "user_company": "Orange",
+      "user_postal_code": "28028",
+      "user_check": true,
+      "id": 2
+    }
+  ]
+}
