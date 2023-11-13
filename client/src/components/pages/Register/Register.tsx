@@ -42,7 +42,7 @@ const Register = () => {
             <input
               type="text"
               className="form-control"
-              id="input_name"
+              id="input_name" data-testid="input_name"
               {...register("user_name", {
                 required: true,
               })}
@@ -58,7 +58,7 @@ const Register = () => {
             <input
               type="text"
               className="form-control"
-              id="input_last-name"
+              id="input_last-name" data-testid="input_last-name"
               {...register("user_last_name", {
                 required: true,
               })}
@@ -74,7 +74,7 @@ const Register = () => {
             <input
               type="text"
               className="form-control"
-              id="input_dni"
+              id="input_dni" data-testid="input_dni"
               {...register("user_dni", {
                 required: true,
               })}
@@ -88,7 +88,7 @@ const Register = () => {
               Company
             </label>
             <select
-              id="input_company"
+              id="input_company" data-testid="input_company"
               className="form-select"
               {...register("user_company", { required: true })}
               defaultValue=""
@@ -112,7 +112,7 @@ const Register = () => {
             <input
               type="text"
               className="form-control"
-              id="input_postal-code"
+              id="input_postal-code" data-testid="input_postal-code"
               {...register("user_postal_code", {
                 required: true,
               })}
@@ -129,7 +129,7 @@ const Register = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="input_check"
+                id="input_check" data-testid="input_check"
                 {...register("user_check", {
                   required: true,
                 })}

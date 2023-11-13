@@ -91,7 +91,7 @@ const SendData = () => {
           src={images[index]}
           alt="register-icon"
           className="m-3"
-          style={{ width: "70%", height: "80%" }}
+          style={{ width: "70%", height: "80%" }} data-testid="image_send-data"
         />
 
         <button
@@ -102,6 +102,7 @@ const SendData = () => {
           Send Data
         </button>
       </div>
+      
       <Modal
         to={""}
         button={"Accept"}

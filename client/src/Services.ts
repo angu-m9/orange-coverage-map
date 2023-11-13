@@ -1,13 +1,25 @@
+import { DataList } from "./interfaces/services.interface";
+
+
 export const services = {
   getData: async(url: string)=>{
     try {
       const data = await fetch(`${url}`);
       const response = await data.json();
-      // console.log(response)
+      console.log(response)
       return {response}
-      
     } catch (error) {
       console.log(error)
+    }
+  },
+  getDataList: async (): Promise<{ dataList: DataList[] }> => {
+    try {
+      const data = await fetch('http://localhost:3000/datos');
+      const dataList: DataList[] = await data.json();
+      console.log(dataList);
+      return { dataList };
+    } catch (error) {
+      throw new Error(error);
     }
   },
   postData : async(url: string, body: object ) =>{

@@ -47,11 +47,7 @@ export const router = createBrowserRouter([
             {
                 path: '/data-list',
                 element: <DataList />,
-                loader: async () => {
-                    const response = await services.getData(
-                      "http://localhost:3000/datos"
-                    );
-                    return response},
+                loader: services.getDataList
             }
         ],
     },

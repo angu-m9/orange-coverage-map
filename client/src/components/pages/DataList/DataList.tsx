@@ -1,18 +1,21 @@
 import CsvDownloader from "react-csv-downloader";
 import { useLoaderData } from "react-router";
 import HeaderAdmin from "../../templates/HeaderAdmin/HeaderAdmin";
+import { Table } from "../../../interfaces/DataList.interface";
 
-const DataList = () => {
-  const divStyle = {
+const DataList: React.FC = () => {
+
+  const containerTable: Table = {
     height: "30rem",
     width: "100%",
     overflow: "scroll",
     border: "solid 0.1rem gray",
   };
 
-  const { response } = useLoaderData();
+  const { dataList } = useLoaderData();
+  console.log(dataList)
 
-  const columns = [
+  const columns:{id: string, displayName: string}[] = [
     { id: "id", displayName: "#" },
     { id: "date", displayName: "Date" },
     { id: "red", displayName: "Red" },
@@ -23,8 +26,9 @@ const DataList = () => {
   return (
     <>
       <HeaderAdmin mapCoverage={""} dataList={"active"} />
+
       <div className="container py-4 px-3 mx-auto b-1 text-center">
-        <div style={divStyle}>
+        <div style={containerTable}>
           <table className="table">
             <thead>
               <tr>
@@ -36,7 +40,7 @@ const DataList = () => {
               </tr>
             </thead>
             <tbody>
-              {response.map((row) => (
+              {dataList.map((row) => (
                 <tr key={row.id}>
                   {columns.map((col) => (
                     <td key={col.id}>{row[col.id]}</td>
@@ -51,7 +55,7 @@ const DataList = () => {
           filename="datos"
           extension=".csv"
           columns={columns}
-          datas={response}
+          datas={dataList}
           text="EXPORT"
         >
           <button className="btn btn-primary m-4">Download CSV</button>

@@ -1,5 +1,5 @@
 import HeaderAdmin from "../../templates/HeaderAdmin/HeaderAdmin";
-import Heatmap from "../../templates/HeatMap/HeatMap";
+import HeatMap from "../../templates/HeatMap/HeatMap";
 
 const MapCoverage = () => {
   const text = {
@@ -28,13 +28,14 @@ const MapCoverage = () => {
 
   return (
     <>
-      <HeaderAdmin mapCoverage={'active'} dataList={''} />
+      <HeaderAdmin mapCoverage='active' dataList='' />
 
       <div className="container py-4 px-3 mx-auto" style={{ height: '85vh' }}>
         <div className="row">
+
           <div className="col-12 d-flex justify-content-center align-items-center">
 
-          <Heatmap />
+          <HeatMap  />
 
           </div>
           <div className="col-12 d-flex justify-content-center align-content-center flex-wrap gap-2 mt-3">

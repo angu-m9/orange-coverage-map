@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { services } from "../../../Services";
 import HeaderLoginAdmin from "../../templates/HeaderLoginAdmin/HeaderLoginAdmin";
 import { useLoaderData, useNavigate } from "react-router";
 
@@ -18,7 +17,7 @@ const LoginAdmin = () => {
 
   console.log(response);
 
-  const post= (data:FormData)=>{
+  const post = (data:FormData)=>{
     // console.log(data)
 
   // services.postData('http://localhost:3000/admins', data)

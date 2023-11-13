@@ -8,7 +8,7 @@ const HeaderAdmin = ({ mapCoverage, dataList }: { mapCoverage: string, dataList:
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark" data-testid="headerAdmin">
         
         <div className="container-fluid">
           <div className="navbar-brand">

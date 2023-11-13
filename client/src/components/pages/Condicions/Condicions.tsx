@@ -1,11 +1,12 @@
-const Condicions = () => {
+import { Container, Text } from "../../../interfaces/Condicions.interface";
 
-    const text = {
+const Condicions: React.FC  = () => {
+
+    const text: Text = {
         color: '#f16e00',
-        
     }
 
-    const container = {
+    const container: Container = {
         width: '85%',
         display: 'flex',
         justifyContent: 'center',
