@@ -2,13 +2,8 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Condicions from "../src/components/pages/Condicions/Condicions";
 import MapCoverage from "../src/components/pages/Map/MapCoverage";
-import DataList from "../src/components/pages/DataList/DataList";
-import LoginAdmin from "../src/components/pages/LoginAdmin/LoginAdmin";
-import { BrowserRouter as Router } from "react-router-dom";
 import Register from "../src/components/pages/Register/Register";
 import SendData from "../src/components/pages/SendData/SendData";
-import { services } from "../src/Services";
-import { type } from "os";
 
 describe("pages rendering", () => {
 
@@ -69,8 +64,8 @@ describe("pages rendering", () => {
         const button3G = screen.getByText(/3G/i);
         const button4G = screen.getByText(/4G/i);
         const button5G = screen.getByText(/5G/i);
-
-    
+ 
+        
         expect(button1G).toBeInTheDocument();
         expect(button1G).toHaveClass("btn", "rounded");
         expect(button1G).toHaveStyle({
@@ -164,19 +159,19 @@ describe("pages rendering", () => {
       });
   })
 
-  describe('services funcions', () => { 
-    test('getData', async () => { 
-      const response = await services.getData('http://localhost:3000/datos');
-      const datos = response.response; 
+//   describe('services funcions', () => { 
+//     test('getData', async () => { 
+//       const response = await services.getData('http://localhost:3000/datos');
+//       const datos = response.response; 
   
-      expect(datos[1]).toEqual({
-        id: 2,
-        date: '20/05/23',
-        red: '4G',
-        Company: 'Orange',
-        Location: 'Madrid'
-      });
-    });
-  });
+//       expect(datos[1]).toEqual({
+//         id: 2,
+//         date: '20/05/23',
+//         red: '4G',
+//         Company: 'Orange',
+//         Location: 'Madrid'
+//       });
+//     });
+//   });
 
 });

@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import Header from "../../templates/Header/Header";
-import { services } from "../../../Services";
 import Modal from "../../templates/Modal/Modal";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { services } from "../../../services";
 
 const Register = () => {
   const company = ["Jazztel", "Orange", "Simyo"];

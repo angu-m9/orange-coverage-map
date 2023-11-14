@@ -1,27 +1,12 @@
 import CsvDownloader from "react-csv-downloader";
 import { useLoaderData } from "react-router";
 import HeaderAdmin from "../../templates/HeaderAdmin/HeaderAdmin";
-import { Table } from "../../../interfaces/DataList.interface";
+import { containerTable } from "../../../styles/DataList.style";
+import { columns } from "./DataList.funcions";
+import { List } from "../../../interfaces/services.interface";
 
 const DataList: React.FC = () => {
-
-  const containerTable: Table = {
-    height: "30rem",
-    width: "100%",
-    overflow: "scroll",
-    border: "solid 0.1rem gray",
-  };
-
-  const { dataList } = useLoaderData();
-  console.log(dataList)
-
-  const columns:{id: string, displayName: string}[] = [
-    { id: "id", displayName: "#" },
-    { id: "date", displayName: "Date" },
-    { id: "red", displayName: "Red" },
-    { id: "Company", displayName: "Company" },
-    { id: "Location", displayName: "Location" },
-  ];
+  const { dataList } = useLoaderData() as { dataList: List[] };
 
   return (
     <>
@@ -32,18 +17,18 @@ const DataList: React.FC = () => {
           <table className="table">
             <thead>
               <tr>
-                {columns.map((col) => (
-                  <th key={col.id} scope="col">
-                    {col.displayName}
+                {columns.map((a) => (
+                  <th key={a.id} scope="col">
+                    {a.displayName}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {dataList.map((row) => (
-                <tr key={row.id}>
+              {dataList.map((a) => (
+                <tr key={a.id}>
                   {columns.map((col) => (
-                    <td key={col.id}>{row[col.id]}</td>
+                    <td key={col.id}>{a[col.id]}</td>
                   ))}
                 </tr>
               ))}

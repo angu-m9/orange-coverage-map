@@ -1,25 +1,24 @@
-import { DataList } from "./interfaces/services.interface";
-
+import { ListData } from "./interfaces/services.interface";
 
 export const services = {
-  getData: async(url: string)=>{
+  getDataList: async (): Promise<ListData> => {
     try {
-      const data = await fetch(`${url}`);
-      const response = await data.json();
-      console.log(response)
-      return {response}
+      const data = await fetch(import.meta.env.VITE_DATA_LIST);
+      const dataList = await data.json();
+      console.log(dataList)
+      return {dataList};
     } catch (error) {
-      console.log(error)
+      throw new Error("Error: " + error);
     }
   },
-  getDataList: async (): Promise<{ dataList: DataList[] }> => {
+
+  getDataAdmins: async () => {
     try {
-      const data = await fetch('http://localhost:3000/datos');
-      const dataList: DataList[] = await data.json();
-      console.log(dataList);
-      return { dataList };
+      const data = await fetch(import.meta.env.VITE_DATA_ADMINS);
+      const dataAdmins = await data.json();
+      return {dataAdmins};
     } catch (error) {
-      throw new Error(error);
+      console.log(error)
     }
   },
   postData : async(url: string, body: object ) =>{
@@ -67,3 +66,5 @@ export const services = {
     }
   }
 }
+
+

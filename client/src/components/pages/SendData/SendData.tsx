@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Header from "../../templates/Header/Header";
 import Modal from "../../templates/Modal/Modal";
-import { services } from "../../../Services";
+import { services } from "../../../services";
+
 const SendData = () => {
   const [change, setChange] = useState(false);
   const [index, setIndex] = useState(0);

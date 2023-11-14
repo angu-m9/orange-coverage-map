@@ -125,15 +125,6 @@
       "admin_name": "usuario",
       "admin_password": "1234567",
       "id": 1
-    },
-    {
-      "user_name": "USUARIO",
-      "user_last_name": "usuario",
-      "user_dni": "77777777X",
-      "user_company": "Orange",
-      "user_postal_code": "28028",
-      "user_check": true,
-      "id": 2
     }
   ]
 }

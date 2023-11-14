@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import HeaderLoginAdmin from "../../templates/HeaderLoginAdmin/HeaderLoginAdmin";
 import { useLoaderData, useNavigate } from "react-router";
+import { ListAdmins } from "../../../interfaces/services.interface";
 
 const LoginAdmin = () => {
 
@@ -8,21 +9,18 @@ const LoginAdmin = () => {
 
   const navigate = useNavigate();
 
-  const { response } = useLoaderData();
+  const { dataAdmins } = useLoaderData() as { dataAdmins: ListAdmins[] };
 
   interface FormData {
     admin_name: string;
     admin_password: string;
   }
 
-  console.log(response);
+  console.log(dataAdmins);
 
   const post = (data:FormData)=>{
-    // console.log(data)
-
-  // services.postData('http://localhost:3000/admins', data)
     
-    const find = response.some((a:FormData) => a.admin_name === data.admin_name && a.admin_password === data.admin_password);
+    const find = dataAdmins.some((a:FormData) => a.admin_name === data.admin_name && a.admin_password === data.admin_password);
 
     if (find) {
      navigate('/map-coverage') 
