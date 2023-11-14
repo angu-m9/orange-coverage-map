@@ -12,12 +12,20 @@ const DataList = () => {
 
   const { response } = useLoaderData();
 
+  // const columns = [
+  //   { id: "id", displayName: "#" },
+  //   { id: "date", displayName: "Date" },
+  //   { id: "red", displayName: "Red" },
+  //   { id: "Company", displayName: "Company" },
+  //   { id: "Location", displayName: "Location" },
+  // ];
+
   const columns = [
-    { id: "id", displayName: "#" },
-    { id: "date", displayName: "Date" },
-    { id: "red", displayName: "Red" },
-    { id: "Company", displayName: "Company" },
-    { id: "Location", displayName: "Location" },
+    { id: "id", displayName: "ID" },
+    { id: "latitude", displayName: "Latitude" },
+    { id: "longitude", displayName: "Longitude" },
+    { id: "rtt", displayName: "RTT" },
+    { id: "downlink", displayName: "Downlink" },
   ];
 
   return (

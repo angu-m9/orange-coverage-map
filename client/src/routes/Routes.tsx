@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
                 element: <DataList />,
                 loader: async () => {
                     const response = await services.getData(
-                      "http://localhost:3000/datos"
+                      "http://localhost:5000/data-list"
                     );
                     return response},
             }
