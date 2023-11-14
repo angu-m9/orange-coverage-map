@@ -19,8 +19,9 @@ import LocationNetworkQuality from '../models/locationNetworkQualityModel';
 
 export const postLocation = async (req: Request, res: Response) => {
   try {
-    const { latitude, longitude, rtt, downlink } = req.body;
-    const locationNetworkQuality = await LocationNetworkQuality.create({ latitude, longitude, rtt, downlink });
+    const { latitude, longitude, rtt, downlink, network } = req.body;
+    const locationNetworkQuality = await LocationNetworkQuality.create({ latitude, longitude, rtt, downlink, network });
+
     res.status(201).json(locationNetworkQuality);
   } catch (error) {
     res.status(500).json({ error: error.message });

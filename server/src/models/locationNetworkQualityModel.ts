@@ -53,6 +53,14 @@ LocationNetworkQuality.init({
     primaryKey: true,
     autoIncrement: true,
   },
+  network: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  }, 
   latitude: {
     type: DataTypes.FLOAT,
     allowNull: false,
@@ -68,11 +76,7 @@ LocationNetworkQuality.init({
   downlink: {
     type: DataTypes.FLOAT,
     allowNull: false,
-  },
-   created_at: {
-     type: DataTypes.DATE,
-     defaultValue: DataTypes.NOW,
-   },
+  }
 }, {
   sequelize,
   modelName: 'LocationNetworkQuality',

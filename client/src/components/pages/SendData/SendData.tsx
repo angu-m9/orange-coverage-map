@@ -170,6 +170,7 @@ const SendData = () => {
       const combinedData = {
         ...geoLocationData,
         ...networkInfo,
+        network: networkInfo.effectiveType, // si quito este valor, sale el error de not null violation
       };
       console.log(combinedData);
       await services.postData('http://localhost:5000/network-quality', combinedData);

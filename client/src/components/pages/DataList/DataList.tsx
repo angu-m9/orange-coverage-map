@@ -10,18 +10,15 @@ const DataList = () => {
     border: "solid 0.1rem gray",
   };
 
-  const { response } = useLoaderData();
-
-  // const columns = [
-  //   { id: "id", displayName: "#" },
-  //   { id: "date", displayName: "Date" },
-  //   { id: "red", displayName: "Red" },
-  //   { id: "Company", displayName: "Company" },
-  //   { id: "Location", displayName: "Location" },
-  // ];
+  const { response  } = useLoaderData();
+  response.forEach(row => {
+    row.created_at = new Date(row.created_at).toLocaleDateString(); 
+  });
 
   const columns = [
     { id: "id", displayName: "ID" },
+    { id: "created_at", displayName: "Fecha" },
+    { id: "network", displayName: "Tipo de red" },
     { id: "latitude", displayName: "Latitude" },
     { id: "longitude", displayName: "Longitude" },
     { id: "rtt", displayName: "RTT" },

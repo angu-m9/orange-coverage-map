@@ -1,3 +1,4 @@
+
 export const services = {
   getData: async(url: string)=>{
     try {
