@@ -6,8 +6,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: -34.397,
-  lng: 150.644
+  lat: 40.4,
+  lng: -3.70
 };
 
 function HeatMap() {
