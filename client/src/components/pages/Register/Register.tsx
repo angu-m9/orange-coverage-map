@@ -46,6 +46,7 @@ const Register = () => {
               type="text"
               className="form-control"
               id="input_name"
+              data-testid='input_name'
               {...register("user_name", {
                 required: true,
                 pattern: /^[A-Z][a-z]*$/,
@@ -66,6 +67,7 @@ const Register = () => {
               type="text"
               className="form-control"
               id="input_last-name"
+              data-testid='input_last-name'
               {...register("user_last_name", {
                 required: true,
                 pattern: /^[A-ZÁÉÍÓÚÜÑ'][a-záéíóúüñ'.-]+$/,
@@ -86,6 +88,7 @@ const Register = () => {
               type="text"
               className="form-control"
               id="input_dni"
+              data-testid='input_dni'
               {...register("user_dni", {
                 required: true,
                 pattern: /^\d{8}[A-Za-z]$/,
@@ -106,6 +109,7 @@ const Register = () => {
             <select
               id="input_company"
               className="form-select"
+              data-testid='input_company'
               {...register("user_company", { required: true })}
               defaultValue=""
             >
@@ -128,6 +132,7 @@ const Register = () => {
             <input
               type="text"
               className="form-control"
+              data-testid='input_postal-code'
               id="input_postal-code"
               {...register("user_postal_code", {
                 required: true,
@@ -150,6 +155,7 @@ const Register = () => {
                 className="form-check-input"
                 type="checkbox"
                 id="input_check"
+                data-testid='input_check'
                 {...register("user_check", {
                   required: true,
                 })}
