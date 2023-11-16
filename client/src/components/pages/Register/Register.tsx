@@ -47,9 +47,6 @@ const Register = () => {
       console.error('Registration error:', error);
     }
   };
-  
-
-
 
   return (
     <>
@@ -98,10 +95,6 @@ const Register = () => {
               <p className="text-danger fw-bold">last name invalid</p>
             )}
           </div>
-<<<<<<< HEAD
-          
-=======
->>>>>>> c60b44e1494a57eb0e21353f13c7a113ba3fa946
 
           <div className="col-md-4">
             <label htmlFor="input_company" className="form-label">
@@ -187,6 +180,6 @@ const Register = () => {
       />
     </>
   );
-};
+}
 
 export default Register;
