@@ -1,13 +1,14 @@
 import { Model, DataTypes } from 'sequelize';
+import { v4 as uuidv4 } from 'uuid';
 import sequelize from '../data/db';
 
 class User extends Model {}
 
 User.init({
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     primaryKey: true,
-    autoIncrement: true,
+    defaultValue: () => uuidv4(),  //will create an UUID
   },
   name: {
     type: DataTypes.STRING,
@@ -29,12 +30,8 @@ User.init({
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
   }, 
-  cookie: {
-    type: DataTypes.STRING,
-    allowNull: true,
-    unique: true, // Ensure cookies are unique
   },
-}, {
+{
     sequelize,
     modelName: 'User',
     tableName: 'users',

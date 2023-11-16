@@ -5,29 +5,13 @@ import { v4 as uuidv4 } from 'uuid'; //this will make the cookie id unique
 export const createUser = async (req: Request, res: Response) => {
   try {
     const { name, last_name, postal_code, cellular_carrier } = req.body;
-    const cookieValue = uuidv4(); //create the cookie using uuid, include it in the next line
-    const user = await User.create({ name, last_name, postal_code, cellular_carrier, cookie: cookieValue });
+    const user = await User.create({ name, last_name, postal_code, cellular_carrier });
 
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-
-export const checkUser = async (req: Request, res: Response) => {
-  try {
-    const { cookie } = req.body;
-    if (!cookie) {
-      // If the request does not include a cookie, redirect to the registration page
-      res.redirect('/register');
-      return res.status(400).json({ error: 'Cookie is required to access this page, please register' });
-    }
-    const user = await User.findOne({
-      where: { cookie },
-  })
-} catch (error) {
-  res.status(500).json({ error: error.message });
-}};
 
 export const getAllUsers = async (req: Request, res: Response) => {
   try {

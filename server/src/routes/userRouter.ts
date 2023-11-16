@@ -5,7 +5,6 @@ import {
   getUserById,
   updateUser,
   deleteUser,
-  checkUser,
 } from '../controllers/userController';
 
 const router = express.Router();
@@ -25,10 +24,5 @@ router.put('/users/:userId', updateUser);
 // Delete a user by ID
 router.delete('/users/:userId', deleteUser);
 
-// Register the User and add coookie
-router.post('/register', registerUser);
-
-//Check/Verify if the user has a cookie
-router.post('/check', checkUser);
 
 export default router;
