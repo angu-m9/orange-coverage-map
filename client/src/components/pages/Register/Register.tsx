@@ -12,7 +12,6 @@ const Register = () => {
     register,
     formState: { errors },
     handleSubmit,
-    watch
   } = useForm();
   const [change, setChange] = useState(false);
 
@@ -21,17 +20,36 @@ const Register = () => {
   };
 
   const post = async (data: object) => {
-    console.log(data);
-      const create = await services.postData(
-        "http://localhost:3000/admins",
+
+    try {
+      console.log(data);
+      const response = await services.postData(
+        "http://localhost:5000/register",
         data)
 
-      if (create) {
+      if (response) {
         setChange(true);
       }
-  };
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-  const dni = watch('')
+      const result = await response.json();
+      const userId = result.id;
+      const expires = new Date();
+      expires.setFullYear(expires.getFullYear() + 1);
+
+      // Configura la cookie con el ID del usuario
+      document.cookie = `userId=${userId}; path=/; expires=${expires.toUTCString()}; secure; samesite=strict`;
+
+      // Redirigir al usuario o actualizar la UI según sea necesario
+    } catch (error) {
+      console.error('Registration error:', error);
+    }
+  };
+  
+
+
 
   return (
     <>
@@ -68,40 +86,20 @@ const Register = () => {
               className="form-control"
               id="input_last-name"
               data-testid='input_last-name'
-              {...register("user_last_name", {
+              {...register("user_lastname", {
                 required: true,
                 pattern: /^[A-ZÁÉÍÓÚÜÑ'][a-záéíóúüñ'.-]+$/,
               })}
             />
-            {errors.user_last_name?.type === "required" && (
+            {errors.user_lastname?.type === "required" && (
               <p className="text-danger fw-bold">last name required</p>
             )}
-            {errors.user_last_name?.type === "pattern" && (
+            {errors.user_lastname?.type === "pattern" && (
               <p className="text-danger fw-bold">last name invalid</p>
             )}
           </div>
-          <div className="col-md-6">
-            <label htmlFor="input_dni" className="form-label">
-              DNI
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="input_dni"
-              data-testid='input_dni'
-              {...register("user_dni", {
-                required: true,
-                pattern: /^\d{8}[A-Za-z]$/,
-              })}
-            />
-            {errors.user_dni?.type === "required" && (
-              <p className="text-danger fw-bold">DNI required</p>
-            )}
-            {errors.user_dni?.type === "pattern" && (
-              <p className="text-danger fw-bold">DNI invalid</p>
-            )}
-          </div>
           
+
           <div className="col-md-4">
             <label htmlFor="input_company" className="form-label">
               Company
@@ -110,7 +108,7 @@ const Register = () => {
               id="input_company"
               className="form-select"
               data-testid='input_company'
-              {...register("user_company", { required: true })}
+              {...register("cellular_carrier", { required: true })}
               defaultValue=""
             >
               <option value="" disabled></option>
@@ -120,7 +118,7 @@ const Register = () => {
                 </option>
               ))}
             </select>
-            {errors.user_company?.type === "required" && (
+            {errors.cellular_carrier?.type === "required" && (
               <p className="text-danger fw-bold">company required</p>
             )}
           </div>
@@ -134,22 +132,22 @@ const Register = () => {
               className="form-control"
               data-testid='input_postal-code'
               id="input_postal-code"
-              {...register("user_postal_code", {
+              {...register("postal_code", {
                 required: true,
                 pattern: /^\d{5}$/,
               })}
             />
-            {errors.user_postal_code?.type === "required" && (
+            {errors.postal_code?.type === "required" && (
               <p className="text-danger fw-bold">postal code required</p>
             )}
-            {errors.user_postal_code?.type === "pattern" && (
+            {errors.postal_code?.type === "pattern" && (
               <p className="text-danger fw-bold">postal code invalid</p>
             )}
           </div>
           <Link to={'/terms-conditions'} target="_blank">
             Please read the Terms and Conditions and privacy policy
           </Link>
-          <div className="col-12">
+          {/* <div className="col-12">
             <div className="form-check">
               <input
                 className="form-check-input"
@@ -159,15 +157,15 @@ const Register = () => {
                 {...register("user_check", {
                   required: true,
                 })}
-              />
-              <label className="form-check-label" htmlFor="input_check">
+              /> */}
+              {/* <label className="form-check-label" htmlFor="input_check">
                 I accept the terms and conditions
               </label>
               {errors.user_check?.type === "required" && (
                 <p className="text-danger fw-bold">accept required</p>
               )}
             </div>
-          </div>
+          </div> */}
           <div className="col-12">
             <button type="submit" className="btn btn-primary mt-2">
               Register

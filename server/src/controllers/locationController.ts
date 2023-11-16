@@ -24,9 +24,20 @@ export const postLocation = async (req: Request, res: Response) => {
 
     res.status(201).json(locationNetworkQuality);
   } catch (error) {
+    const errorMessage = error;
+    if(typeof errorMessage === "object") {
+      
+    }
     res.status(500).json({ error: error.message });
+    
   }
+
+
 };
+
+
+
+
 
 export const getLocations = async (req: Request, res: Response) => {
   try {

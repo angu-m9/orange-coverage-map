@@ -1,19 +1,19 @@
 // import express from 'express';
 // import { postLocation } from '../controllers/locationController';
 
-// const router = express.Router();
+// const locationRouter = express.Router();
 
-// router.post('/', postLocation);
+// locationRouter.post('/', postLocation);
 
-// export default router;
+// export default locationRouter;
 // locationRoutes.ts
 
 import express from 'express';
 import { postLocation } from '../controllers/locationController';
 import { getLocations } from '../controllers/locationController';
-const router = express.Router();
+const locationRouter = express.Router();
 
-router.post('/network-quality', postLocation); 
-router.get('/data-list', getLocations);
+locationRouter.post('/network-quality', postLocation); 
+locationRouter.get('/data-list', getLocations);
 
-export default router;
+export default locationRouter;
