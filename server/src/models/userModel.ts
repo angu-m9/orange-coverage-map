@@ -10,7 +10,7 @@ User.init({
     primaryKey: true,
     defaultValue: () => uuidv4(),  //will create an UUID
   },
-  name: {
+  user_name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
