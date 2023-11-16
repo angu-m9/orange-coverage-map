@@ -80,28 +80,7 @@ const Register = () => {
               <p className="text-danger fw-bold">last name invalid</p>
             )}
           </div>
-          <div className="col-md-6">
-            <label htmlFor="input_dni" className="form-label">
-              DNI
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="input_dni"
-              data-testid='input_dni'
-              {...register("user_dni", {
-                required: true,
-                pattern: /^\d{8}[A-Za-z]$/,
-              })}
-            />
-            {errors.user_dni?.type === "required" && (
-              <p className="text-danger fw-bold">DNI required</p>
-            )}
-            {errors.user_dni?.type === "pattern" && (
-              <p className="text-danger fw-bold">DNI invalid</p>
-            )}
-          </div>
-          
+
           <div className="col-md-4">
             <label htmlFor="input_company" className="form-label">
               Company

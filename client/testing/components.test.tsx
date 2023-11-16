@@ -111,7 +111,6 @@ describe("rendering pages", () => {
 
       const inputName = screen.getByTestId("input_name");
       const inputLastName = screen.getByTestId("input_last-name");
-      const inputDni = screen.getByTestId("input_dni");
       const inputCompany = screen.getByTestId("input_company");
       const inputPostalCode = screen.getByTestId("input_postal-code");
       const inputCheck = screen.getByTestId("input_check");
@@ -119,7 +118,6 @@ describe("rendering pages", () => {
 
       expect(inputName).toBeInTheDocument();
       expect(inputLastName).toBeInTheDocument();
-      expect(inputDni).toBeInTheDocument();
       expect(inputCompany).toBeInTheDocument();
       expect(inputPostalCode).toBeInTheDocument();
       expect(inputCheck).toBeInTheDocument();
