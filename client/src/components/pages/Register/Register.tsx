@@ -12,6 +12,7 @@ const Register = () => {
     register,
     formState: { errors },
     handleSubmit,
+    watch
   } = useForm();
   const [change, setChange] = useState(false);
 
@@ -30,6 +31,8 @@ const Register = () => {
       }
   };
 
+  const dni = watch('')
+
   return (
     <>
       <Header title="Register" />
@@ -45,10 +48,14 @@ const Register = () => {
               id="input_name"
               {...register("user_name", {
                 required: true,
+                pattern: /^[A-Z][a-z]*$/,
               })}
             />
             {errors.user_name?.type === "required" && (
               <p className="text-danger fw-bold">name required</p>
+            )}
+            {errors.user_name?.type === "pattern" && (
+              <p className="text-danger fw-bold">name invalide</p>
             )}
           </div>
           <div className="col-md-6">
@@ -61,10 +68,14 @@ const Register = () => {
               id="input_last-name"
               {...register("user_last_name", {
                 required: true,
+                pattern: /^[A-ZÁÉÍÓÚÜÑ'][a-záéíóúüñ'.-]+$/,
               })}
             />
             {errors.user_last_name?.type === "required" && (
               <p className="text-danger fw-bold">last name required</p>
+            )}
+            {errors.user_last_name?.type === "pattern" && (
+              <p className="text-danger fw-bold">last name invalid</p>
             )}
           </div>
           <div className="col-md-6">
@@ -77,12 +88,17 @@ const Register = () => {
               id="input_dni"
               {...register("user_dni", {
                 required: true,
+                pattern: /^\d{8}[A-Za-z]$/,
               })}
             />
             {errors.user_dni?.type === "required" && (
               <p className="text-danger fw-bold">DNI required</p>
             )}
+            {errors.user_dni?.type === "pattern" && (
+              <p className="text-danger fw-bold">DNI invalid</p>
+            )}
           </div>
+          
           <div className="col-md-4">
             <label htmlFor="input_company" className="form-label">
               Company
@@ -115,10 +131,14 @@ const Register = () => {
               id="input_postal-code"
               {...register("user_postal_code", {
                 required: true,
+                pattern: /^\d{5}$/,
               })}
             />
             {errors.user_postal_code?.type === "required" && (
               <p className="text-danger fw-bold">postal code required</p>
+            )}
+            {errors.user_postal_code?.type === "pattern" && (
+              <p className="text-danger fw-bold">postal code invalid</p>
             )}
           </div>
           <Link to={'/terms-conditions'} target="_blank">
