@@ -1,9 +1,9 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../data/db';
 
-class Client extends Model {}
+class User extends Model {}
 
-Client.init({
+User.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -13,7 +13,7 @@ Client.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  last_name: {
+  last_names: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -29,11 +29,16 @@ Client.init({
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
   }, 
+  cookie: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    unique: true, // Ensure cookies are unique
+  },
 }, {
     sequelize,
-    modelName: 'Client',
-    tableName: 'clients',
+    modelName: 'User',
+    tableName: 'users',
     timestamps: false // Suponiendo que no estamos usando campos de timestamp como createdAt o updatedAt
   });
   
-  export default Client;
+  export default User;
