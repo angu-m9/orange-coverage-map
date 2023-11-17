@@ -11,23 +11,29 @@ export const services = {
       console.log(error)
     }
   },
-  postData : async(url: string, body: object ) =>{
+  postData: async (url : string, body : object) => {
     try {
-      const data = await fetch(`${url}`,{
+      const data = await fetch(url, {
         method: 'POST',
-        headers: {'content-type':'application/json'},
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(body)
-      })
-
-      const response = await data.json();
-      console.log(response);
-
-      return response
-
+      });
+  
+      if (data.ok) {
+        const jsonResponse = await data.json();
+        console.log(jsonResponse);
+        return jsonResponse;
+      } else {
+        // Manejar errores o respuestas no exitosas aquí
+        console.error(`HTTP error! status: ${data.status}`);
+        return null; // O manejar de otra manera
+      }
     } catch (error) {
-      console.log(error)
+      console.error('Error en la petición POST:', error);
+      return null; // Asegúrate de manejar este caso en tu componente
     }
-  },
+  }
+  ,
   updateData : async (url: string, id: string, body: object) =>{
     try {
       const data = await fetch(`${url}/${id}`,{

@@ -19,34 +19,27 @@ const Register = () => {
     setChange(false);
   };
 
-  const post = async (data: object) => {
-
+  const post = async (data) => {
     try {
-      console.log(data);
-      const response = await services.postData(
-        "http://localhost:5000/register",
-        data)
-
+      const response = await services.postData("http://localhost:5000/register", data);
+      
+      // Aquí, verifica si response es null en lugar de response.ok
       if (response) {
+        const userId = response.id;
+        console.log('ID received from server:', userId);
+        const expires = new Date();
+        expires.setFullYear(expires.getFullYear() + 1);
+        document.cookie = `userId=${userId}; path=/; expires=${expires.toUTCString()}; Samesite=Lax`;
+        console.log('Cookie created:', document.cookie);
         setChange(true);
+      } else {
+        console.error('Registration error: no response from server');
       }
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-      const userId = result.id;
-      const expires = new Date();
-      expires.setFullYear(expires.getFullYear() + 1);
-
-      // Configura la cookie con el ID del usuario
-      document.cookie = `userId=${userId}; path=/; expires=${expires.toUTCString()}; secure; samesite=strict`;
-
-      // Redirigir al usuario o actualizar la UI según sea necesario
     } catch (error) {
       console.error('Registration error:', error);
     }
   };
+
 
   return (
     <>
@@ -154,7 +147,7 @@ const Register = () => {
                   required: true,
                 })}
               /> */}
-              {/* <label className="form-check-label" htmlFor="input_check">
+          {/* <label className="form-check-label" htmlFor="input_check">
                 I accept the terms and conditions
               </label>
               {errors.user_check?.type === "required" && (
