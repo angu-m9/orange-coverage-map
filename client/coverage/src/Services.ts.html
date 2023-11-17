@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.06% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/58</span>
+                <span class='fraction'>8/64</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.06% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/58</span>
+                <span class='fraction'>8/64</span>
             </div>
         
             
@@ -120,7 +120,13 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -150,6 +156,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -190,23 +202,29 @@ export const services = {
 <span class="cstat-no" title="statement not covered" >      console.log(error)</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  },</span>
-  postData : <span class="fstat-no" title="function not covered" >async(url: string, body: object ) =&gt;{</span>
+  postData: <span class="fstat-no" title="function not covered" >async (url : string, body : object) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      const data = await fetch(`${url}`,{</span>
+<span class="cstat-no" title="statement not covered" >      const data = await fetch(url, {</span>
 <span class="cstat-no" title="statement not covered" >        method: 'POST',</span>
-<span class="cstat-no" title="statement not covered" >        headers: {'content-type':'application/json'},</span>
+<span class="cstat-no" title="statement not covered" >        headers: {'Content-Type': 'application/json'},</span>
 <span class="cstat-no" title="statement not covered" >        body: JSON.stringify(body)</span>
-<span class="cstat-no" title="statement not covered" >      })</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      const response = await data.json();</span>
-<span class="cstat-no" title="statement not covered" >      console.log(response);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      return response</span>
-<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      });</span>
+<span class="cstat-no" title="statement not covered" >  </span>
+<span class="cstat-no" title="statement not covered" >      if (data.ok) {</span>
+<span class="cstat-no" title="statement not covered" >        const jsonResponse = await data.json();</span>
+<span class="cstat-no" title="statement not covered" >        console.log(jsonResponse);</span>
+<span class="cstat-no" title="statement not covered" >        return jsonResponse;</span>
+<span class="cstat-no" title="statement not covered" >      } else {</span>
+<span class="cstat-no" title="statement not covered" >        // Manejar errores o respuestas no exitosas aquí</span>
+<span class="cstat-no" title="statement not covered" >        console.error(`HTTP error! status: ${data.status}`);</span>
+<span class="cstat-no" title="statement not covered" >        return null; // O manejar de otra manera</span>
+<span class="cstat-no" title="statement not covered" >      }</span>
 <span class="cstat-no" title="statement not covered" >    } catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >      console.log(error)</span>
+<span class="cstat-no" title="statement not covered" >      console.error('Error en la petición POST:', error);</span>
+<span class="cstat-no" title="statement not covered" >      return null; // Asegúrate de manejar este caso en tu componente</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+  ,
   updateData : <span class="fstat-no" title="function not covered" >async (url: string, id: string, body: object) =&gt;{</span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
 <span class="cstat-no" title="statement not covered" >      const data = await fetch(`${url}/${id}`,{</span>
@@ -241,7 +259,7 @@ export const services = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-16T13:01:34.736Z
+                at 2023-11-17T11:58:02.388Z
             </div>
         <script src="../prettify.js"></script>
         <script>
