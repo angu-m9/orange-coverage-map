@@ -23,7 +23,6 @@ const Register = () => {
     try {
       const response = await services.postData("http://localhost:5000/register", data);
       
-      // Aquí, verifica si response es null en lugar de response.ok
       if (response) {
         const userId = response.id;
         console.log('ID received from server:', userId);

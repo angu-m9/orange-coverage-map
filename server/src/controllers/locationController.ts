@@ -1,19 +1,3 @@
-// import { Request, Response } from 'express';
-// import Location from '../models/locationModel';
-
-// export const postLocation = async (req: Request, res: Response) => {
-//   try {
-//     const { latitude, longitude } = req.body;
-//     // Aquí se debería incluir la lógica para determinar el network_id y company_id
-//     const location = await Location.create({ latitude, longitude, /* otros campos */ });
-//     res.status(201).json(location);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
-
-// locationController.ts
-
 import { Request, Response } from 'express';
 import LocationNetworkQuality from '../models/locationNetworkQualityModel';
 
