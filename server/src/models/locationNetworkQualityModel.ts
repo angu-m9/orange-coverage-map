@@ -45,6 +45,7 @@
 
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../data/db';
+
 const LocationNetworkQuality = sequelize.define('LocationNetworkQuality', {
   id: {
     type: DataTypes.INTEGER,
@@ -57,6 +58,10 @@ const LocationNetworkQuality = sequelize.define('LocationNetworkQuality', {
       model: 'User',
       key: 'user_id'
     }
+  },
+  network: {
+    type: DataTypes.CHAR(8),
+    allowNull: false
   },
   latitude: {
     type: DataTypes.FLOAT,

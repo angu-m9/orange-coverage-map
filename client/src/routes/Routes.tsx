@@ -25,7 +25,6 @@ export const router = createBrowserRouter([
                 loader: async () => {
                     try {
                         const data = await services.getData("http://localhost:5000/companies");
-                        // console.log('Loader response:', response);
                         return { companies: data.response};
                     } catch (error) {
                         console.error('Error cargando compañías:', error);

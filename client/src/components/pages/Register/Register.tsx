@@ -26,7 +26,7 @@ const Register = () => {
       const response = await services.postData("http://localhost:5000/register", data);
 
       if (response) {
-        const userId = response.id;
+        const userId = response.user_id;
         console.log('ID received from server:', userId);
         const expires = new Date();
         expires.setFullYear(expires.getFullYear() + 1);
