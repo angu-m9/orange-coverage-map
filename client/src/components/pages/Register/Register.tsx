@@ -1,27 +1,28 @@
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import Header from "../../templates/Header/Header";
-import { services } from "../../../Services";
 import Modal from "../../templates/Modal/Modal";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { services } from "../../../services/services";
+import { company } from "./register.module";
 
-const Register = () => {
-  const company = ["Jazztel", "Orange", "Simyo"];
 
+const Register = (): React.JSX.Element => {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const [change, setChange] = useState(false);
+
+  const [change, setChange] = useState<boolean>(false);
 
   const handleClose = () => {
     setChange(false);
   };
 
-  const post = async (data) => {
+  const postRegister = async (data: FieldValues): Promise<void> => {
     try {
-      const response = await services.postData("http://localhost:5000/register", data);
+      const response = await services.postRegisterUser(data);
       
       // Aquí, verifica si response es null en lugar de response.ok
       if (response) {
@@ -45,7 +46,7 @@ const Register = () => {
     <>
       <Header title="Register" />
       <div className="container py-4 px-3 mx-auto">
-        <form className="row g-3 " onSubmit={handleSubmit(post)}>
+        <form className="row g-3 " onSubmit={handleSubmit(postRegister)}>
           <div className="col-md-6">
             <label htmlFor="input_name" className="form-label">
               Name
@@ -57,7 +58,7 @@ const Register = () => {
               data-testid='input_name'
               {...register("user_name", {
                 required: true,
-                pattern: /^[A-Z][a-z]*$/,
+                pattern: /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
               })}
             />
             {errors.user_name?.type === "required" && (
@@ -78,7 +79,7 @@ const Register = () => {
               data-testid='input_last-name'
               {...register("user_lastname", {
                 required: true,
-                pattern: /^[A-ZÁÉÍÓÚÜÑ'][a-záéíóúüñ'.-]+$/,
+                pattern: /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
               })}
             />
             {errors.user_lastname?.type === "required" && (
@@ -136,7 +137,7 @@ const Register = () => {
           <Link to={'/terms-conditions'} target="_blank">
             Please read the Terms and Conditions and privacy policy
           </Link>
-          {/* <div className="col-12">
+          <div className="col-12">
             <div className="form-check">
               <input
                 className="form-check-input"
@@ -146,15 +147,15 @@ const Register = () => {
                 {...register("user_check", {
                   required: true,
                 })}
-              /> */}
-          {/* <label className="form-check-label" htmlFor="input_check">
+              />
+          <label className="form-check-label" htmlFor="input_check">
                 I accept the terms and conditions
               </label>
               {errors.user_check?.type === "required" && (
                 <p className="text-danger fw-bold">accept required</p>
               )}
             </div>
-          </div> */}
+          </div>
           <div className="col-12">
             <button type="submit" className="btn btn-primary mt-2">
               Register

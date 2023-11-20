@@ -1,5 +1,6 @@
+import React from "react"
 
-const HeaderLoginAdmin = () => {
+const HeaderLoginAdmin = (): React.JSX.Element => {
   return (
     <>
 <header>

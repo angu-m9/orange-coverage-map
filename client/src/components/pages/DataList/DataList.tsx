@@ -1,18 +1,21 @@
 import CsvDownloader from "react-csv-downloader";
 import { useLoaderData } from "react-router";
 import HeaderAdmin from "../../templates/HeaderAdmin/HeaderAdmin";
+import React, { Key } from "react";
+import { ResponseListInterface } from "../../../services/service.module";
 
-const DataList = () => {
-  const divStyle = {
-    height: "30rem",
-    width: "100%",
-    overflow: "scroll",
-    border: "solid 0.1rem gray",
-  };
+const DataList = (): React.JSX.Element => {
 
-  const { response  } = useLoaderData();
-  response.forEach(row => {
-    row.created_at = new Date(row.created_at).toLocaleDateString(); 
+  const { response } = useLoaderData() as ResponseListInterface;
+
+if (!response || !Array.isArray(response)) {
+  return <div>Error: Datos no válidos</div>;
+}
+
+
+
+  response.forEach((row: { created_at: string | number | Date }) => {
+    row.created_at = new Date(row.created_at).toLocaleDateString();
   });
 
   const columns = [
@@ -29,7 +32,14 @@ const DataList = () => {
     <>
       <HeaderAdmin mapCoverage={""} dataList={"active"} />
       <div className="container py-4 px-3 mx-auto b-1 text-center">
-        <div style={divStyle}>
+        <div
+          style={{
+            height: "30rem",
+            width: "100%",
+            overflow: "scroll",
+            border: "solid 0.1rem gray",
+          }}
+        >
           <table className="table">
             <thead>
               <tr>
@@ -40,14 +50,17 @@ const DataList = () => {
                 ))}
               </tr>
             </thead>
+
             <tbody>
-              {response.map((row) => (
-                <tr key={row.id}>
-                  {columns.map((col) => (
-                    <td key={col.id}>{row[col.id]}</td>
-                  ))}
-                </tr>
-              ))}
+              {response.map(
+                (row: { id: Key; created_at: string | number | Date }) => (
+                  <tr key={row.id}>
+                    {columns.map((col) => (
+                      <td key={col.id}>{row[col.id]}</td>
+                    ))}
+                  </tr>
+                )
+              )}
             </tbody>
           </table>
         </div>

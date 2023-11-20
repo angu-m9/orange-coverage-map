@@ -1,22 +1,11 @@
-const Condicions = () => {
-  const text = {
-    color: "#f16e00",
-  };
+import React from "react";
 
-  const container = {
-    width: "85%",
-    display: "flex",
-    justifyContent: "center",
-    margin: "4rem auto",
-  };
-
+const Condicions = (): React.JSX.Element => {
   return (
     <>
-      <div className="container py-4 px-3 mx-auto">
-        <h1 style={text} className="text-center">
-          Privacy Policy:
-        </h1>
-        <p style={container}>
+      <div className="container py-4 px-3 mx-auto" >
+        <h1 className="text-center text" style={{'color': '#FF6600'}}>Privacy Policy:</h1>
+        <p style={{'width': '85%','display': 'flex','justifyContent': 'center', 'margin': '4rem auto'}}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
           pretium dolor in semper ultricies. Vestibulum ante ipsum primis in
           faucibus orci luctus et ultrices posuere cubilia curae; Cras feugiat
@@ -75,9 +64,7 @@ const Condicions = () => {
           risus eu cursus consectetur. Suspendisse potenti. Morbi vulputate
           varius commodo. Morbi in sapien tempus, placerat risus eu, tempus ex.
         </p>
-        <p className="text-center" style={text}>
-          Orange Restricted
-        </p>
+        <p className="text-center text" style={{'color': '#FF6600'}}>Orange Restricted</p>
       </div>
     </>
   );

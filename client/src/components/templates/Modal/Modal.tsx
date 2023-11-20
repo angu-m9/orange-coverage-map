@@ -1,34 +1,46 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { ModalInterface } from "./modal.module";
 
-const Modal = ({ to, display, onClose, button, modalTitle, modalText }: { to: string; display: boolean; onClose: () => void ; button:string, modalTitle: string, modalText:string}) => {
+const Modal = ({
+  to,
+  display,
+  onClose,
+  button,
+  modalTitle,
+  modalText,
+}: ModalInterface): React.JSX.Element => {
 
-  const block = {
-    height: "100%",
-    width: "100vw",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  };
-
-  const modal = {
-    top: "30%",
-  };
-
-  const modalClose = useRef(null);
+  const modalClose = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    modalClose.current.style.display = display ? "block" : "none";
+    const currentRef = modalClose.current;
+    if (currentRef) {
+      currentRef.style.display = display ? "block" : "none";
+    }
   }, [display]);
 
   const closeModal = () => {
-    onClose(); 
+    onClose();
   };
 
   return (
     <>
-      <div className="" style={block} ref={modalClose}>
-        <div className={`modal ${display ? "d-block" : "d-none"}`} style={modal}>
+      <div
+        className=""
+        style={{
+          height: "100%",
+          width: "100vw",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        ref={modalClose}
+      >
+        <div
+          className={`modal ${display ? "d-block" : "d-none"}`}
+          style={{ top: "30%" }}
+        >
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
@@ -49,11 +61,19 @@ const Modal = ({ to, display, onClose, button, modalTitle, modalText }: { to: st
                 <p>{modalText}</p>
               </div>
               <div className="modal-footer">
-                {to? <Link to={to} type="button" className="btn btn-primary">
-                  {button}
-                </Link>: <button onClick={closeModal} type="button" className="btn btn-primary">
-                  {button}
-                </button>}
+                {to ? (
+                  <Link to={to} type="button" className="btn btn-primary">
+                    {button}
+                  </Link>
+                ) : (
+                  <button
+                    onClick={closeModal}
+                    type="button"
+                    className="btn btn-primary"
+                  >
+                    {button}
+                  </button>
+                )}
               </div>
             </div>
           </div>

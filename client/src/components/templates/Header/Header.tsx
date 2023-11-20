@@ -1,4 +1,6 @@
-const Header = ({title}:{title:string}) => {
+import React from "react";
+
+const Header = ({title}:{title:string}): React.JSX.Element => {
   return (
     <>
       <header>

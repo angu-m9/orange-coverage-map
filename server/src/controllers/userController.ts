@@ -4,8 +4,11 @@ import User from '../models/userModel';
 export const createUser = async (req: Request, res: Response) => {
   try {
     const { user_name, user_lastname,cellular_carrier, postal_code  } = req.body;
+    
     const user = await User.create({ user_name, user_lastname, cellular_carrier,  postal_code });
+
     console.log('User created with ID:', user.id);
+
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -69,11 +72,11 @@ export const updateUser = async (req: Request, res: Response) => {
       res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+      res.status(500).json({ error: error.message }); 
   }
 };
 
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteUser= async (req: Request, res: Response): Promise<void>  => {
   try {
     const { userId } = req.params;
     const rowsDeleted = await User.destroy({
@@ -81,7 +84,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     });
 
     if (rowsDeleted > 0) {
-      res.status(204).send(); // 204 No Content
+      res.status(204).send();
     } else {
       res.status(404).json({ error: 'User not found' });
     }

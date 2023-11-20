@@ -5,9 +5,11 @@ import Register from "../components/pages/Register/Register";
 import SendData from "../components/pages/SendData/SendData";
 import LoginAdmin from "../components/pages/LoginAdmin/LoginAdmin";
 import MapCoverage from "../components/pages/Map/MapCoverage";
-import { services } from "../Services";
 import DataList from "../components/pages/DataList/DataList";
 import Condicions from "../components/pages/Condicions/Condicions";
+import { services } from "../services/services";
+
+
 
 
 export const router = createBrowserRouter([
@@ -34,11 +36,6 @@ export const router = createBrowserRouter([
             {
                 path: '/login-admin',
                 element: <LoginAdmin />,
-                loader: async () => {
-                    const response = await services.getData(
-                      "http://localhost:3000/admins"
-                    );
-                    return response},
             },
             {
                 path: '/map-coverage',
@@ -47,11 +44,7 @@ export const router = createBrowserRouter([
             {
                 path: '/data-list',
                 element: <DataList />,
-                loader: async () => {
-                    const response = await services.getData(
-                      "http://localhost:5000/data-list"
-                    );
-                    return response},
+                loader: services.getDataList
             }
         ],
     },

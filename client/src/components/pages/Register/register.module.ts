@@ -1,0 +1,1 @@
+export const company: string[] = ["Jazztel", "Orange", "Simyo"];

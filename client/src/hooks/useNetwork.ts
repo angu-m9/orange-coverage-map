@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+
 export const useNetwork = (initialState: NetworkState = {}) => {
     const [state, setState] = useState<NetworkState>(initialState);
 
