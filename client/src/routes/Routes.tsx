@@ -21,7 +21,17 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/register',
-                element: <Register />
+                element: <Register />,
+                loader: async () => {
+                    try {
+                        const data = await services.getData("http://localhost:5000/companies");
+                        // console.log('Loader response:', response);
+                        return { companies: data.response};
+                    } catch (error) {
+                        console.error('Error cargando compañías:', error);
+                        return { companies: [] };
+                    }
+                },
             },
             {
                 path: '/send-data',

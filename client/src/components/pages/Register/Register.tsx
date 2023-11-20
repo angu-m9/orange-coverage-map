@@ -4,9 +4,11 @@ import { services } from "../../../Services";
 import Modal from "../../templates/Modal/Modal";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useLoaderData } from 'react-router-dom';
+
 
 const Register = () => {
-  const company = ["Jazztel", "Orange", "Simyo"];
+  const { companies } = useLoaderData();
 
   const {
     register,
@@ -22,7 +24,7 @@ const Register = () => {
   const post = async (data) => {
     try {
       const response = await services.postData("http://localhost:5000/register", data);
-      
+
       if (response) {
         const userId = response.id;
         console.log('ID received from server:', userId);
@@ -87,26 +89,20 @@ const Register = () => {
               <p className="text-danger fw-bold">last name invalid</p>
             )}
           </div>
-
           <div className="col-md-4">
-            <label htmlFor="input_company" className="form-label">
+            <label htmlFor="company_select" className="form-label">
               Company
             </label>
-            <select
-              id="input_company"
-              className="form-select"
-              data-testid='input_company'
-              {...register("cellular_carrier", { required: true })}
-              defaultValue=""
-            >
-              <option value="" disabled></option>
-              {company.map((a, index) => (
-                <option key={index} value={a}>
-                  {a}
+            <select id="company_select" className="form-select" {...register("company_id", { required: true })}>
+              <option value="" disabled>Select a company</option>
+              {companies.map((company) => (
+                <option key={company.company_id} value={company.company_id}>
+                  {company.company_name}
                 </option>
               ))}
             </select>
-            {errors.cellular_carrier?.type === "required" && (
+
+            {errors.company_id?.type === "required" && (
               <p className="text-danger fw-bold">company required</p>
             )}
           </div>

@@ -19,10 +19,6 @@ export const postLocation = async (req: Request, res: Response) => {
 
 };
 
-
-
-
-
 export const getLocations = async (req: Request, res: Response) => {
   try {
     const locations = await LocationNetworkQuality.findAll();
