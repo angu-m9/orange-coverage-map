@@ -1,6 +1,7 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
-const HeaderAdmin = ({ mapCoverage, dataList }: { mapCoverage: string, dataList: string }) => {
+const HeaderAdmin = ({ mapCoverage, dataList }: { mapCoverage: string, dataList: string }): React.JSX.Element => {
 
   const decoration = {
     textDecoration: 'none'

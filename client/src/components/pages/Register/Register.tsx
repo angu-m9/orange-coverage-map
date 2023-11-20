@@ -1,21 +1,18 @@
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import Header from "../../templates/Header/Header";
-import { services } from "../../../Services";
 import Modal from "../../templates/Modal/Modal";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useLoaderData } from 'react-router-dom';
 
 const Register = () => {
-  const { companies } = useLoaderData();
+  const company = ["Jazztel", "Orange", "Simyo"];
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
   const [change, setChange] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const handleClose = () => {
     setChange(false);
@@ -25,16 +22,19 @@ const Register = () => {
     setShowErrorModal(false);
   };
 
-  const post = async (data) => {
+  const postRegister = async (data: FieldValues): Promise<void> => {
     try {
       const response = await services.postData("http://localhost:5000/register", data);
-      const userUuid = response.user_id; // Asumiendo que el servidor devuelve el UUID como user_id
-      console.log('UUID received from server:', userUuid);
-
-
-      console.log('UUID received from server:', userUuid);
-      if (userUuid) {
-        localStorage.setItem('userUuid', userUuid);
+      
+      // Aquí, verifica si response es null en lugar de response.ok
+      if (response) {
+        const userId = response.id;
+        console.log('ID received from server:', userId);
+        const expires = new Date();
+        expires.setFullYear(expires.getFullYear() + 1);
+        document.cookie = `userId=${userId}; path=/; expires=${expires.toUTCString()}; Samesite=Lax`;
+        console.log('Cookie created:', document.cookie);
+        setChange(true);
       } else {
         console.error('No UUID present in the response');
       }
@@ -66,7 +66,7 @@ const Register = () => {
     <>
       <Header title="Register" />
       <div className="container py-4 px-3 mx-auto">
-        <form className="row g-3 " onSubmit={handleSubmit(post)}>
+        <form className="row g-3 " onSubmit={handleSubmit(postRegister)}>
           <div className="col-md-6">
             <label htmlFor="input_name" className="form-label">
               Name
@@ -78,7 +78,7 @@ const Register = () => {
               data-testid='input_name'
               {...register("user_name", {
                 required: true,
-                pattern: /^[A-Z][a-z]*$/,
+                pattern: /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
               })}
             />
             {errors.user_name?.type === "required" && (
@@ -99,7 +99,7 @@ const Register = () => {
               data-testid='input_last-name'
               {...register("user_lastname", {
                 required: true,
-                pattern: /^[A-ZÁÉÍÓÚÜÑ'][a-záéíóúüñ'.-]+$/,
+                pattern: /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
               })}
             />
             {errors.user_lastname?.type === "required" && (
@@ -151,6 +151,25 @@ const Register = () => {
           <Link to={'/terms-conditions'} target="_blank">
             Please read the Terms and Conditions and privacy policy
           </Link>
+          {/* <div className="col-12">
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="input_check"
+                data-testid='input_check'
+                {...register("user_check", {
+                  required: true,
+                })}
+              /> */}
+          {/* <label className="form-check-label" htmlFor="input_check">
+                I accept the terms and conditions
+              </label>
+              {errors.user_check?.type === "required" && (
+                <p className="text-danger fw-bold">accept required</p>
+              )}
+            </div>
+          </div> */}
           <div className="col-12">
             <button type="submit" className="btn btn-primary mt-2">
               Register
