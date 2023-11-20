@@ -1,4 +1,4 @@
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+/*import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '400px',
@@ -21,10 +21,12 @@ function HeatMap() {
         zoom={10}
         mapTypeId='roadmap'
       >
-
+      
       </GoogleMap>
     </LoadScript>
   )
 }
 
-export default HeatMap;
+export default HeatMap;*/
+
+
