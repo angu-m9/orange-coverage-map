@@ -1,13 +1,13 @@
 import { FieldValues } from "react-hook-form";
 
 export interface ListInterface {
-    id: number;
-    network: string;
-    created_at: Date;
-    latitude: number;
-    longitude: number;
-    rtt: number;
-    downlink: number;
+ id: number,
+  network: string,
+  created_at: Date,
+  latitude: number,
+  longitude: number,
+  rtt: number,
+  downlink: number,
 }
 
 export interface ResponseListInterface {
