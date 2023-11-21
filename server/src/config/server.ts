@@ -1,18 +1,13 @@
-import express, { Request, Response } from 'express';
-
+import express from 'express';
+import locationRoutes from '../routes/locationRoutes';
+import cors from 'cors';
 
 const app = express();
+app.use(express.json());
+app.use(cors());
 
-const port = 5000;
+app.use('/', locationRoutes);
 
-
-app.get('/',(_req: Request, res: Response)=>{
-    res.send('servidor creado')
-});
-
-
-
-
-app.listen(port, ()=>{
-    console.log(`servidor en puerto http://localhost:${port}`)
+app.listen(5000, () => {
+  console.log('Servidor ejecutándose en http://localhost:5000');
 });

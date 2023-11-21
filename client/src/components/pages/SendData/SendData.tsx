@@ -116,30 +116,65 @@
 
 // export default SendData;
 
+import { useState, useEffect } from "react";
+import Header from "../../templates/Header/Header";
+import Modal from "../../templates/Modal/Modal";
+import { services } from "../../../Services";
+import { useNetwork } from "../../../hooks/useNetwork.ts";
 
-import React, { useState, useEffect } from 'react';
-import { services } from '../../../Services';
+const SendData = () => {
+  const [change, setChange] = useState(false);
+  const [index, setIndex] = useState(0);
+  const networkInfo = useNetwork({});
 
-interface GeoLocationState {
-  latitude?: number;
-  longitude?: number;
-}
+//   const handleClose = () => {
+//     setChange(false);
+//   };
 
-const SendData: React.FC = () => {
-  const [geoLocation, setGeoLocation] = useState<GeoLocationState>({});
+  const handleSignIn = () => {
+    setInterval(() => {
+      setChange(true);
+    }, 7000);
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(position => {
-      setGeoLocation({
+    const nextIndex = () => {
+      setIndex((prevIndex) => (prevIndex + 1) % images.length);
+    };
+
+    const audio = new Audio("src/assets/sounds/send-data.mp3");
+
+    const repeat = setInterval(() => {
+      audio.play();
+      nextIndex();
+    }, 1000);
+
+    setTimeout(() => {
+      clearInterval(repeat);
+    }, 7000);
+    send();
+  };
+
+  const images = [
+    "src/assets/icons/wifi-icon.svg",
+    "src/assets/icons/send-data-1.svg",
+    "src/assets/icons/send-data-2.svg",
+    "src/assets/icons/send-data-3.svg",
+  ];
+
+  const send = () => {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const geoLocationData = {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
-      });
-    });
-  }, []);
+      };
 
-  const handleSendData = async () => {
-    await services.postDataLocation(geoLocation);
-    alert('Datos enviados correctamente');
+      const combinedData = {
+        ...geoLocationData,
+        ...networkInfo,
+        network: networkInfo.effectiveType, // si quito este valor, sale el error de not null violation
+      };
+      console.log(combinedData);
+      await services.postData('http://localhost:5000/network-quality', combinedData);
+    });
   };
 
   return (
@@ -150,3 +185,4 @@ const SendData: React.FC = () => {
 };
 
 export default SendData;
+
