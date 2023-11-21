@@ -1,49 +1,4 @@
-// import { Model, DataTypes } from 'sequelize';
-// import sequelize from '../data/db';
-
-// class LocationNetworkQuality extends Model {}
-
-// LocationNetworkQuality.init({
-//   id: {
-//     type: DataTypes.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true,
-//   },
-//   network: {
-//     type: DataTypes.STRING,
-//     allowNull: false,
-//   },
-//   created_at: {
-//     type: DataTypes.DATE,
-//     defaultValue: DataTypes.NOW,
-//   }, 
-//   latitude: {
-//     type: DataTypes.FLOAT,
-//     allowNull: false,
-//   },
-//   longitude: {
-//     type: DataTypes.FLOAT,
-//     allowNull: false,
-//   },
-//   rtt: {
-//     type: DataTypes.FLOAT,
-//     allowNull: false,
-//   },
-//   downlink: {
-//     type: DataTypes.FLOAT,
-//     allowNull: false,
-//   }
-// }, {
-//   sequelize,
-//   modelName: 'LocationNetworkQuality',
-//   tableName: 'location_network_quality',
-//   timestamps: false // Suponiendo que no estamos usando campos de timestamp como createdAt o updatedAt
-// });
-
-// export default LocationNetworkQuality;
-
-
-import { Model, DataTypes } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import sequelize from '../data/db';
 
 const LocationNetworkQuality = sequelize.define('LocationNetworkQuality', {
@@ -52,11 +7,11 @@ const LocationNetworkQuality = sequelize.define('LocationNetworkQuality', {
     primaryKey: true,
     autoIncrement: true
   },
-  user_id: {
-    type: DataTypes.INTEGER,
+  user_uuid: { // Cambiado de user_id a user_uuid
+    type: DataTypes.STRING,
     references: {
-      model: 'User',
-      key: 'user_id'
+      model: 'Users', // Asegúrate de que esto coincida con tu modelo de usuario
+      key: 'uuid' // El campo uuid de la tabla Users
     }
   },
   network: {
@@ -89,4 +44,3 @@ const LocationNetworkQuality = sequelize.define('LocationNetworkQuality', {
 });
 
 export default LocationNetworkQuality;
-

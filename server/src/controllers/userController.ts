@@ -1,17 +1,3 @@
-// import { Request, Response } from 'express';
-// import User from '../models/userModel';
-
-// export const createUser = async (req: Request, res: Response) => {
-//   try {
-//     const { user_name, user_lastname,cellular_carrier, postal_code  } = req.body;
-//     const user = await User.create({ user_name, user_lastname, cellular_carrier,  postal_code });
-//     console.log('User created with ID:', user.id);
-//     res.status(201).json(user);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
-
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import User from '../models/userModel';
@@ -19,17 +5,37 @@ import User from '../models/userModel';
 export const createUser = async (req: Request, res: Response) => {
   try {
     const { user_name, user_lastname, company_id, postal_code } = req.body;
-    const user = await User.create({ user_name, user_lastname, company_id, postal_code });
-    
-    // Generar un UUID para la cookie
-    const cookieUuid = uuidv4();
 
-    // Aquí se podría asociar el cookieUuid con el user_id en una tabla de sesión o en memoria
+    // Verificar si el usuario ya existe
+    const existingUser = await User.findOne({
+      where: { user_name, user_lastname, company_id, postal_code }
+    });
 
-    console.log('User created with ID:', user.user_id);
-    
+    if (existingUser) {
+      return res.status(409).json({ error: 'User already exists' });
+    }
+
+    // Generar un UUID para el nuevo usuario
+    const userUuid = uuidv4();
+
+    // Si no existe, crear usuario nuevo con UUID
+    const user = await User.create({
+      user_name,
+      user_lastname,
+      company_id,
+      postal_code,
+      uuid: userUuid // Asegúrate de que el modelo User incluya este campo
+    });
+
+    // Establecer la cookie en la respuesta
+    res.cookie('userId', userUuid, {
+      expires: new Date(Date.now() + 31536000000),
+      httpOnly: true,
+      sameSite: 'Lax'
+    });
+
     // Devolver el UUID en lugar del ID autoincrementable
-    res.status(201).json({ user_id: cookieUuid });
+    res.status(201).json({ user_id: userUuid });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

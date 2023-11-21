@@ -11,25 +11,29 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  user_lastname: { // Cambiado de 'surname' a 'user_lastname' para ser consistente con tu controlador
+  user_lastname: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  postal_code: { // Cambiado de 'zip_code' a 'postal_code' para ser consistente con tu controlador
+  postal_code: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  company_id: { // Este campo reemplaza el antiguo 'cellular_carrier'
+  company_id: {
     type: DataTypes.INTEGER,
-    allowNull: false, // Asegúrate de si quieres que este campo sea obligatorio o no
+    allowNull: false,
     references: {
-      model: 'Company', // Asegúrate de que este nombre coincida exactamente con el nombre de la tabla de compañías en tu base de datos
+      model: 'Company',
       key: 'company_id'
     }
   },
+  uuid: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
 }, {
   tableName: 'Users',
-  timestamps: false // Asegúrate si quieres o no manejar los timestamps automáticamente
+  timestamps: false
 });
 
 export default User;

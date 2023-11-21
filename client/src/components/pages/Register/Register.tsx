@@ -6,40 +6,60 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLoaderData } from 'react-router-dom';
 
-
 const Register = () => {
   const { companies } = useLoaderData();
-
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
   const [change, setChange] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleClose = () => {
     setChange(false);
   };
 
+  const handleCloseErrorModal = () => {
+    setShowErrorModal(false);
+  };
+
   const post = async (data) => {
     try {
       const response = await services.postData("http://localhost:5000/register", data);
+      const userUuid = response.user_id; // Asumiendo que el servidor devuelve el UUID como user_id
+      console.log('UUID received from server:', userUuid);
 
-      if (response) {
-        const userId = response.user_id;
-        console.log('ID received from server:', userId);
-        const expires = new Date();
-        expires.setFullYear(expires.getFullYear() + 1);
-        document.cookie = `userId=${userId}; path=/; expires=${expires.toUTCString()}; Samesite=Lax`;
-        console.log('Cookie created:', document.cookie);
-        setChange(true);
+
+      console.log('UUID received from server:', userUuid);
+      if (userUuid) {
+        localStorage.setItem('userUuid', userUuid);
       } else {
-        console.error('Registration error: no response from server');
+        console.error('No UUID present in the response');
       }
+
+      // Almacenar el UUID en el almacenamiento local
+      // localStorage.setItem('userUuid', userUuid);
+
+      const expires = new Date();
+      expires.setFullYear(expires.getFullYear() + 1);
+      document.cookie = `userId=${userUuid}; path=/; expires=${expires.toUTCString()}; Samesite=Lax`;
+      console.log('Cookie created:', document.cookie);
+      setChange(true);
     } catch (error) {
-      console.error('Registration error:', error);
+      // Aquí manejamos el error de registro
+      let message = 'There was an unexpected error during registration. Please try again later.';
+      if (error.response?.status === 409) {
+        message = 'An account with the provided details already exists. Please log in or use different details.';
+      } else if (error.message) {
+        message += ` Error: ${error.message}`;
+      }
+      setErrorMessage(message);
+      setShowErrorModal(true); // Mostramos el modal de error con el mensaje adecuado
     }
   };
+
 
 
   return (
@@ -131,25 +151,6 @@ const Register = () => {
           <Link to={'/terms-conditions'} target="_blank">
             Please read the Terms and Conditions and privacy policy
           </Link>
-          {/* <div className="col-12">
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="input_check"
-                data-testid='input_check'
-                {...register("user_check", {
-                  required: true,
-                })}
-              /> */}
-          {/* <label className="form-check-label" htmlFor="input_check">
-                I accept the terms and conditions
-              </label>
-              {errors.user_check?.type === "required" && (
-                <p className="text-danger fw-bold">accept required</p>
-              )}
-            </div>
-          </div> */}
           <div className="col-12">
             <button type="submit" className="btn btn-primary mt-2">
               Register
@@ -165,6 +166,15 @@ const Register = () => {
         onClose={handleClose}
         modalTitle={"Data Sent Correctly"}
         modalText={''}
+      />
+
+      {/* Error Modal */}
+      <Modal
+        button={"Close"}
+        display={showErrorModal}
+        onClose={handleCloseErrorModal}
+        modalTitle={"Registration Error"}
+        modalText={errorMessage}
       />
     </>
   );
