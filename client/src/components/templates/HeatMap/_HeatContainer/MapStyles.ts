@@ -1,0 +1,3 @@
+export const MapStyles = {
+  // Estilos del mapa aquí...
+};

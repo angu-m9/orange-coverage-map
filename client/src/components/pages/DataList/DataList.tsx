@@ -46,7 +46,7 @@ const DataList = () => {
             </tbody>
           </table>
         </div>
-
+ 
         <CsvDownloader
           filename="datos"
           extension=".csv"

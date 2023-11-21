@@ -94,7 +94,7 @@ async function initMap(values: any[]): Promise<void> {
     }
 }
 
-const HeatMap: React.FC = () => {
+const MapContainer: React.FC = () => {
     useEffect(() => {
         const fetchDataAndInitMap = async () => {
             try {
@@ -110,4 +110,4 @@ const HeatMap: React.FC = () => {
     return <div id="map" style={{ width: '100%', height: '500px' }} />;
 };
 
-export default HeatMap;
+export default MapContainer;
