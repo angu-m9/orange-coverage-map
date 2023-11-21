@@ -1,11 +1,10 @@
 import { FieldValues, useForm } from "react-hook-form";
 import Header from "../../templates/Header/Header";
-import Modal from "../../templates/Modal/Modal";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { services } from "../../../services/services";
+import { company } from "./register.module";
 
-const Register = () => {
-  const company = ["Jazztel", "Orange", "Simyo"];
 
   const {
     register,
@@ -24,19 +23,19 @@ const Register = () => {
 
   const postRegister = async (data: FieldValues): Promise<void> => {
     try {
-      const response = await services.postData("http://localhost:5000/register", data);
+      const response = await services.postRegisterUser(data);
       
       // Aquí, verifica si response es null en lugar de response.ok
       if (response) {
         const userId = response.id;
-        console.log('ID received from server:', userId);
+        console.log("ID received from server:", userId);
         const expires = new Date();
         expires.setFullYear(expires.getFullYear() + 1);
         document.cookie = `userId=${userId}; path=/; expires=${expires.toUTCString()}; Samesite=Lax`;
-        console.log('Cookie created:', document.cookie);
+        console.log("Cookie created:", document.cookie);
         setChange(true);
       } else {
-        console.error('No UUID present in the response');
+        console.error('Registration error: no response from server');
       }
 
       // Almacenar el UUID en el almacenamiento local
@@ -48,25 +47,18 @@ const Register = () => {
       console.log('Cookie created:', document.cookie);
       setChange(true);
     } catch (error) {
-      // Aquí manejamos el error de registro
-      let message = 'There was an unexpected error during registration. Please try again later.';
-      if (error.response?.status === 409) {
-        message = 'An account with the provided details already exists. Please log in or use different details.';
-      } else if (error.message) {
-        message += ` Error: ${error.message}`;
-      }
-      setErrorMessage(message);
-      setShowErrorModal(true); // Mostramos el modal de error con el mensaje adecuado
+      console.error('Registration error:', error);
     }
   };
-
 
 
   return (
     <>
       <Header title="Register" />
-      <div className="container py-4 px-3 mx-auto">
-        <form className="row g-3 " onSubmit={handleSubmit(postRegister)}>
+      <div
+        className="container py-4 px-3 d-flex flex-column mt-4 container-form"
+      >
+        <form className="row g-3" onSubmit={handleSubmit(postRegister)}>
           <div className="col-md-6">
             <label htmlFor="input_name" className="form-label">
               Name
@@ -75,10 +67,11 @@ const Register = () => {
               type="text"
               className="form-control"
               id="input_name"
-              data-testid='input_name'
+              data-testid="input_name"
               {...register("user_name", {
                 required: true,
-                pattern: /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
+                pattern:
+                  /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
               })}
             />
             {errors.user_name?.type === "required" && (
@@ -96,10 +89,11 @@ const Register = () => {
               type="text"
               className="form-control"
               id="input_last-name"
-              data-testid='input_last-name'
+              data-testid="input_last-name"
               {...register("user_lastname", {
                 required: true,
-                pattern: /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
+                pattern:
+                  /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
               })}
             />
             {errors.user_lastname?.type === "required" && (
@@ -113,11 +107,17 @@ const Register = () => {
             <label htmlFor="company_select" className="form-label">
               Company
             </label>
-            <select id="company_select" className="form-select" {...register("company_id", { required: true })}>
-              <option value="" disabled>Select a company</option>
-              {companies.map((company) => (
-                <option key={company.company_id} value={company.company_id}>
-                  {company.company_name}
+            <select
+              id="input_company"
+              className="form-select"
+              data-testid='input_company'
+              {...register("cellular_carrier", { required: true })}
+              defaultValue=""
+            >
+              <option value="" disabled></option>
+              {company.map((a, index) => (
+                <option key={index} value={a}>
+                  {a}
                 </option>
               ))}
             </select>
@@ -134,7 +134,7 @@ const Register = () => {
             <input
               type="text"
               className="form-control"
-              data-testid='input_postal-code'
+              data-testid="input_postal-code"
               id="input_postal-code"
               {...register("postal_code", {
                 required: true,
@@ -148,7 +148,7 @@ const Register = () => {
               <p className="text-danger fw-bold">postal code invalid</p>
             )}
           </div>
-          <Link to={'/terms-conditions'} target="_blank">
+          <Link to={"/terms-conditions"}>
             Please read the Terms and Conditions and privacy policy
           </Link>
           {/* <div className="col-12">
@@ -157,19 +157,19 @@ const Register = () => {
                 className="form-check-input"
                 type="checkbox"
                 id="input_check"
-                data-testid='input_check'
+                data-testid="input_check"
                 {...register("user_check", {
                   required: true,
                 })}
-              /> */}
-          {/* <label className="form-check-label" htmlFor="input_check">
+              />
+          <label className="form-check-label" htmlFor="input_check">
                 I accept the terms and conditions
               </label>
               {errors.user_check?.type === "required" && (
                 <p className="text-danger fw-bold">accept required</p>
               )}
             </div>
-          </div> */}
+          </div>
           <div className="col-12">
             <button type="submit" className="btn btn-primary mt-2">
               Register
@@ -183,8 +183,7 @@ const Register = () => {
         button={"Accept"}
         display={change}
         onClose={handleClose}
-        modalTitle={"Data Sent Correctly"}
-        modalText={''}
+        modalTitle={"¡Registro con exito!"}
       />
 
       {/* Error Modal */}
@@ -197,6 +196,6 @@ const Register = () => {
       />
     </>
   );
-}
+};
 
 export default Register;

@@ -1,0 +1,11 @@
+.container-modal{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.container-content{
+    height: 13rem;
+}
+
+.button-modal{
+    width: 15rem;
+}

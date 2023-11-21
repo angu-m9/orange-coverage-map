@@ -1,156 +1,41 @@
-// import { useState } from "react";
-// import Header from "../../templates/Header/Header";
-// import Modal from "../../templates/Modal/Modal";
-// import { services } from "../../../Services";
-// const SendData = () => {
-//   const [change, setChange] = useState(false);
-//   const [index, setIndex] = useState(0);
-
-//   const handleClose = () => {
-//     setChange(false);
-//   };
-
-//   const handleSignIn = () => {
-//     setInterval(()=>{
-//       setChange(true);
-//     },7000)
-    
-
-//     const nextIndex = () => {
-//       setIndex((prevIndex) => (prevIndex + 1) % images.length);
-//     };
-
-//     const audio = new Audio("src/assets/sounds/send-data.mp3");
-
-//     const repeat = setInterval(() => {
-//       audio.play();
-//       nextIndex();
-//     }, 1000);
-
-//     setTimeout(() => {
-//       clearInterval(repeat);
-//     }, 7000);
-//     send()
-//   };
-
-//   const images = [
-//     "src/assets/icons/wifi-icon.svg",
-//     "src/assets/icons/send-data-1.svg",
-//     "src/assets/icons/send-data-2.svg",
-//     "src/assets/icons/send-data-3.svg",
-//   ];
-
-//   const send =()=>{
-
-//     const index = Math.floor(Math.random() * 6)
-
-//     const data = [
-//       {
-//         "date": "10/11/23",
-//         "red": "2G",
-//         "Company": "Orange",
-//         "Location": "Madrid"
-//       },
-//       {
-//         "date": "10/11/23",
-//         "red": "3G",
-//         "Company": "Jazztel",
-//         "Location": "Barcelona"
-//       },
-//       {
-//         "date": "10/11/23",
-//         "red": "2G",
-//         "Company": "Simyo",
-//         "Location": "Sevilla"
-//       },
-//       {
-//         "date": "10/11/23",
-//         "red": "2G",
-//         "Company": "Simyo",
-//         "Location": "Murcia"
-//       },
-//       {
-//         "date": "10/11/23",
-//         "red": "2G",
-//         "Company": "Jazztel",
-//         "Location": "Zaragoza"
-//       },
-//     ]
-
-//     services.postData('http://localhost:3000/datos', data[index])
-//   }
-
-//   return (
-//     <>
-//       <Header title="Send Data" />
-//       <div
-//         className="d-flex flex-column align-items-center justify-content-center"
-//         style={{ height: "70vh" }}
-//       >
-//         <img
-//           src={images[index]}
-//           alt="register-icon"
-//           className="m-3"
-//           style={{ width: "70%", height: "80%" }}
-//         />
-
-//         <button
-//           type="button"
-//           className="btn btn-primary"
-//           onClick={handleSignIn}
-//         >
-//           Send Data
-//         </button>
-//       </div>
-//       <Modal
-//         to={""}
-//         button={"Accept"}
-//         display={change}
-//         onClose={handleClose}
-//         modalTitle={"Data Sent Correctly"}
-//         modalText={""}
-//       />
-//     </>
-//   );
-// };
-
-// export default SendData;
-
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "../../templates/Header/Header";
 import Modal from "../../templates/Modal/Modal";
-import { services } from "../../../Services";
 import { useNetwork } from "../../../hooks/useNetwork.ts";
+import { services } from "../../../services/services.ts";
+import { imagesWifi } from "./sendData.module.ts";
 
-const SendData = () => {
-  const [change, setChange] = useState(false);
-  const [index, setIndex] = useState(0);
+const SendData = (): React.JSX.Element => {
+  const [change, setChange] = useState<boolean>(false);
+  const [index, setIndex] = useState<number>(0);
   const networkInfo = useNetwork({});
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setChange(false);
   };
 
-  const handleSignIn = () => {
+  const handleSignIn = (): void => {
     setInterval(() => {
       setChange(true);
     }, 7000);
 
-    const nextIndex = () => {
-      setIndex((prevIndex) => (prevIndex + 1) % images.length);
+    const nextIndex = (): void => {
+      setIndex((prevIndex) => (prevIndex + 1) % imagesWifi.length);
     };
 
-    const audio = new Audio("src/assets/sounds/send-data.mp3");
+    const audio: HTMLAudioElement = new Audio(
+      "src/assets/sounds/send-data.mp3"
+    );
 
-    const repeat = setInterval(() => {
+    const repeat: NodeJS.Timeout = setInterval((): void => {
       audio.play();
       nextIndex();
     }, 1000);
 
-    setTimeout(() => {
+    setTimeout((): void => {
       clearInterval(repeat);
     }, 7000);
-    send();
+    sendData();
   };
 
   const images = [
@@ -179,7 +64,7 @@ const SendData = () => {
         userUuid // Enviamos el UUID junto con los datos de la red
       };
       console.log(combinedData);
-      await services.postData('http://localhost:5000/network-quality', combinedData);
+      await services.postDataList(combinedData);
     });
   };
 
@@ -197,7 +82,7 @@ const SendData = () => {
         style={{ height: "70vh" }}
       >
         <img
-          src={images[index]}
+          src={imagesWifi[index]}
           alt="register-icon"
           className="m-3"
           style={{ width: "70%", height: "80%" }}
@@ -214,14 +99,13 @@ const SendData = () => {
       <Modal
         to={""}
         button={"Accept"}
-        display={change || errorMessage}
+        display={change}
         onClose={handleClose}
-        modalTitle={change ? "Data Sent Correctly" : "Error"}
-        modalText={change ? "" : errorMessage}
+        modalTitle={"Data Sent Correctly"}
+        modalText={""}
       />
     </>
   );
 };
 
 export default SendData;
-

@@ -4,5 +4,4 @@ export interface ModalInterface {
     onClose: ()=> void,
     button: string,
     modalTitle: string,
-    modalText: string
 }
