@@ -31,14 +31,14 @@ export class Services implements ServicesInterface {
   }
 
   //obtener datos de la lista
-  async getDataList(): Promise<ResponseListInterface | undefined> {
+  async getDataList():Promise<ResponseListInterface | undefined> {
     try {
       const data = await fetch(dataListEndpoint);
-      const { response }: ResponseListInterface = await data.json();
-      return { response } as ResponseListInterface;
+      const response: ListInterface[] = await data.json();
+      return { response };
     } catch (error) {
       if (typeof error === 'string') {
-        throw new Error(error); 
+        throw new Error(error);  
       }
     }
   }
@@ -78,5 +78,6 @@ export class Services implements ServicesInterface {
     }
   }
 }
+
 
 export const services = new Services();

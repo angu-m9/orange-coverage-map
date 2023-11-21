@@ -2,16 +2,11 @@ import CsvDownloader from "react-csv-downloader";
 import { useLoaderData } from "react-router";
 import HeaderAdmin from "../../templates/HeaderAdmin/HeaderAdmin";
 import React, { Key } from "react";
+import './dataList.style.css'
 import { ResponseListInterface } from "../../../services/service.module";
 
 const DataList = (): React.JSX.Element => {
-
   const { response } = useLoaderData() as ResponseListInterface;
-
-if (!response || !Array.isArray(response)) {
-  return <div>Error: Datos no válidos</div>;
-}
-
 
 
   response.forEach((row: { created_at: string | number | Date }) => {
@@ -32,14 +27,7 @@ if (!response || !Array.isArray(response)) {
     <>
       <HeaderAdmin mapCoverage={""} dataList={"active"} />
       <div className="container py-4 px-3 mx-auto b-1 text-center">
-        <div
-          style={{
-            height: "30rem",
-            width: "100%",
-            overflow: "scroll",
-            border: "solid 0.1rem gray",
-          }}
-        >
+        <div className="container__data-list">
           <table className="table">
             <thead>
               <tr>
@@ -74,27 +62,70 @@ if (!response || !Array.isArray(response)) {
         >
           <button className="btn btn-primary m-4">Download CSV</button>
         </CsvDownloader>
+
+        <div className="d-flex justify-content-center">
+          <nav aria-label="Page navigation example ">
+            <ul className="pagination">
+              <li className="page-item disabled">
+                <a className="page-link">Previous</a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  1
+                </a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  2
+                </a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  3
+                </a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  4
+                </a>
+              </li>
+              <li className="page-item active" aria-current="page">
+                <a className="page-link" href="#">
+                  5
+                </a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  6
+                </a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  7
+                </a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  8
+                </a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  9
+                </a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  10
+                </a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#" aria-label="Next"></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
-
-
-      <nav aria-label="Page navigation example">
-  <ul className="pagination">
-    <li className="page-item disabled"><a className="page-link">Previous</a></li>
-    <li className="page-item"><a className="page-link" href="#">1</a></li>
-    <li className="page-item"><a className="page-link" href="#">2</a></li>
-    <li className="page-item"><a className="page-link" href="#">3</a></li>
-    <li className="page-item"><a className="page-link" href="#">4</a></li>
-    <li className="page-item active" aria-current="page">
-      <a className="page-link" href="#">5</a>
-    </li>
-    <li className="page-item"><a className="page-link" href="#">6</a></li>
-    <li className="page-item"><a className="page-link" href="#">7</a></li>
-    <li className="page-item"><a className="page-link" href="#">8</a></li>
-    <li className="page-item"><a className="page-link" href="#">9</a></li>
-    <li className="page-item"><a className="page-link" href="#">10</a></li>
-    <li className="page-item"><a className="page-link" href="#" aria-label="Next"></a></li>
-  </ul>
-</nav>
     </>
   );
 };

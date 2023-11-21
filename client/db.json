@@ -229,6 +229,66 @@
       "rtt": 50,
       "network": "4g",
       "id": 39
+    },
+    {
+      "latitude": 40.4309028,
+      "longitude": -3.7056085,
+      "online": true,
+      "downlink": 10,
+      "effectiveType": "4g",
+      "rtt": 50,
+      "network": "4g",
+      "id": 40
+    },
+    {
+      "latitude": 40.4309129,
+      "longitude": -3.7056132,
+      "online": true,
+      "downlink": 10,
+      "effectiveType": "4g",
+      "rtt": 50,
+      "network": "4g",
+      "id": 41
+    },
+    {
+      "latitude": 40.4309129,
+      "longitude": -3.7056132,
+      "online": true,
+      "downlink": 10,
+      "effectiveType": "4g",
+      "rtt": 50,
+      "network": "4g",
+      "id": 42
+    },
+    {
+      "latitude": 40.4309104,
+      "longitude": -3.705584,
+      "online": true,
+      "downlink": 10,
+      "effectiveType": "4g",
+      "rtt": 50,
+      "network": "4g",
+      "id": 43
+    },
+    {
+      "latitude": 40.4308998,
+      "longitude": -3.7055914,
+      "online": true,
+      "downlink": 10,
+      "effectiveType": "4g",
+      "rtt": 0,
+      "network": "4g",
+      "id": 44
+    },
+    {
+      "latitude": 40.4308907,
+      "longitude": -3.7055866,
+      "online": true,
+      "downlink": 10,
+      "effectiveType": "4g",
+      "rtt": 0,
+      "network": "4g",
+      "id": 45
     }
   ],
   "admins": [
