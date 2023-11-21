@@ -1,11 +1,11 @@
 import { FieldValues, useForm } from "react-hook-form";
 import Header from "../../templates/Header/Header";
-import Modal from "../../templates/Modal/Modal";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { services } from "../../../services/services";
 import { company } from "./register.module";
-
+import Modal from "../../templates/Modal/Modal";
+import './register.style.css'
 
 const Register = (): React.JSX.Element => {
   const {
@@ -23,30 +23,31 @@ const Register = (): React.JSX.Element => {
   const postRegister = async (data: FieldValues): Promise<void> => {
     try {
       const response = await services.postRegisterUser(data);
-      
+
       // Aquí, verifica si response es null en lugar de response.ok
       if (response) {
         const userId = response.id;
-        console.log('ID received from server:', userId);
+        console.log("ID received from server:", userId);
         const expires = new Date();
         expires.setFullYear(expires.getFullYear() + 1);
         document.cookie = `userId=${userId}; path=/; expires=${expires.toUTCString()}; Samesite=Lax`;
-        console.log('Cookie created:', document.cookie);
+        console.log("Cookie created:", document.cookie);
         setChange(true);
       } else {
-        console.error('Registration error: no response from server');
+        console.error("Registration error: no response from server");
       }
     } catch (error) {
-      console.error('Registration error:', error);
+      console.error("Registration error:", error);
     }
   };
-
 
   return (
     <>
       <Header title="Register" />
-      <div className="container py-4 px-3 mx-auto">
-        <form className="row g-3 " onSubmit={handleSubmit(postRegister)}>
+      <div
+        className="container py-4 px-3 d-flex flex-column mt-4 container-form"
+      >
+        <form className="row g-3" onSubmit={handleSubmit(postRegister)}>
           <div className="col-md-6">
             <label htmlFor="input_name" className="form-label">
               Name
@@ -55,10 +56,11 @@ const Register = (): React.JSX.Element => {
               type="text"
               className="form-control"
               id="input_name"
-              data-testid='input_name'
+              data-testid="input_name"
               {...register("user_name", {
                 required: true,
-                pattern: /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
+                pattern:
+                  /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
               })}
             />
             {errors.user_name?.type === "required" && (
@@ -76,10 +78,11 @@ const Register = (): React.JSX.Element => {
               type="text"
               className="form-control"
               id="input_last-name"
-              data-testid='input_last-name'
+              data-testid="input_last-name"
               {...register("user_lastname", {
                 required: true,
-                pattern: /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
+                pattern:
+                  /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
               })}
             />
             {errors.user_lastname?.type === "required" && (
@@ -97,7 +100,7 @@ const Register = (): React.JSX.Element => {
             <select
               id="input_company"
               className="form-select"
-              data-testid='input_company'
+              data-testid="input_company"
               {...register("cellular_carrier", { required: true })}
               defaultValue=""
             >
@@ -120,7 +123,7 @@ const Register = (): React.JSX.Element => {
             <input
               type="text"
               className="form-control"
-              data-testid='input_postal-code'
+              data-testid="input_postal-code"
               id="input_postal-code"
               {...register("postal_code", {
                 required: true,
@@ -134,7 +137,7 @@ const Register = (): React.JSX.Element => {
               <p className="text-danger fw-bold">postal code invalid</p>
             )}
           </div>
-          <Link to={'/terms-conditions'} target="_blank">
+          <Link to={"/terms-conditions"}>
             Please read the Terms and Conditions and privacy policy
           </Link>
           <div className="col-12">
@@ -143,12 +146,12 @@ const Register = (): React.JSX.Element => {
                 className="form-check-input"
                 type="checkbox"
                 id="input_check"
-                data-testid='input_check'
+                data-testid="input_check"
                 {...register("user_check", {
                   required: true,
                 })}
               />
-          <label className="form-check-label" htmlFor="input_check">
+              <label className="form-check-label" htmlFor="input_check">
                 I accept the terms and conditions
               </label>
               {errors.user_check?.type === "required" && (
@@ -156,11 +159,16 @@ const Register = (): React.JSX.Element => {
               )}
             </div>
           </div>
-          <div className="col-12">
-            <button type="submit" className="btn btn-primary mt-2">
-              Register
-            </button>
-          </div>
+          <div className="d-flex justify-content-center w-100">
+          
+          <button
+            type="submit"
+            className="btn btn-primary mt-2 button-submit"
+          >
+            Register
+          </button>
+
+        </div>
         </form>
       </div>
 
@@ -169,11 +177,10 @@ const Register = (): React.JSX.Element => {
         button={"Accept"}
         display={change}
         onClose={handleClose}
-        modalTitle={"Data Sent Correctly"}
-        modalText={''}
+        modalTitle={"¡Registro con exito!"}
       />
     </>
   );
-}
+};
 
 export default Register;

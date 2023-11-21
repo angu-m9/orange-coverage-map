@@ -1,0 +1,31 @@
+#button4g{
+    color: white;
+    background-color: #cd3c14;
+    width: 8rem;
+}
+
+#button3g{
+    color: white;
+    background-color: #ffcc00;
+    width: 8rem;
+}
+
+#button2g{
+    color: white;
+    background-color: #32c832;
+    width: 8rem;
+}
+
+#button1g{
+    color: white;
+    background-color: #527edb;
+    width: 8rem;
+}
+
+
+.container__map{
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

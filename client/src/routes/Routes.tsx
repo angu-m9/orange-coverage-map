@@ -8,6 +8,8 @@ import MapCoverage from "../components/pages/Map/MapCoverage";
 import DataList from "../components/pages/DataList/DataList";
 import Condicions from "../components/pages/Condicions/Condicions";
 import { services } from "../services/services";
+import Blocking from "../components/pages/Blocking/Blocking";
+import Permission from "../components/pages/Permission/Permission";
 
 
 
@@ -45,6 +47,14 @@ export const router = createBrowserRouter([
                 path: '/data-list',
                 element: <DataList />,
                 loader: services.getDataList
+            },
+            {
+                path:'/blocking',
+                element: <Blocking />
+            },
+            {
+                path:'/permission',
+                element: <Permission />
             }
         ],
     },

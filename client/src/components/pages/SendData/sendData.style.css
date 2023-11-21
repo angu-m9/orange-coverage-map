@@ -1,0 +1,8 @@
+.container-sendData{
+    height: 75vh;
+    gap: 5rem;
+}
+
+.button__send-data{
+    width: 17rem;
+}
