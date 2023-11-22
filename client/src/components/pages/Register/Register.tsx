@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { services } from "../../../services/services";
 import { company } from "./register.module";
 import Modal from "../../templates/Modal/Modal";
-import './register.style.css'
+import "./register.style.css";
 
 const Register = (): React.JSX.Element => {
   const {
@@ -43,14 +43,12 @@ const Register = (): React.JSX.Element => {
 
   return (
     <>
-      <Header title="Register" />
-      <div
-        className="container py-4 px-3 d-flex flex-column mt-4 container-form"
-      >
+      <Header title="Registro" />
+      <div className="container py-4 px-3 d-flex flex-column mt-4 container-form">
         <form className="row g-3" onSubmit={handleSubmit(postRegister)}>
           <div className="col-md-6">
             <label htmlFor="input_name" className="form-label">
-              Name
+              Nombres
             </label>
             <input
               type="text"
@@ -72,7 +70,7 @@ const Register = (): React.JSX.Element => {
           </div>
           <div className="col-md-6">
             <label htmlFor="input_last-name" className="form-label">
-              Last Name
+              Apellidos
             </label>
             <input
               type="text"
@@ -95,7 +93,7 @@ const Register = (): React.JSX.Element => {
 
           <div className="col-md-4">
             <label htmlFor="input_company" className="form-label">
-              Company
+              Compañia
             </label>
             <select
               id="input_company"
@@ -118,7 +116,7 @@ const Register = (): React.JSX.Element => {
 
           <div className="col-md-2">
             <label htmlFor="input_postal-code" className="form-label">
-              Postal Code
+              Codigo Postal
             </label>
             <input
               type="text"
@@ -137,9 +135,7 @@ const Register = (): React.JSX.Element => {
               <p className="text-danger fw-bold">postal code invalid</p>
             )}
           </div>
-          <Link to={"/terms-conditions"}>
-            Please read the Terms and Conditions and privacy policy
-          </Link>
+
           <div className="col-12">
             <div className="form-check">
               <input
@@ -152,7 +148,8 @@ const Register = (): React.JSX.Element => {
                 })}
               />
               <label className="form-check-label" htmlFor="input_check">
-                I accept the terms and conditions
+                Estoy de acuerdo con la{" "}
+                <Link to={"/terms-conditions"}>política de privacidad</Link>
               </label>
               {errors.user_check?.type === "required" && (
                 <p className="text-danger fw-bold">accept required</p>
@@ -160,24 +157,22 @@ const Register = (): React.JSX.Element => {
             </div>
           </div>
           <div className="d-flex justify-content-center w-100">
-          
-          <button
-            type="submit"
-            className="btn btn-primary mt-2 button-submit"
-          >
-            Register
-          </button>
-
-        </div>
+            <button
+              type="submit"
+              className="btn btn-primary mt-2 button-submit"
+            >
+              Me Registro
+            </button>
+          </div>
         </form>
       </div>
 
       <Modal
         to={"/send-data"}
-        button={"Accept"}
+        button={"Continuar"}
         display={change}
         onClose={handleClose}
-        modalTitle={"¡Registro con exito!"}
+        modalTitle={"¡Registro con éxito!"}
       />
     </>
   );

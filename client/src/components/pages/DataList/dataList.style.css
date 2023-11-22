@@ -1,6 +1,12 @@
 .container__data-list{
-    height: 30rem;
+    height: 26.3rem;
     width: 100%;
     overflow: scroll;
     border: solid 0.1rem gray;
+    background-color: black;
+}
+
+.container-black{
+    background-color: black;
+    height: 100vh;
 }

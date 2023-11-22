@@ -24,8 +24,14 @@
 
 
 .container__map{
-    height: 85vh;
+    height: 87vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+
+.black{
+    background-color: black;
+    height: 100vh;
 }

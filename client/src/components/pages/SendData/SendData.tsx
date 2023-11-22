@@ -1,18 +1,36 @@
-import Header from "../../templates/Header/Header";
+import Header from "../../templates/Header/Header.tsx";
 import { useNetwork } from "../../../hooks/useNetwork.ts";
 import { services } from "../../../services/services.ts";
 import ModalSucces from "../../templates/ModalSucces/ModalSucces.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalError from "../../templates/ModalError/ModalError.tsx";
 import './sendData.style.css'
+import { useNavigate } from "react-router-dom";
 
 
 const SendData = (): React.JSX.Element => {
   const networkInfo = useNetwork({});
-
   const [ModalErr, setModalError] = useState(false)
   const [ModalSuccess, setModalSuccess] = useState(false)
+  
+  const navigate = useNavigate()
 
+  useEffect(() => {
+    const watchId = navigator.geolocation.watchPosition(
+      () => {
+        console.log('compartiendo ubicacion');
+      },
+      () => {
+        navigate('/blocking');
+      }
+    );
+
+    return () => {
+      navigator.geolocation.clearWatch(watchId);
+    };
+  }, [navigate]);
+
+  
 
 
   const sendData = (): void => {
@@ -41,13 +59,15 @@ const SendData = (): React.JSX.Element => {
         setTimeout(()=>{
           setModalError(false)
         },3000)
+        
       }
     });
   };
 
+
   return (
     <>
-      <Header title="Send Data" />
+      <Header title="Enviar Datos" />
       <div className="container py-4 px-3 mx-auto b-1 text-center mt-3">
         <div
           className="d-flex flex-column align-items-center justify-content-center container-sendData"
@@ -63,9 +83,10 @@ const SendData = (): React.JSX.Element => {
             className="btn btn-primary button__send-data"
             onClick={sendData}
           >
-            Send Data
+            Enviar
           </button>
         </div>
+
         <ModalSucces display={ModalSuccess}/>
         <ModalError display={ModalErr} />
 

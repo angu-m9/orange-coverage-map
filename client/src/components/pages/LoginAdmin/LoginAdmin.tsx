@@ -17,19 +17,20 @@ const LoginAdmin = (): React.JSX.Element => {
   return (
     <>
       <HeaderLoginAdmin />
-      <div className="container py-4 px-3 mx-auto">
-        <h4>Identify</h4>
+      <div className="black">
+      <div className="container py-4 px-3 mx-auto ">
+        <h4>Identificate</h4>
 
         <form action="" onSubmit={handleSubmit(postLogin)}>
           <div className="mb-3">
             <label htmlFor="input__name" className="form-label">
-              User
+              Usuario
             </label>
             <input
               type="text"
               className="form-control"
               id="input__name"
-              placeholder="User"
+              placeholder="Usuario"
               {...register("admin_name", {
                 required: true,
               })}
@@ -41,13 +42,13 @@ const LoginAdmin = (): React.JSX.Element => {
 
           <div className="mb-3">
             <label htmlFor="input__password" className="form-label">
-              Password
+              Contraseña
             </label>
             <input
               type="password"
               className="form-control"
               id="input__password"
-              placeholder="Password"
+              placeholder="Contraseña"
               {...register("admin_password", {
                 required: true,
               })}
@@ -58,9 +59,10 @@ const LoginAdmin = (): React.JSX.Element => {
           </div>
 
           <button type="submit" className="btn btn-primary">
-            Login
+            Entrar
           </button>
         </form>
+      </div>
       </div>
     </>
   );
