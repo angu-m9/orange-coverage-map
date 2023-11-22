@@ -49,4 +49,3 @@ export const useNetwork = (userUuid) => {
 
   return networkState;
 };
-

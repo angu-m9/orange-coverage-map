@@ -42,12 +42,12 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/login-admin',
-                element: <LoginAdmin />,
-                loader: async () => {
-                    const response = await services.getData(
-                      "http://localhost:3000/admins"
-                    );
-                    return response},
+                element: <LoginAdmin />
+                // loader: async () => {
+                //     const response = await services.getData(
+                //       "http://localhost:3000/admins"
+                //     );
+                //     return response},
             },
             {
                 path: '/map-coverage',

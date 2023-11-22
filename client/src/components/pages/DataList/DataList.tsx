@@ -12,8 +12,9 @@ const DataList = () => {
 
   const { response  } = useLoaderData();
   response.forEach(row => {
-    row.created_at = new Date(row.created_at).toLocaleDateString(); 
+    row.created_at = new Date(row.created_at).toLocaleString();
   });
+  
 
   const columns = [
     { id: "id", displayName: "ID" },
