@@ -42,11 +42,11 @@ const DataList = (): React.JSX.Element => {
       <div className="container-black">
       <div className="container-black container py-4 px-3 mx-auto b-1 text-center">
         <div className="container__data-list">
-          <table className="table">
+          <table className="table"> 
             <thead>
-              <tr>
+              <tr >
                 {columns.map((col) => (
-                  <th key={col.id} scope="col">
+                  <th id="table-color" key={col.id} scope="col">
                     {col.displayName}
                   </th>
                 ))}
@@ -58,7 +58,7 @@ const DataList = (): React.JSX.Element => {
                 (row: { id: Key; created_at: string | number | Date }) => (
                   <tr key={row.id}>
                     {columns.map((col) => (
-                      <td key={col.id}>{row[col.id]}</td>
+                      <td id="table-color" key={col.id}>{row[col.id]}</td>
                     ))}
                   </tr>
                 )
@@ -66,16 +66,6 @@ const DataList = (): React.JSX.Element => {
             </tbody>
           </table>
         </div>
-
-        <CsvDownloader
-          filename="datos"
-          extension=".csv"
-          columns={columns}
-          datas={response}
-          text="EXPORT"
-        >
-          <button className="btn btn-primary m-4">Download CSV</button>
-        </CsvDownloader>
 
         <div className="d-flex justify-content-center">
           <nav aria-label="Page navigation example ">
@@ -116,6 +106,15 @@ const DataList = (): React.JSX.Element => {
             </ul>
           </nav>
         </div>
+        <CsvDownloader
+          filename="datos"
+          extension=".csv"
+          columns={columns}
+          datas={response}
+          text="EXPORT"
+        >
+          <button className="btn btn-primary m-4 w-25">Exportar</button>
+        </CsvDownloader>
       </div>
       </div>
     </>

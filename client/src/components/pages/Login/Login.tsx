@@ -6,7 +6,7 @@ import ButtonOrange from "../../atoms/ButtonOrange";
 const Login = (): React.JSX.Element => {
   return (
     <>
-      <Header title="Login User" />
+      <Header title="Login Usuario" />
 
       <div className="container py-4 px-3 mx-auto b-1 text-center div" >
 

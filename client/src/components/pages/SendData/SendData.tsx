@@ -14,7 +14,8 @@ const SendData = (): React.JSX.Element => {
 
   const [ModalErr, setModalError] = useState(false)
   const [ModalSuccess, setModalSuccess] = useState(false)
-
+  
+  const navigate = useNavigate()
 
   const images = [
     "src/assets/icons/wifi-icon.svg",
@@ -58,6 +59,7 @@ const SendData = (): React.JSX.Element => {
       }
     });
   };
+
 
   return (
     <>

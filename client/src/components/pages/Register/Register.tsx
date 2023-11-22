@@ -57,6 +57,7 @@ import './register.style.css'
     <>
       <Header title="Registro" />
       <div className="container py-4 px-3 d-flex flex-column mt-4 container-form">
+        
         <form className="row g-3" onSubmit={handleSubmit(postRegister)}>
           <div className="col-md-6">
             <label htmlFor="input_name" className="form-label">
@@ -170,17 +171,18 @@ import './register.style.css'
             </div>
           </div>
           <div className="d-flex justify-content-center w-100">
-          
-          <button
-            type="submit"
-            className="btn btn-primary mt-2 button-submit"
-          >
-            Register
-          </button>
-
-        </div>
+            <button
+              type="submit"
+              className="btn btn-primary mt-2 button-submit"
+            >
+              Me Registro
+            </button>
+          </div>
         </form>
       </div>
+
+
+
 
       <Modal
         to={"/send-data"}

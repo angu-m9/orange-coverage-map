@@ -1,29 +1,15 @@
 import { useForm } from "react-hook-form";
 import { services } from "../../../Services";
 import HeaderLoginAdmin from "../../templates/HeaderLoginAdmin/HeaderLoginAdmin";
-import { useLoaderData, useNavigate } from "react-router";
+import React from "react";
+import { services } from "../../../services/services";
 
-const LoginAdmin = () => {
-
-  const  {register,formState: {errors} ,handleSubmit} = useForm();
-
-  const navigate = useNavigate();
-
-  const { response } = useLoaderData();
-
-  interface FormData {
-    admin_name: string;
-    admin_password: string;
-  }
-
-  console.log(response);
-
-  const post= (data:FormData)=>{
-    // console.log(data)
-
-  // services.postData('http://localhost:3000/admins', data)
-    
-    const find = response.some((a:FormData) => a.admin_name === data.admin_name && a.admin_password === data.admin_password);
+const LoginAdmin = (): React.JSX.Element => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
     if (find) {
      navigate('/map-coverage') 
@@ -35,10 +21,12 @@ const LoginAdmin = () => {
   return (
     <>
       <HeaderLoginAdmin />
-      <div className="container py-4 px-3 mx-auto">
-        <h4>Identify</h4>
+      <div className="black">
+      <div className="container py-4 px-3 mx-auto ">
+        <h4>Identificate</h4>
 
-        <form action="" onSubmit={handleSubmit(postLogin)}>
+        <form className="" action="" onSubmit={handleSubmit(postLogin)}>
+        <div>
           <div className="mb-3">
             <label htmlFor="input__name" className="form-label">
               User
@@ -73,10 +61,10 @@ const LoginAdmin = () => {
             {errors.admin_password?.type === "required" && (
               <p className="text-danger fw-bold">password required</p>
             )}
-        </div>
+          </div>
 
           <button type="submit" className="btn btn-primary">
-            Login
+            Entrar
           </button>
         </form>
       </div>
