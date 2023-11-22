@@ -10,7 +10,7 @@ const HeaderLoginAdmin = (): React.JSX.Element => {
         <span className="stretched-link">
           <img src="src/assets/images/logo-orange.svg" width="50" height="50" alt="Boosted - Back to Home" loading="lazy"/>
         </span>
-        <h1 className="title">Login Admin</h1>
+        <h1 className="title">Login Administración</h1>
       </div>
     </div>
   </nav>

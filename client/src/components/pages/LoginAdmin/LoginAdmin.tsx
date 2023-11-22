@@ -2,6 +2,8 @@ import { FieldValues, useForm } from "react-hook-form";
 import HeaderLoginAdmin from "../../templates/HeaderLoginAdmin/HeaderLoginAdmin";
 import React from "react";
 import { services } from "../../../services/services";
+import ButtonOrange from "../../atoms/ButtonOrange";
+import './logindAdmin.style.css'
 
 const LoginAdmin = (): React.JSX.Element => {
   const {
@@ -19,9 +21,11 @@ const LoginAdmin = (): React.JSX.Element => {
       <HeaderLoginAdmin />
       <div className="black">
       <div className="container py-4 px-3 mx-auto ">
+       
         <h4>Identificate</h4>
 
-        <form action="" onSubmit={handleSubmit(postLogin)}>
+        <form className="" action="" onSubmit={handleSubmit(postLogin)}>
+        <div>
           <div className="mb-3">
             <label htmlFor="input__name" className="form-label">
               Usuario
@@ -57,10 +61,10 @@ const LoginAdmin = (): React.JSX.Element => {
               <p className="text-danger fw-bold">password required</p>
             )}
           </div>
-
-          <button type="submit" className="btn btn-primary">
-            Entrar
-          </button>
+          </div>
+          <div className="text-center w-100">
+          <ButtonOrange textButton="Entrar" direction="/map-coverage"/>
+          </div>
         </form>
       </div>
       </div>

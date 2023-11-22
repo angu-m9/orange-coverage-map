@@ -1,8 +1,8 @@
 .container__data-list{
-    height: 26.3rem;
+    height: 35rem;
     width: 100%;
     overflow: scroll;
-    border: solid 0.1rem gray;
+    border: solid 0.1rem white;
     background-color: black;
 }
 
@@ -10,3 +10,25 @@
     background-color: black;
     height: 100vh;
 }
+
+#table-color{
+    background-color: black;
+    color: white;
+
+}
+
+@media screen and (min-width: 391px) {
+    .container__data-list{
+        height: 27rem;
+        width: 100%;
+        overflow: scroll;
+        border: solid 0.1rem white;
+        background-color: black;
+    }
+    
+    .container-black{
+        background-color: black;
+        height: 100vh;
+    }
+}
+

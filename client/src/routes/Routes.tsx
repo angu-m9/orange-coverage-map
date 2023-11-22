@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
     {
         path: '/',
         element: <Root />,
-        errorElement: <Permission />,
+        errorElement: <Blocking />,
         children: [
             {
                 path: '/login',
@@ -50,8 +50,8 @@ export const router = createBrowserRouter([
                 loader: services.getDataList
             },
             {
-                path:'/blocking',
-                element: <Blocking />
+                path:'/permission',
+                element: <Permission />
             }
         ],
     },

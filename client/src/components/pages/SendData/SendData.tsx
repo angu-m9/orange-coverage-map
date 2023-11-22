@@ -13,6 +13,8 @@ const SendData = (): React.JSX.Element => {
   const [ModalErr, setModalError] = useState(false)
   const [ModalSuccess, setModalSuccess] = useState(false)
   
+
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -64,6 +66,7 @@ const SendData = (): React.JSX.Element => {
     });
   };
 
+  
 
   return (
     <>

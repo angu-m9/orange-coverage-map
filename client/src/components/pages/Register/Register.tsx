@@ -45,6 +45,7 @@ const Register = (): React.JSX.Element => {
     <>
       <Header title="Registro" />
       <div className="container py-4 px-3 d-flex flex-column mt-4 container-form">
+        
         <form className="row g-3" onSubmit={handleSubmit(postRegister)}>
           <div className="col-md-6">
             <label htmlFor="input_name" className="form-label">
@@ -156,7 +157,9 @@ const Register = (): React.JSX.Element => {
               )}
             </div>
           </div>
-          <div className="d-flex justify-content-center w-100">
+
+
+          <div className="button-register d-flex justify-content-center w-100">
             <button
               type="submit"
               className="btn btn-primary mt-2 button-submit"
@@ -166,6 +169,9 @@ const Register = (): React.JSX.Element => {
           </div>
         </form>
       </div>
+
+
+
 
       <Modal
         to={"/send-data"}
