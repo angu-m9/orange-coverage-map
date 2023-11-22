@@ -289,6 +289,16 @@
       "rtt": 0,
       "network": "4g",
       "id": 45
+    },
+    {
+      "latitude": 40.3630877,
+      "longitude": -3.5922483,
+      "online": true,
+      "downlink": 10,
+      "effectiveType": "4g",
+      "rtt": 50,
+      "network": "4g",
+      "id": 46
     }
   ],
   "admins": [
@@ -296,6 +306,22 @@
       "admin_name": "usuario",
       "admin_password": "1234567",
       "id": 1
+    },
+    {
+      "user_name": "Bryan",
+      "user_lastname": "Mariano",
+      "cellular_carrier": "Simyo",
+      "postal_code": "28028",
+      "user_check": true,
+      "id": 2
+    },
+    {
+      "user_name": "Bryan",
+      "user_lastname": "Mariano Dominguez",
+      "cellular_carrier": "Orange",
+      "postal_code": "28028",
+      "user_check": true,
+      "id": 3
     }
   ]
 }

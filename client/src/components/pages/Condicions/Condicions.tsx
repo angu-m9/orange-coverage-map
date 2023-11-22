@@ -6,7 +6,7 @@ const Condicions = (): React.JSX.Element => {
   return (
     <>
       <div className="container py-4 px-3 mx-auto d-flex flex-column gap-3">
-        <h1 className="titleOrange text-center text ">Privacy Policy:</h1>
+        <h1 className="titleOrange text-center text ">Politica de privacidad</h1>
 
         <p>
           Bienvenido/a a Orange. Valoramos tu confianza y queremos informarte
@@ -61,7 +61,7 @@ const Condicions = (): React.JSX.Element => {
           nosotros.
         </p>
         <div className="w-100 text-center">
-          <ButtonOrange direction="/register" textButton="Hecho" />
+          <ButtonOrange direction="/register" textButton="Volver" />
         </div>
         <p className="titleOrange text-center text">Orange Restricted</p>
       </div>

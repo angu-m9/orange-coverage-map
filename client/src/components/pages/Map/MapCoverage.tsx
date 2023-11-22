@@ -8,6 +8,7 @@ const MapCoverage = (): React.JSX.Element => {
     <>
       <HeaderAdmin mapCoverage={"active"} dataList={""} />
 
+<div className="black">
       <div className="container py-4 px-3 mx-auto container__map" >
         <div className="row">
           <div className="col-12 d-flex justify-content-center align-items-center">
@@ -43,6 +44,7 @@ const MapCoverage = (): React.JSX.Element => {
             </button>
           </div>
         </div>
+      </div>
       </div>
     </>
   );

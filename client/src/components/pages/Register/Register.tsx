@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { services } from "../../../services/services";
 import { company } from "./register.module";
-
+import Modal from "../../templates/Modal/Modal";
+import './register.style.css'
 
   const {
     register,
@@ -54,14 +55,12 @@ import { company } from "./register.module";
 
   return (
     <>
-      <Header title="Register" />
-      <div
-        className="container py-4 px-3 d-flex flex-column mt-4 container-form"
-      >
+      <Header title="Registro" />
+      <div className="container py-4 px-3 d-flex flex-column mt-4 container-form">
         <form className="row g-3" onSubmit={handleSubmit(postRegister)}>
           <div className="col-md-6">
             <label htmlFor="input_name" className="form-label">
-              Name
+              Nombres
             </label>
             <input
               type="text"
@@ -83,7 +82,7 @@ import { company } from "./register.module";
           </div>
           <div className="col-md-6">
             <label htmlFor="input_last-name" className="form-label">
-              Last Name
+              Apellidos
             </label>
             <input
               type="text"
@@ -104,7 +103,7 @@ import { company } from "./register.module";
             )}
           </div>
           <div className="col-md-4">
-            <label htmlFor="company_select" className="form-label">
+            <label htmlFor="input_company" className="form-label">
               Company
             </label>
             <select
@@ -129,7 +128,7 @@ import { company } from "./register.module";
 
           <div className="col-md-2">
             <label htmlFor="input_postal-code" className="form-label">
-              Postal Code
+              Codigo Postal
             </label>
             <input
               type="text"
@@ -151,7 +150,7 @@ import { company } from "./register.module";
           <Link to={"/terms-conditions"}>
             Please read the Terms and Conditions and privacy policy
           </Link>
-          {/* <div className="col-12">
+          <div className="col-12">
             <div className="form-check">
               <input
                 className="form-check-input"
@@ -162,7 +161,7 @@ import { company } from "./register.module";
                   required: true,
                 })}
               />
-          <label className="form-check-label" htmlFor="input_check">
+              <label className="form-check-label" htmlFor="input_check">
                 I accept the terms and conditions
               </label>
               {errors.user_check?.type === "required" && (
@@ -170,20 +169,25 @@ import { company } from "./register.module";
               )}
             </div>
           </div>
-          <div className="col-12">
-            <button type="submit" className="btn btn-primary mt-2">
-              Register
-            </button>
-          </div>
+          <div className="d-flex justify-content-center w-100">
+          
+          <button
+            type="submit"
+            className="btn btn-primary mt-2 button-submit"
+          >
+            Register
+          </button>
+
+        </div>
         </form>
       </div>
 
       <Modal
         to={"/send-data"}
-        button={"Accept"}
+        button={"Continuar"}
         display={change}
         onClose={handleClose}
-        modalTitle={"¡Registro con exito!"}
+        modalTitle={"¡Registro con éxito!"}
       />
 
       {/* Error Modal */}

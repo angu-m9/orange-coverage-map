@@ -31,7 +31,7 @@ const Blocking = (): React.JSX.Element => {
           </ol>
         </div>
         <div className="w-100">
-            <ButtonOrange textButton="Hecho" direction="" />
+            <ButtonOrange textButton="Hecho" direction="/send-data" />
         </div>
       </div>
     </>
