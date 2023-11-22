@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "build":"tsc",
+    "build": "tsc",
     "tsc": "tsc",
     "test": "jest",
     "start": "tsc & node .",
-    "dev": "ts-node-dev --respawn --transpile-only src/config/server.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/config/server.ts",
+    "setup-admin": "ts-node-dev src/scripts/setUpAdmin.ts"
   },
   "dependencies": {
     "@types/jest": "^29.5.5",

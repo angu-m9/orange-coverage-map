@@ -7,7 +7,7 @@ const LoginAdmin = () => {
   const navigate = useNavigate();
 
   interface FormData {
-    admin_name: string;
+    admin_username: string;
     admin_password: string;
   }
 
@@ -25,12 +25,8 @@ const LoginAdmin = () => {
         const result = await response.json();
         console.log(result); // Aquí puedes ver la respuesta del servidor
 
-        // Aquí asumiré que el servidor responde con un objeto que incluye una propiedad de 'success'
-        if (result.success) {
-          navigate('/map-coverage'); // Si es exitoso, navega al mapa
-        } else {
-          console.log('Incorrect username or password');
-        }
+        localStorage.setItem('token', result.token);
+        navigate('/map-coverage'); // Si es exitoso, navega al mapa
       } else {
         // Manejo de errores si la respuesta no es ok
         console.log('Error en el post:', response.statusText);
@@ -54,12 +50,12 @@ const LoginAdmin = () => {
               type="text"
               className="form-control"
               id="input__name"
-              placeholder="User" {...register('admin_name', {
+              placeholder="User" {...register('admin_username', {
                 required: 'Name is required'
               })}
             />
-            {errors.admin_name && (
-              <p className="text-danger fw-bold">{errors.admin_name.message}</p>
+            {errors.admin_username && (
+              <p className="text-danger fw-bold">{errors.admin_username.message}</p>
             )}
           </div>
           <div className="mb-3">
