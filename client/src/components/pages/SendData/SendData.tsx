@@ -23,7 +23,7 @@ const SendData = (): React.JSX.Element => {
         console.log('compartiendo ubicacion');
       },
       () => {
-        navigate('/blocking');
+        navigate('/permission');
       }
     );
 
@@ -66,6 +66,7 @@ const SendData = (): React.JSX.Element => {
     });
   };
 
+  
   
 
   return (
