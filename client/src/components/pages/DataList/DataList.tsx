@@ -3,15 +3,15 @@ import { useLoaderData } from "react-router";
 import HeaderAdmin from "../../templates/HeaderAdmin/HeaderAdmin";
 import React, { Key, useState } from "react";
 import './dataList.style.css'
-import { ResponseListInterface } from "../../../services/service.module";
+
 
 const DataList = (): React.JSX.Element => {
-  const { response } = useLoaderData() as ResponseListInterface;
 
-
-  response.forEach((row: { created_at: string | number | Date }) => {
-    row.created_at = new Date(row.created_at).toLocaleDateString();
+  const { response  } = useLoaderData();
+  response.forEach(row => {
+    row.created_at = new Date(row.created_at).toLocaleString();
   });
+  
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 1;

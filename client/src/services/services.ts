@@ -10,7 +10,7 @@ import {
 } from "./service.module";
 
 
-export class Services implements ServicesInterface {
+export class Services {
   constructor() {}
 
   //registrar usuario
@@ -44,15 +44,16 @@ export class Services implements ServicesInterface {
   }
 
   //enviar login de los admin
-  async postLoginAdmin(body: FieldValues): Promise<FieldValues | undefined> {
+  async postLoginAdmin(body) {
     try {
       const data = await fetch(adminsEndpoint, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(body),
       });
-      const response: FieldValues = await data.json();
-      return response as FieldValues;
+      const response = await data.json();
+      
+      return {response}
     } catch (error) {
       if (typeof error === 'string') {
         throw new Error(error); 

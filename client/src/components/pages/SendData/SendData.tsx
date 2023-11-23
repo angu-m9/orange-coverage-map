@@ -1,17 +1,19 @@
-import Header from "../../templates/Header/Header.tsx";
-import { useNetwork } from "../../../hooks/useNetwork.ts";
-import { services } from "../../../services/services.ts";
-import ModalSucces from "../../templates/ModalSucces/ModalSucces.tsx";
 import { useEffect, useState } from "react";
-import ModalError from "../../templates/ModalError/ModalError.tsx";
-import './sendData.style.css'
+import Header from "../../templates/Header/Header";
+import { useNetwork } from "../../../hooks/useNetwork";
 import { useNavigate } from "react-router-dom";
-
+import { services } from "../../../services/services";
+import ModalSucces from "../../templates/ModalSucces/ModalSucces";
+import ModalError from "../../templates/ModalError/ModalError";
 
 const SendData = (): React.JSX.Element => {
-  const networkInfo = useNetwork({});
   const [ModalErr, setModalError] = useState(false)
   const [ModalSuccess, setModalSuccess] = useState(false)
+  const [change, setChange] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [index, setIndex] = useState(0);
+  const networkInfo = useNetwork();
+  const userUuid = localStorage.getItem('userUuid'); // Recuperamos el UUID del localStorage
   
 
 
@@ -32,11 +34,28 @@ const SendData = (): React.JSX.Element => {
     };
   }, [navigate]);
 
-  
 
 
-  const sendData = (): void => {
+  const handleClose = () => {
+    setChange(false);
+    setErrorMessage('');
+  };
+
+  const handleSendDataClick = () => {
+    const audio = new Audio("src/assets/sounds/send-data.mp3");
+    audio.play();
+    nextIndex();
+
+    const repeat = setInterval(() => {
+      nextIndex();
+    }, 1000);
+
     navigator.geolocation.getCurrentPosition(async (position) => {
+      clearInterval(repeat);
+      audio.pause();
+
+      
+
       const geoLocationData = {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
@@ -45,11 +64,15 @@ const SendData = (): React.JSX.Element => {
       const combinedData = {
         ...geoLocationData,
         ...networkInfo,
-        network: networkInfo.effectiveType, // si quito este valor, sale el error de not null violation
+        network: networkInfo.effectiveType,
+        userUuid // Enviamos el UUID junto con los datos de la red
       };
-      console.log(combinedData);
-      const postSuccess = await services.postDataList(combinedData);
 
+      console.log(combinedData);
+
+      try {
+        const postSuccess = await services.postDataList(combinedData);
+        setChange(true);
 
       if (postSuccess) {
         setModalSuccess(true)
@@ -63,6 +86,14 @@ const SendData = (): React.JSX.Element => {
         },3000)
         
       }
+      } catch (error) {
+        console.error('Error al enviar los datos de red:', error);
+        setErrorMessage('Error al enviar los datos. Por favor, intente de nuevo.');
+      }
+    }, (error) => {
+      clearInterval(repeat);
+      audio.pause();
+      setErrorMessage('Error al obtener la geolocalización. Por favor, intente de nuevo.');
     });
   };
 

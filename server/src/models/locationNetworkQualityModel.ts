@@ -1,43 +1,46 @@
-import { Model, DataTypes } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import sequelize from '../data/db';
 
-class LocationNetworkQuality extends Model {}
-
-LocationNetworkQuality.init({
+const LocationNetworkQuality = sequelize.define('LocationNetworkQuality', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: true
+  },
+  user_uuid: { // Cambiado de user_id a user_uuid
+    type: DataTypes.STRING,
+    references: {
+      model: 'Users', // Asegúrate de que esto coincida con tu modelo de usuario
+      key: 'uuid' // El campo uuid de la tabla Users
+    }
   },
   network: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: DataTypes.CHAR(8),
+    allowNull: false
   },
-  created_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  }, 
   latitude: {
     type: DataTypes.FLOAT,
-    allowNull: false,
+    allowNull: false
   },
   longitude: {
     type: DataTypes.FLOAT,
-    allowNull: false,
+    allowNull: false
   },
   rtt: {
     type: DataTypes.FLOAT,
-    allowNull: false,
+    allowNull: false
   },
   downlink: {
     type: DataTypes.FLOAT,
-    allowNull: false,
-  }
+    allowNull: false
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
+  },
 }, {
-  sequelize,
-  modelName: 'LocationNetworkQuality',
-  tableName: 'location_network_quality',
-  timestamps: false // Suponiendo que no estamos usando campos de timestamp como createdAt o updatedAt
+  tableName: 'LocationNetworkQuality',
+  timestamps: false
 });
 
 export default LocationNetworkQuality;

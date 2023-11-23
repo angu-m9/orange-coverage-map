@@ -2,45 +2,67 @@ import { FieldValues, useForm } from "react-hook-form";
 import Header from "../../templates/Header/Header";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useLoaderData } from 'react-router-dom';
 import { services } from "../../../services/services";
-import { company } from "./register.module";
 import Modal from "../../templates/Modal/Modal";
-import "./register.style.css";
 
-const Register = (): React.JSX.Element => {
+const Register = () => {
+  const { companies } = useLoaderData();
+  
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-
-  const [change, setChange] = useState<boolean>(false);
+  const [change, setChange] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleClose = () => {
     setChange(false);
   };
 
-  const postRegister = async (data: FieldValues): Promise<void> => {
+  const handleCloseErrorModal = () => {
+    setShowErrorModal(false);
+  };
+
+  const post = async (data) => {
     try {
-
-
       const response = await services.postRegisterUser(data);
       
-      if (response) {
-        const userId = response.id;
-        console.log("ID received from server:", userId);
-        const expires = new Date();
-        expires.setFullYear(expires.getFullYear() + 1);
-        document.cookie = `userId=${userId}; path=/; expires=${expires.toUTCString()}; Samesite=Lax`;
-        console.log("Cookie created:", document.cookie);
-        setChange(true);
+      const userUuid = response.user_id; // Asumiendo que el servidor devuelve el UUID como user_id
+      console.log('UUID received from server:', userUuid);
+
+
+      console.log('UUID received from server:', userUuid);
+      if (userUuid) {
+        localStorage.setItem('userUuid', userUuid);
       } else {
-        console.error("Registration error: no response from server");
+        console.error('No UUID present in the response');
       }
+
+      // Almacenar el UUID en el almacenamiento local
+      // localStorage.setItem('userUuid', userUuid);
+
+      const expires = new Date();
+      expires.setFullYear(expires.getFullYear() + 1);
+      document.cookie = `userId=${userUuid}; path=/; expires=${expires.toUTCString()}; Samesite=Lax`;
+      console.log('Cookie created:', document.cookie);
+      setChange(true);
     } catch (error) {
-      console.error("Registration error:", error);
+      // Aquí manejamos el error de registro
+      let message = 'There was an unexpected error during registration. Please try again later.';
+      if (error.response?.status === 409) {
+        message = 'An account with the provided details already exists. Please log in or use different details.';
+      } else if (error.message) {
+        message += ` Error: ${error.message}`;
+      }
+      setErrorMessage(message);
+      setShowErrorModal(true); // Mostramos el modal de error con el mensaje adecuado
     }
   };
+
+
 
   return (
     <>
@@ -92,26 +114,20 @@ const Register = (): React.JSX.Element => {
               <p className="text-danger fw-bold">last name invalid</p>
             )}
           </div>
-
           <div className="col-md-4">
-            <label htmlFor="input_company" className="form-label">
-              Compañia
+            <label htmlFor="company_select" className="form-label">
+              Company
             </label>
-            <select
-              id="input_company"
-              className="form-select"
-              data-testid="input_company"
-              {...register("cellular_carrier", { required: true })}
-              defaultValue=""
-            >
-              <option value="" disabled></option>
-              {company.map((a, index) => (
-                <option key={index} value={a}>
-                  {a}
+            <select id="company_select" className="form-select" {...register("company_id", { required: true })}>
+              <option value="" disabled>Select a company</option>
+              {companies.map((company) => (
+                <option key={company.company_id} value={company.company_id}>
+                  {company.company_name}
                 </option>
               ))}
             </select>
-            {errors.cellular_carrier?.type === "required" && (
+
+            {errors.company_id?.type === "required" && (
               <p className="text-danger fw-bold">company required</p>
             )}
           </div>
@@ -180,6 +196,15 @@ const Register = (): React.JSX.Element => {
         display={change}
         onClose={handleClose}
         modalTitle={"¡Registro con éxito!"}
+      />
+
+      {/* Error Modal */}
+      <Modal
+        button={"Close"}
+        display={showErrorModal}
+        onClose={handleCloseErrorModal}
+        modalTitle={"Registration Error"}
+        modalText={errorMessage}
       />
     </>
   );

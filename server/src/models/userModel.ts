@@ -1,41 +1,39 @@
-import { Model, DataTypes } from 'sequelize';
-import { v4 as uuidv4 } from 'uuid';
-import sequelize from '../data/db';
+import { DataTypes } from 'sequelize';
+import sequelize from '../data/db'; // Asegúrate de que la ruta de importación sea correcta
 
-class User extends Model {}
-
-User.init({
-  id: {
-    type: DataTypes.UUID,
+const User = sequelize.define('User', {
+  user_id: {
+    type: DataTypes.INTEGER,
     primaryKey: true,
-    defaultValue: () => uuidv4(),  //will create an UUID
+    autoIncrement: true
   },
   user_name: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: false
   },
   user_lastname: {
     type: DataTypes.STRING,
-    allowNull: false,
-  },
-  cellular_carrier: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: false
   },
   postal_code: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  company_id: {
+    type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: 'Company',
+      key: 'company_id'
+    }
   },
-  created_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  }, 
-  },
-{
-    sequelize,
-    modelName: 'User',
-    tableName: 'users',
-    timestamps: false // Suponiendo que no estamos usando campos de timestamp como createdAt o updatedAt
-  });
-  
-  export default User;
+  uuid: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+}, {
+  tableName: 'Users',
+  timestamps: false
+});
+
+export default User;

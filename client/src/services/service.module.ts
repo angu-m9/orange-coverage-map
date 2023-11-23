@@ -30,12 +30,12 @@ export interface AdminInterface {
 }
 
 
-export interface ServicesInterface {
-    getDataList: () => Promise<ResponseListInterface | undefined>,
-    postLoginAdmin: (body: FieldValues) => Promise<FieldValues | undefined>,
-    postDataList: (body: ListInterface) => Promise<ListInterface | undefined>,
-    postRegisterUser: (body: FieldValues) => Promise<FieldValues | undefined>,
-}
+// export interface ServicesInterface {
+//     getDataList: () => Promise<ResponseListInterface | undefined>,
+//     postLoginAdmin: (body) =>{},
+//     postDataList: (body: ListInterface) => Promise<ListInterface | undefined>,
+//     postRegisterUser: (body: FieldValues) => Promise<FieldValues | undefined>,
+// }
 
 
 

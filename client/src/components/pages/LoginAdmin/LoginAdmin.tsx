@@ -1,70 +1,74 @@
 import { FieldValues, useForm } from "react-hook-form";
 import HeaderLoginAdmin from "../../templates/HeaderLoginAdmin/HeaderLoginAdmin";
-import React from "react";
+import { useNavigate } from "react-router-dom"; 
 import { services } from "../../../services/services";
-import ButtonOrange from "../../atoms/ButtonOrange";
-import './logindAdmin.style.css'
 
-const LoginAdmin = (): React.JSX.Element => {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
+const LoginAdmin = () => {
+  const { register, formState: { errors }, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
-  const postLogin = (data: FieldValues) => {
-    services.postLoginAdmin(data);
-  };
+
+  const post = async (data: FieldValues) => {
+    try {
+
+      
+      const response = services.postLoginAdmin(data)
+
+      //error en el ok por falta de el backend
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result); // Aquí puedes ver la respuesta del servidor
+
+        localStorage.setItem('token', result.token);
+        navigate('/map-coverage'); // Si es exitoso, navega al mapa
+      } else {
+        // Manejo de errores si la respuesta no es ok
+        console.log('Error en el post:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error al enviar los datos:', error);
+    }
+  }
 
   return (
     <>
-      <HeaderLoginAdmin />
-      <div className="black">
-      <div className="container py-4 px-3 mx-auto ">
-       
-        <h4>Identificate</h4>
-
-        <form className="" action="" onSubmit={handleSubmit(postLogin)}>
-        <div>
+      <HeaderLoginAdmin/>
+      <div className="container py-4 px-3 mx-auto">
+        <h4>Identify</h4>
+        <form onSubmit={handleSubmit(post)}>
           <div className="mb-3">
             <label htmlFor="input__name" className="form-label">
-              Usuario
+              User
             </label>
             <input
               type="text"
               className="form-control"
               id="input__name"
-              placeholder="Usuario"
-              {...register("admin_name", {
-                required: true,
+              placeholder="User" {...register('admin_username', {
+                required: 'Name is required'
               })}
             />
-            {errors.admin_name?.type === "required" && (
-              <p className="text-danger fw-bold">name required</p>
+            {errors.admin_username && (
+              <p className="text-danger fw-bold">{errors.admin_username.message}</p>
             )}
           </div>
-
           <div className="mb-3">
             <label htmlFor="input__password" className="form-label">
-              Contraseña
+              Password
             </label>
             <input
               type="password"
               className="form-control"
               id="input__password"
-              placeholder="Contraseña"
-              {...register("admin_password", {
-                required: true,
+              placeholder="Password" {...register('admin_password', {
+                required: 'Password is required'
               })}
             />
-            {errors.admin_password?.type === "required" && (
-              <p className="text-danger fw-bold">password required</p>
+            {errors.admin_password && (
+              <p className="text-danger fw-bold">{errors.admin_password.message}</p>
             )}
           </div>
-          </div>
-          <div className="text-center w-100">
-          <ButtonOrange textButton="Entrar" direction="/map-coverage"/>
-          </div>
+          <button type="submit" className="btn btn-primary">Login</button>
         </form>
       </div>
       </div>
