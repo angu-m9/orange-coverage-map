@@ -1,24 +1,23 @@
-import {  DataTypes } from 'sequelize';
-import sequelize from '../data/db';
+import { DataTypes } from 'sequelize';
+import db from '../data/db';
 
-const Admin = sequelize.define('Admin', {
-    admin_id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    hashed_password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-  }, {
-    tableName: 'Admin',
-    timestamps: false
-  });
-  
-  export default Admin;
-  
+const AdminModel = db.define('Admin', {
+  admin_id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  admin_username: {
+    type: DataTypes.STRING(50),
+    allowNull: false
+  },
+  admin_password: {
+    type: DataTypes.STRING(255),
+    allowNull: false
+  }
+}, {
+  tableName: 'Admins',
+  timestamps: false
+});
+
+export default AdminModel;
