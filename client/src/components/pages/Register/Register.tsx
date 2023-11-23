@@ -22,9 +22,10 @@ const Register = (): React.JSX.Element => {
 
   const postRegister = async (data: FieldValues): Promise<void> => {
     try {
-      const response = await services.postRegisterUser(data);
 
-      // Aquí, verifica si response es null en lugar de response.ok
+
+      const response = await services.postRegisterUser(data);
+      
       if (response) {
         const userId = response.id;
         console.log("ID received from server:", userId);
