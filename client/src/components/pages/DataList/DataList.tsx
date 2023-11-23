@@ -8,6 +8,7 @@ import './dataList.style.css'
 const DataList = (): React.JSX.Element => {
 
   const { response  } = useLoaderData();
+  
   response.forEach(row => {
     row.created_at = new Date(row.created_at).toLocaleString();
   });

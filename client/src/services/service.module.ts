@@ -43,6 +43,7 @@ export const dataListEndpoint = import.meta.env.VITE_DATA_LIST;
 export const adminsEndpoint = import.meta.env.VITE_ADMINS;
 export const networkQualityEndpoint = import.meta.env.VITE_NETWORK_QUALITY;
 export const registerEndPoint = import.meta.env.VITE_REGISTER_USER
+export const companiesEndPoint = import.meta.env.VITE_COMPANIES
 
 
 

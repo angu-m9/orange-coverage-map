@@ -1,38 +1,36 @@
 import { FieldValues, useForm } from "react-hook-form";
 import HeaderLoginAdmin from "../../templates/HeaderLoginAdmin/HeaderLoginAdmin";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { services } from "../../../services/services";
 
 const LoginAdmin = () => {
   const { register, formState: { errors }, handleSubmit } = useForm();
   const navigate = useNavigate();
 
-
   const post = async (data: FieldValues) => {
     try {
 
-      
-      const response = services.postLoginAdmin(data)
+      console.log(data)
+      const response = await services.postLoginAdmin(data);
 
-      //error en el ok por falta de el backend
-      if (response.ok) {
-        const result = await response.json();
-        console.log(result); // Aquí puedes ver la respuesta del servidor
+      console.log(response)
 
-        localStorage.setItem('token', result.token);
+      // error en el ok por falta de el backend
+      if (response) {
+        console.log('token recibido')
+ 
         navigate('/map-coverage'); // Si es exitoso, navega al mapa
       } else {
-        // Manejo de errores si la respuesta no es ok
-        console.log('Error en el post:', response.statusText);
+        console.log('error')
       }
     } catch (error) {
       console.error('Error al enviar los datos:', error);
     }
-  }
+  };
 
   return (
     <>
-      <HeaderLoginAdmin/>
+      <HeaderLoginAdmin />
       <div className="container py-4 px-3 mx-auto">
         <h4>Identify</h4>
         <form onSubmit={handleSubmit(post)}>
@@ -70,7 +68,6 @@ const LoginAdmin = () => {
           </div>
           <button type="submit" className="btn btn-primary">Login</button>
         </form>
-      </div>
       </div>
     </>
   );
