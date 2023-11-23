@@ -17,14 +17,25 @@ const SendData = (): React.JSX.Element => {
   
   const navigate = useNavigate()
 
-  const images = [
-    "src/assets/icons/wifi-icon.svg",
-    "src/assets/icons/send-data-1.svg",
-    "src/assets/icons/send-data-2.svg",
-    "src/assets/icons/send-data-3.svg",
-  ];
+  useEffect(() => {
+    const watchId = navigator.geolocation.watchPosition(
+      () => {
+        console.log('compartiendo ubicacion');
+      },
+      () => {
+        navigate('/blocking');
+      }
+    );
 
-  const send = () => {
+    return () => {
+      navigator.geolocation.clearWatch(watchId);
+    };
+  }, [navigate]);
+
+  
+
+
+  const sendData = (): void => {
     navigator.geolocation.getCurrentPosition(async (position) => {
       clearInterval(repeat);
       audio.pause();
@@ -60,6 +71,7 @@ const SendData = (): React.JSX.Element => {
     });
   };
 
+  
 
   return (
     <>

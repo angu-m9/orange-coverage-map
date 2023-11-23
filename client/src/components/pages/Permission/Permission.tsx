@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../templates/Header/Header";
 import ButtonOrange from "../../atoms/ButtonOrange";
 import './permission.style.css'
 
 const Permission = (): React.JSX.Element => {
+
+  useEffect(()=>{
+    const location = async () => {
+      try {
+        const permissionStatus = await navigator.permissions.query({ name: 'geolocation' });
+        
+        if (permissionStatus.state === 'granted') {
+          console.log('autorizado');
+        } else if (permissionStatus.state === 'prompt') {
+          console.log('pendiente de autprizar');
+        } else if (permissionStatus.state === 'denied') {
+          console.log('no autorizado');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    location()
+  },[])
+  
+
   return (
     <>
       <Header title={""} />

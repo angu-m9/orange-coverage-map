@@ -319,6 +319,26 @@
       "rtt": 50,
       "network": "4g",
       "id": 48
+    },
+    {
+      "latitude": 40.3631386,
+      "longitude": -3.59228,
+      "online": true,
+      "downlink": 10,
+      "effectiveType": "4g",
+      "rtt": 50,
+      "network": "4g",
+      "id": 49
+    },
+    {
+      "latitude": 40.3630798,
+      "longitude": -3.5922916,
+      "online": true,
+      "downlink": 10,
+      "effectiveType": "4g",
+      "rtt": 50,
+      "network": "4g",
+      "id": 50
     }
   ],
   "admins": [
