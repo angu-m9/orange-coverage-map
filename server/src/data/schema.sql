@@ -28,7 +28,7 @@ CREATE TABLE LocationNetworkQuality (
   FOREIGN KEY (user_uuid) REFERENCES Users(uuid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE Admin (
+CREATE TABLE Admins (
   admin_id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(50) NOT NULL,
   hashed_password VARCHAR(255) NOT NULL

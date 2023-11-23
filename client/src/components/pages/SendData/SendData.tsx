@@ -35,12 +35,16 @@ const SendData = (): React.JSX.Element => {
   
 
 
-  const sendData = (): void => {
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      clearInterval(repeat);
-      audio.pause();
+  const handleSendDataClick = () => {
+    const audio = new Audio("src/assets/sounds/send-data.mp3");
+    audio.play();
+    nextIndex();
 
-      
+    const repeat = setInterval(() => {
+      nextIndex();
+    }, 1000);
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
 
       const geoLocationData = {
         latitude: position.coords.latitude,
@@ -54,8 +58,10 @@ const SendData = (): React.JSX.Element => {
         userUuid // Enviamos el UUID junto con los datos de la red
       };
       console.log(combinedData);
-      const postSuccess = await services.postDataList(combinedData);
 
+      try {
+        const postSuccess = await services.postDataList(combinedData);
+        setChange(true);
 
       if (postSuccess) {
         setModalSuccess(true)
@@ -68,6 +74,10 @@ const SendData = (): React.JSX.Element => {
           setModalError(false)
         },3000)
       }
+    }, (error) => {
+      clearInterval(repeat);
+      audio.pause();
+      setErrorMessage('Error al obtener la geolocalización. Por favor, intente de nuevo.');
     });
   };
 
@@ -89,7 +99,7 @@ const SendData = (): React.JSX.Element => {
           <button
             type="button"
             className="btn btn-primary button__send-data"
-            onClick={sendData}
+            onClick={sendLocation}
           >
             Send Data
           </button>

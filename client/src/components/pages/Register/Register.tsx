@@ -1,12 +1,14 @@
-import { FieldValues, useForm } from "react-hook-form";
+import {  useForm } from "react-hook-form";
 import Header from "../../templates/Header/Header";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { services } from "../../../services/services";
 import { company } from "./register.module";
 import Modal from "../../templates/Modal/Modal";
-import './register.style.css'
 
+const Register = () => {
+  const { companies } = useLoaderData();
+  
   const {
     register,
     formState: { errors },
@@ -22,7 +24,7 @@ import './register.style.css'
     setShowErrorModal(false);
   };
 
-  const postRegister = async (data: FieldValues): Promise<void> => {
+  const post = async (data) => {
     try {
       const response = await services.postRegisterUser(data);
       
@@ -107,17 +109,11 @@ import './register.style.css'
             <label htmlFor="input_company" className="form-label">
               Company
             </label>
-            <select
-              id="input_company"
-              className="form-select"
-              data-testid='input_company'
-              {...register("cellular_carrier", { required: true })}
-              defaultValue=""
-            >
-              <option value="" disabled></option>
-              {company.map((a, index) => (
-                <option key={index} value={a}>
-                  {a}
+            <select id="company_select" className="form-select" {...register("company_id", { required: true })}>
+              <option value="" disabled>Select a company</option>
+              {companies.map((company) => (
+                <option key={company.company_id} value={company.company_id}>
+                  {company.company_name}
                 </option>
               ))}
             </select>

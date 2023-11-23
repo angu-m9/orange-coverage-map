@@ -1,32 +1,42 @@
 import { useForm } from "react-hook-form";
 import { services } from "../../../Services";
 import HeaderLoginAdmin from "../../templates/HeaderLoginAdmin/HeaderLoginAdmin";
-import React from "react";
+import { useNavigate } from "react-router-dom"; 
 import { services } from "../../../services/services";
 
-const LoginAdmin = (): React.JSX.Element => {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
+const LoginAdmin = () => {
+  const { register, formState: { errors }, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
-    if (find) {
-     navigate('/map-coverage') 
-    }else{
-      console.log('incorrect')
+
+  const post = async (data: FieldValues) => {
+    try {
+
+      
+      const response = services.postLoginAdmin(data)
+
+      //error en el ok por falta de el backend
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result); // Aquí puedes ver la respuesta del servidor
+
+        localStorage.setItem('token', result.token);
+        navigate('/map-coverage'); // Si es exitoso, navega al mapa
+      } else {
+        // Manejo de errores si la respuesta no es ok
+        console.log('Error en el post:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error al enviar los datos:', error);
     }
-  }
+  };
 
   return (
     <>
-      <HeaderLoginAdmin />
-      <div className="black">
-      <div className="container py-4 px-3 mx-auto ">
-        <h4>Identificate</h4>
-
-        <form className="" action="" onSubmit={handleSubmit(postLogin)}>
-        <div>
+      <HeaderLoginAdmin/>
+      <div className="container py-4 px-3 mx-auto">
+        <h4>Identify</h4>
+        <form onSubmit={handleSubmit(post)}>
           <div className="mb-3">
             <label htmlFor="input__name" className="form-label">
               User
@@ -67,7 +77,6 @@ const LoginAdmin = (): React.JSX.Element => {
             Entrar
           </button>
         </form>
-      </div>
       </div>
     </>
   );

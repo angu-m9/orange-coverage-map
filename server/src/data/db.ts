@@ -7,7 +7,7 @@ const db = new Sequelize(
     process.env.DB_PASSWORD || 'default_password',
     {
         host: process.env.DB_HOST || 'localhost',
-        dialect: process.env.DB_DIALECT as any || 'mysql'
+        dialect: process.env.DB_DIALECT as any || 'mysql',
     }
 );
 

@@ -4,15 +4,17 @@ import {
   ResponseListInterface,
   ServicesInterface,
   adminsEndpoint,
+  companiesEndPoint,
   dataListEndpoint,
   networkQualityEndpoint,
   registerEndPoint,
 } from "./service.module";
 
 
+
+
 export class Services implements ServicesInterface {
   constructor() {}
-
   //registrar usuario
   async postRegisterUser(body: FieldValues): Promise<FieldValues | undefined> {
     try {
@@ -43,6 +45,18 @@ export class Services implements ServicesInterface {
     }
   }
 
+  async getCompanies() {
+    try {
+      const data = await fetch(companiesEndPoint);
+      const response = await data.json();
+      return { response };
+    } catch (error) {
+      if (typeof error === 'string') {
+        throw new Error(error);  
+      }
+    }
+  }
+
   //enviar login de los admin
   async postLoginAdmin(body: FieldValues): Promise<FieldValues | undefined> {
     try {
@@ -51,8 +65,9 @@ export class Services implements ServicesInterface {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(body),
       });
-      const response: FieldValues = await data.json();
-      return response as FieldValues;
+      const response = await data.json();
+      
+      return {response}
     } catch (error) {
       if (typeof error === 'string') {
         throw new Error(error); 
