@@ -7,7 +7,8 @@ import { services } from "../../../services/services";
 import Modal from "../../templates/Modal/Modal";
 import "./register.style.css";
 import { CompaniesInterface } from "../../../services/service.module";
-import { createCookie } from "../../../utils/cookieHelper";
+import { createCookie } from "./register.module";
+
 
 const Register = () => {
   const [change, setChange] = useState(false);
@@ -25,12 +26,18 @@ const Register = () => {
   const navigate = useNavigate();
 
 
+
+
+
   useEffect(() => {
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    
     const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     console.log(isSafari);
     console.log(isiOS);
+
     console.log(navigator.userAgent)
+
 
     // if (isiOS && isSafari) {
     //   navigate('/blocking');
@@ -80,10 +87,13 @@ const Register = () => {
 
 
   const postRegister = async (data: FieldValues) => {
+    
     try {
       const response: FieldValues | undefined = await services.postRegisterUser(
         data
       );
+
+
 
       const userUuid = response?.user_id; // Asumiendo que el servidor devuelve el UUID como user_id
       console.log("UUID received from server:", userUuid);

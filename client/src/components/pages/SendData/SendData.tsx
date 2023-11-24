@@ -7,6 +7,7 @@ import ModalError from "../../templates/ModalError/ModalError";
 import "./sendData.style.css";
 import { useNavigate } from "react-router-dom";
 
+
 const SendData = (): React.JSX.Element => {
   const [ModalErr, setModalError] = useState(false);
   const [ModalSuccess, setModalSuccess] = useState(false);
@@ -16,6 +17,9 @@ const SendData = (): React.JSX.Element => {
 
   const navigate = useNavigate();
 
+
+  console.log(navigator.userAgentData.brands);
+  
 
   const sendLocation = (): void => {
     navigator.geolocation.getCurrentPosition(
@@ -42,6 +46,7 @@ const SendData = (): React.JSX.Element => {
           if (postSuccess) {
 
             setModalSuccess(true);
+
             setTimeout(() => {
               setModalSuccess(false);
             }, 3000);

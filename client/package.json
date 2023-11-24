@@ -13,8 +13,10 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "@react-google-maps/api": "^2.19.2",
+    "@types/detect-browser": "^4.0.0",
     "@types/dotenv": "^8.2.0",
     "boosted": "^5.3.2",
+    "detect-browser": "^5.3.0",
     "dotenv": "^16.3.1",
     "jsdom": "^22.1.0",
     "json-server": "^0.17.4",
