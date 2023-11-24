@@ -3,7 +3,7 @@ import { GoogleMap, Polygon, Marker, useJsApiLoader } from '@react-google-maps/a
 
 
 // api key de google
-const googleMapsApiKey = 'AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg';
+const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 //getJson con datos de delimitaciones territoriales
 const urlGeoJson = "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/provincias-espanolas/exports/geojson?lang=en&timezone=Europe%2FBerlin";

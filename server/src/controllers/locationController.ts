@@ -1,27 +1,12 @@
-// import { Request, Response } from 'express';
-// import Location from '../models/locationModel';
-
-// export const postLocation = async (req: Request, res: Response) => {
-//   try {
-//     const { latitude, longitude } = req.body;
-//     // Aquí se debería incluir la lógica para determinar el network_id y company_id
-//     const location = await Location.create({ latitude, longitude, /* otros campos */ });
-//     res.status(201).json(location);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
-
-// locationController.ts
-
 import { Request, Response } from 'express';
 import LocationNetworkQuality from '../models/locationNetworkQualityModel';
-import User from '../models/userModel'; // Asegúrate de importar el modelo de usuario
+import User from '../models/userModel';
+import { geocode } from '../utils/geocode'; 
 
 export const postLocation = async (req: Request, res: Response) => {
   try {
     const { latitude, longitude, rtt, downlink, network, userUuid } = req.body;
-    
+    const city = await geocode(latitude, longitude);
     // Verifica si el usuario con el UUID proporcionado existe
     const user = await User.findOne({ where: { uuid: userUuid } });
     if (!user) {
@@ -35,6 +20,7 @@ export const postLocation = async (req: Request, res: Response) => {
       longitude,
       rtt,
       downlink,
+      city,
       network
     });
 
