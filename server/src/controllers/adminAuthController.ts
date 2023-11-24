@@ -32,12 +32,12 @@ const login = async (req: Request, res: Response) => {
     const tokenExpirationMilliseconds = parseTokenExpiration(tokenExpiration);
     const expirationDate = tokenExpirationMilliseconds
       ? new Date(Date.now() + tokenExpirationMilliseconds)
-      : new Date(Date.now() + 3600000); // fallback a 1 hora si la función devuelve null
+      : new Date(Date.now() + 3600000); 
 
     console.log(`Password valid for admin: ${admin_username}, generating token.`);
     const token = jwt.sign({ adminId: admin.get('admin_id') }, tokenSecret, { expiresIn: tokenExpiration });
     
-    // Crear o actualizar la sesión de admin en la base de datos
+
     const [session, created] = await AdminSessionModel.findOrCreate({
       where: { admin_id: admin.get('admin_id') },
       defaults: {
