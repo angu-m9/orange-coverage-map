@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useLoaderData } from 'react-router-dom';
 import { services } from "../../../services/services";
 import Modal from "../../templates/Modal/Modal";
+import { createCookie } from '../../../utils/cookieHelper';
 
 const Register = () => {
   const { response } = useLoaderData();
@@ -29,26 +30,19 @@ const Register = () => {
   const postRegister = async (data) => {
     try {
       const response = await services.postRegisterUser(data);
-      
       const userUuid = response.user_id; // Asumiendo que el servidor devuelve el UUID como user_id
-      console.log('UUID received from server:', userUuid);
-
-
-      console.log('UUID received from server:', userUuid);
+      
       if (userUuid) {
+       
         localStorage.setItem('userUuid', userUuid);
+
+
+        createCookie('userId', userUuid, 365); 
+
+        setChange(true);
       } else {
         console.error('No UUID present in the response');
       }
-
-      // Almacenar el UUID en el almacenamiento local
-      // localStorage.setItem('userUuid', userUuid);
-
-      const expires = new Date();
-      expires.setFullYear(expires.getFullYear() + 1);
-      document.cookie = `userId=${userUuid}; path=/; expires=${expires.toUTCString()}; Samesite=Lax`;
-      console.log('Cookie created:', document.cookie);
-      setChange(true);
     } catch (error) {
       // Aquí manejamos el error de registro
       let message = 'There was an unexpected error during registration. Please try again later.';
