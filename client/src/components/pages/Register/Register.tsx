@@ -1,22 +1,41 @@
-import {  useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import Header from "../../templates/Header/Header";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useLoaderData } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { services } from "../../../services/services";
 import Modal from "../../templates/Modal/Modal";
+import "./register.style.css";
+import { CompaniesInterface } from "../../../services/service.module";
 
 const Register = () => {
-  const { response } = useLoaderData();
-  
+  const [change, setChange] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [formData, setFormData] = useState<FieldValues>({});
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const [change, setChange] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    console.log(isSafari);
+    console.log(isiOS);
+    console.log(navigator.userAgent)
+
+    // if (isiOS && isSafari) {
+    //   navigate('/blocking');
+    // }
+    
+  }, [navigate]);
+
+  const { response } = useLoaderData() as { response: CompaniesInterface[] };
 
   const handleClose = () => {
     setChange(false);
@@ -26,19 +45,30 @@ const Register = () => {
     setShowErrorModal(false);
   };
 
-  const postRegister = async (data) => {
+  useEffect(()=>{
+    const galleta = document.cookie
+    console.log(galleta)
+
+    if (galleta) {
+      navigate('/send-data')
+    }
+  },[navigate])
+
+
+  const postRegister = async (data: FieldValues) => {
     try {
-      const response = await services.postRegisterUser(data);
-      
-      const userUuid = response.user_id; // Asumiendo que el servidor devuelve el UUID como user_id
-      console.log('UUID received from server:', userUuid);
+      const response: FieldValues | undefined = await services.postRegisterUser(
+        data
+      );
 
+      const userUuid = response?.user_id; // Asumiendo que el servidor devuelve el UUID como user_id
+      console.log("UUID received from server:", userUuid);
 
-      console.log('UUID received from server:', userUuid);
+      console.log("UUID received from server:", userUuid);
       if (userUuid) {
-        localStorage.setItem('userUuid', userUuid);
+        localStorage.setItem("userUuid", userUuid);
       } else {
-        console.error('No UUID present in the response');
+        console.error("No UUID present in the response");
       }
 
       // Almacenar el UUID en el almacenamiento local
@@ -47,28 +77,43 @@ const Register = () => {
       const expires = new Date();
       expires.setFullYear(expires.getFullYear() + 1);
       document.cookie = `userId=${userUuid}; path=/; expires=${expires.toUTCString()}; Samesite=Lax`;
-      console.log('Cookie created:', document.cookie);
+      console.log("Cookie created:", document.cookie);
       setChange(true);
     } catch (error) {
       // Aquí manejamos el error de registro
-      let message = 'There was an unexpected error during registration. Please try again later.';
-      if (error.response?.status === 409) {
-        message = 'An account with the provided details already exists. Please log in or use different details.';
-      } else if (error.message) {
-        message += ` Error: ${error.message}`;
+      let message =
+        "There was an unexpected error during registration. Please try again later.";
+
+      if (error instanceof Error) {
+        if (error.response?.status === 409) {
+          message =
+            "An account with the provided details already exists. Please log in or use different details.";
+        } else if (error.message) {
+          message += ` Error: ${error.message}`;
+        }
       }
       setErrorMessage(message);
       setShowErrorModal(true); // Mostramos el modal de error con el mensaje adecuado
     }
   };
 
+  // Efecto para cargar datos del formulario al montar el componente
+  useEffect(() => {
+    const storedFormData = localStorage.getItem("formData");
+    if (storedFormData) {
+      setFormData(JSON.parse(storedFormData));
+    }
+  }, []);
 
+  // Efecto para guardar datos del formulario en localStorage
+  useEffect(() => {
+    localStorage.setItem("formData", JSON.stringify(formData));
+  }, [formData]);
 
   return (
     <>
       <Header title="Registro" />
       <div className="container py-4 px-3 d-flex flex-column mt-4 container-form">
-        
         <form className="row g-3" onSubmit={handleSubmit(postRegister)}>
           <div className="col-md-6">
             <label htmlFor="input_name" className="form-label">
@@ -86,10 +131,10 @@ const Register = () => {
               })}
             />
             {errors.user_name?.type === "required" && (
-              <p className="text-danger fw-bold">name required</p>
+              <p className="text-danger fw-bold">nombre requerido</p>
             )}
             {errors.user_name?.type === "pattern" && (
-              <p className="text-danger fw-bold">name invalide</p>
+              <p className="text-danger fw-bold">nombre invalido</p>
             )}
           </div>
           <div className="col-md-6">
@@ -108,18 +153,24 @@ const Register = () => {
               })}
             />
             {errors.user_lastname?.type === "required" && (
-              <p className="text-danger fw-bold">last name required</p>
+              <p className="text-danger fw-bold">apellidos requerido</p>
             )}
             {errors.user_lastname?.type === "pattern" && (
-              <p className="text-danger fw-bold">last name invalid</p>
+              <p className="text-danger fw-bold">apellidos invalido</p>
             )}
           </div>
           <div className="col-md-4">
             <label htmlFor="company_select" className="form-label">
-              Company
+              Compañia
             </label>
-            <select id="company_select" className="form-select" {...register("company_id", { required: true })}>
-              <option value="" disabled>Select a company</option>
+            <select
+              id="company_select"
+              className="form-select"
+              {...register("company_id", { required: true })}
+            >
+              <option value="" disabled>
+                elige una compañia
+              </option>
               {response.map((company) => (
                 <option key={company.company_id} value={company.company_id}>
                   {company.company_name}
@@ -128,7 +179,7 @@ const Register = () => {
             </select>
 
             {errors.company_id?.type === "required" && (
-              <p className="text-danger fw-bold">company required</p>
+              <p className="text-danger fw-bold">compañia requerida</p>
             )}
           </div>
 
@@ -147,10 +198,10 @@ const Register = () => {
               })}
             />
             {errors.postal_code?.type === "required" && (
-              <p className="text-danger fw-bold">postal code required</p>
+              <p className="text-danger fw-bold">codigo postal requerido</p>
             )}
             {errors.postal_code?.type === "pattern" && (
-              <p className="text-danger fw-bold">postal code invalid</p>
+              <p className="text-danger fw-bold">codigo postal invalido</p>
             )}
           </div>
 
@@ -167,14 +218,19 @@ const Register = () => {
               />
               <label className="form-check-label" htmlFor="input_check">
                 Estoy de acuerdo con la{" "}
-                <Link to={"/terms-conditions"}>política de privacidad</Link>
+                <Link
+                  to={"/terms-conditions"}
+                >
+                  política de privacidad
+                </Link>
               </label>
               {errors.user_check?.type === "required" && (
-                <p className="text-danger fw-bold">accept required</p>
+                <p className="text-danger fw-bold">
+                  debe aceptar los terminos y condiciones
+                </p>
               )}
             </div>
           </div>
-
 
           <div className="button-register d-flex justify-content-center w-100">
             <button
@@ -186,9 +242,6 @@ const Register = () => {
           </div>
         </form>
       </div>
-
-
-
 
       <Modal
         to={"/send-data"}
@@ -204,7 +257,7 @@ const Register = () => {
         display={showErrorModal}
         onClose={handleCloseErrorModal}
         modalTitle={"Registration Error"}
-        modalText={errorMessage}
+        to=""
       />
     </>
   );

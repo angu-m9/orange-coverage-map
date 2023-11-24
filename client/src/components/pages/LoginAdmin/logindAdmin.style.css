@@ -6,6 +6,10 @@
     flex-direction: column;
 }
 
+.button__login{
+    width: 17rem;
+}
+
 h4 {
     color: white
 }

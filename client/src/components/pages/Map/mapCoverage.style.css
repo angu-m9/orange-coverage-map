@@ -1,6 +1,6 @@
 #button4g{
     color: white;
-    background-color: #cd3c14;
+    background-color: #32c832;
     width: 8rem;
 }
 
@@ -12,13 +12,7 @@
 
 #button2g{
     color: white;
-    background-color: #32c832;
-    width: 8rem;
-}
-
-#button1g{
-    color: white;
-    background-color: #527edb;
+    background-color: #cd3c14;
     width: 8rem;
 }
 
@@ -34,4 +28,8 @@
 .black{
     background-color: black;
     height: 100vh;
+}
+
+.map-title{
+    color: white;
 }

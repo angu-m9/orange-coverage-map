@@ -6,14 +6,16 @@ const Condicions = (): React.JSX.Element => {
   return (
     <>
       <div className="container py-4 px-3 mx-auto d-flex flex-column gap-3">
-        <h1 className="titleOrange text-center text ">Politica de privacidad</h1>
+        <h1 className="titleOrange text-center text " data-testid="title-condicions">
+          Politica de privacidad
+        </h1>
 
-        <p>
+        <p data-testid="text-condicions">
           Bienvenido/a a Orange. Valoramos tu confianza y queremos informarte
           sobre cómo manejamos tu información personal de acuerdo con las leyes
           de protección de datos de la Unión Europea.
         </p>
-        <ol className="p-0">
+        <ol className="p-0" data-testid="list-condicions">
           <li>
             Información que Recopilamos: Recopilamos datos como nombre,
             dirección de correo electrónico y otra información necesaria para
@@ -56,14 +58,14 @@ const Condicions = (): React.JSX.Element => {
             privacidad, contáctanos [enlace de contacto].
           </li>
         </ol>
-        <p>
+        <p data-testid="footer-text-condicions">
           Gracias por confiar en Orange. Tu privacidad es importante para
           nosotros.
         </p>
         <div className="w-100 text-center">
           <ButtonOrange direction="/register" textButton="Volver" />
         </div>
-        <p className="titleOrange text-center text">Orange Restricted</p>
+        <p className="titleOrange text-center text" data-testid="footer-text-condicions">Orange Restricted</p>
       </div>
     </>
   );
