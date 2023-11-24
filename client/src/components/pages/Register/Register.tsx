@@ -7,6 +7,7 @@ import { services } from "../../../services/services";
 import Modal from "../../templates/Modal/Modal";
 import "./register.style.css";
 import { CompaniesInterface } from "../../../services/service.module";
+import { createCookie } from "../../../utils/cookieHelper";
 
 const Register = () => {
   const [change, setChange] = useState(false);
@@ -17,6 +18,8 @@ const Register = () => {
     register,
     formState: { errors },
     handleSubmit,
+    setValue,
+    watch
   } = useForm();
 
   const navigate = useNavigate();
@@ -36,6 +39,27 @@ const Register = () => {
   }, [navigate]);
 
   const { response } = useLoaderData() as { response: CompaniesInterface[] };
+
+  // Observar los cambios en los campos del formulario
+  const formValues = watch();
+
+  // Efecto para almacenar los valores del formulario en localStorage cada vez que cambien
+  useEffect(() => {
+    for (const [key, value] of Object.entries(formValues)) {
+      localStorage.setItem(key, value);
+    }
+  }, [formValues]);
+
+  // Efecto para rellenar el formulario con valores de localStorage cuando el componente se monta
+  useEffect(() => {
+    const formFields = ["user_name", "user_lastname", "company_id", "postal_code", "user_check"];
+    formFields.forEach(field => {
+      const savedValue = localStorage.getItem(field);
+      if (savedValue !== null) {
+        setValue(field, savedValue);
+      }
+    });
+  }, [setValue]);
 
   const handleClose = () => {
     setChange(false);
@@ -67,6 +91,7 @@ const Register = () => {
       console.log("UUID received from server:", userUuid);
       if (userUuid) {
         localStorage.setItem("userUuid", userUuid);
+        createCookie('userId', userUuid, 365); 
       } else {
         console.error("No UUID present in the response");
       }
@@ -74,11 +99,6 @@ const Register = () => {
       // Almacenar el UUID en el almacenamiento local
       // localStorage.setItem('userUuid', userUuid);
 
-      const expires = new Date();
-      expires.setFullYear(expires.getFullYear() + 1);
-      document.cookie = `userId=${userUuid}; path=/; expires=${expires.toUTCString()}; Samesite=Lax`;
-      console.log("Cookie created:", document.cookie);
-      setChange(true);
     } catch (error) {
       // Aquí manejamos el error de registro
       let message =
@@ -93,7 +113,7 @@ const Register = () => {
         }
       }
       setErrorMessage(message);
-      setShowErrorModal(true); // Mostramos el modal de error con el mensaje adecuado
+      setShowErrorModal(true);
     }
   };
 
@@ -256,7 +276,7 @@ const Register = () => {
         button={"Close"}
         display={showErrorModal}
         onClose={handleCloseErrorModal}
-        modalTitle={"Registration Error"}
+        modalTitle={errorMessage}
         to=""
       />
     </>

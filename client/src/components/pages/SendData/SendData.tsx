@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "../../templates/Header/Header";
 import { useNetwork } from "../../../hooks/useNetwork";
-import { useNavigate } from "react-router-dom";
 import { services } from "../../../services/services";
 import ModalSucces from "../../templates/ModalSucces/ModalSucces";
 import ModalError from "../../templates/ModalError/ModalError";
 import "./sendData.style.css";
+import { useNavigate } from "react-router-dom";
 
 const SendData = (): React.JSX.Element => {
   const [ModalErr, setModalError] = useState(false);
@@ -16,20 +16,6 @@ const SendData = (): React.JSX.Element => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const watchId = navigator.geolocation.watchPosition(
-      () => {
-        console.log("compartiendo ubicacion");
-      },
-      () => {
-        navigate("/permission");
-      }
-    );
-
-    return () => {
-      navigator.geolocation.clearWatch(watchId);
-    };
-  }, [navigate]);
 
   const sendLocation = (): void => {
     navigator.geolocation.getCurrentPosition(
@@ -54,11 +40,13 @@ const SendData = (): React.JSX.Element => {
           console.log(postSuccess)
 
           if (postSuccess) {
+
             setModalSuccess(true);
             setTimeout(() => {
               setModalSuccess(false);
             }, 3000);
-          } else if(postSuccess === false) {
+          } else {
+            navigate("/permission");
             setModalError(true);
             setTimeout(() => {
               setModalError(false);
@@ -70,6 +58,16 @@ const SendData = (): React.JSX.Element => {
         }
       },
       (error) => {
+
+        navigator.geolocation.watchPosition(
+          () => {
+            console.log("compartiendo ubicacion");
+          },
+          () => {
+            navigate("/permission");
+          }
+        );
+    
         console.error("Error al obtener la geolocalización:", error);
         // setErrorMessage('Error al obtener la geolocalización. Por favor, intente de nuevo.');
       }
@@ -82,11 +80,9 @@ const SendData = (): React.JSX.Element => {
       <div className="container py-4 px-3 mx-auto b-1 text-center mt-3">
         <div className="d-flex flex-column align-items-center justify-content-center container-sendData">
           <img src="src/assets/images/send-data.svg" alt="send-data" />
-
           <p className="w-80">
             Comparte tu calidad de red junto a tu ubicación.
           </p>
-
           <button
             type="button"
             className="btn btn-primary button__send-data"
@@ -95,8 +91,8 @@ const SendData = (): React.JSX.Element => {
             Enviar
           </button>
         </div>
-        <ModalSucces display={ModalSuccess} />
-        <ModalError display={ModalErr} />
+        <ModalSucces display={ModalSuccess}/>
+        <ModalError display={ModalErr}/>
       </div>
     </>
   );
