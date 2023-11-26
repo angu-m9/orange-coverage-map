@@ -4,6 +4,7 @@ import cors from 'cors';
 import registerRouter from '../routes/registerRoutes';
 import companiesRouter from '../routes/companiesRouter';
 import adminRouter from '../routes/adminRouter';
+import networkModeRouter from '../routes/networkModeRouter';
 
 
 export const tokenSecret = process.env.TOKEN_SECRET || "defaultSecret";
@@ -20,6 +21,7 @@ app.use('/', registerRouter );
 app.use('/', locationRouter);
 app.use('/', adminRouter);
 app.use('/', companiesRouter);
+app.use('/', networkModeRouter);
 
 app.listen(5000, () => {
   console.log('Servidor ejecutándose en http://localhost:5000');

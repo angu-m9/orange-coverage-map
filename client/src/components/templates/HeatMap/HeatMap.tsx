@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import { services } from '../../../services/services';
 import { GoogleMap, Polygon, InfoWindow, useJsApiLoader } from '@react-google-maps/api';
 
 const libraries = ['visualization'];
-const HeatMap = () => {
-  
+
+const HeatMap = ({ filteredCities }) => { // Asegúrate de recibir filteredCities como prop
   const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   const geoJsonPath = import.meta.env.VITE_GEOJSON_PATH;
 
@@ -23,9 +24,14 @@ const HeatMap = () => {
     libraries,
   });
 
+  useEffect(() => {
+    if (isLoaded) {
+      loadGeoJsonData();
+    }
+  }, [isLoaded]);
+
   const loadGeoJsonData = async () => {
     try {
-      // Asegúrate de que la ruta del archivo GeoJSON es correcta
       const response = await fetch(geoJsonPath || '/provincias-espanolas.geojson');
       const data = await response.json();
       setProvincesData(data.features);
@@ -34,49 +40,53 @@ const HeatMap = () => {
     }
   };
 
-  useEffect(() => {
-    if (isLoaded) {
-      loadGeoJsonData();
+  const handlePolygonClick = async (cityName) => {
+    try {
+      const data = await services.getNetworkModeByCity(cityName);
+      console.log(data);
+    } catch (error) {
+      console.error('Error al obtener el modo de red:', error);
     }
-  }, [isLoaded]);
+  };
 
   const renderPolygons = (province, index) => {
-    if (province.geometry.type === 'MultiPolygon') {
-      return province.geometry.coordinates.map((polygon, polygonIndex) => (
-        <Polygon
-          key={`${index}-${polygonIndex}`}
-          paths={polygon[0].map(coord => ({ lat: coord[1], lng: coord[0] }))}
-          options={{
-            fillColor: 'red', // Aquí puedes tener tu lógica para diferentes colores
-            fillOpacity: 0.35,
-            strokeColor: 'white',
-            strokeWeight: 1,
-          }}
-          onMouseOver={() => setSelectedProvince(province.properties)}
-        />
-      ));
-    } else if (province.geometry.type === 'Polygon') {
-      return (
+    const isFiltered = filteredCities.some(city => city.cityName === province.properties.name); // Asegúrate de que 'name' es la propiedad correcta en tus datos
+    const fillColor = isFiltered ? 'green' : 'red';
+
+    return province.geometry.type === 'MultiPolygon'
+      ? province.geometry.coordinates.map((polygon, polygonIndex) => (
+          <Polygon
+            key={`${index}-${polygonIndex}`}
+            paths={polygon[0].map(coord => ({ lat: coord[1], lng: coord[0] }))}
+            options={{
+              fillColor: fillColor,
+              fillOpacity: 0.35,
+              strokeColor: 'white',
+              strokeWeight: 1,
+            }}
+            onMouseOver={() => setSelectedProvince(province.properties)}
+            onClick={() => handlePolygonClick(province.properties.provincia)}
+          />
+        ))
+      : (
         <Polygon
           key={index}
           paths={province.geometry.coordinates[0].map(coord => ({ lat: coord[1], lng: coord[0] }))}
           options={{
-            fillColor: 'red', // Aquí puedes tener tu lógica para diferentes colores
+            fillColor: fillColor,
             fillOpacity: 0.35,
             strokeColor: 'white',
             strokeWeight: 1,
           }}
           onMouseOver={() => setSelectedProvince(province.properties)}
+          onClick={() => handlePolygonClick(province.properties.provincia)}
         />
       );
-    }
-    return null;
   };
 
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
-
   return (
     <GoogleMap
       mapContainerStyle={containerStyle}
@@ -96,7 +106,6 @@ const HeatMap = () => {
           <div>
             <h1>{selectedProvince.provincia}</h1>
             <p>Código: {selectedProvince.codigo}</p>
-            {/* Aquí puedes agregar más información si es necesario */}
           </div>
         </InfoWindow>
       )}

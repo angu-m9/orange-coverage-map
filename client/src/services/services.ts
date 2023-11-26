@@ -8,6 +8,7 @@ import {
   dataListEndpoint,
   networkQualityEndpoint,
   registerEndPoint,
+  networkModeEndpoint
 } from "./service.module";
 
 export class Services implements ServicesInterface {
@@ -105,6 +106,45 @@ export class Services implements ServicesInterface {
         if (error instanceof Error) {
           throw new Error(error.message);
         }
+      }
+    }
+
+    
+    async getNetworkModeByCity(city: string): Promise<{ networkMode: string, frequency: number }> {
+      try {
+        const baseUrl = import.meta.env.VITE_NETWORK_MODE_ENDPOINT; // Asegúrate de que esta variable tenga el valor correcto
+        const url = new URL(`${baseUrl}/${city}`, baseUrl); // Corrige la concatenación aquí
+        const response = await fetch(url.toString(), {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        console.error('Error fetching network mode by city:', error);
+        throw error;
+      }
+    }
+  
+    async getCitiesByNetworkType(networkType: string): Promise<{ cityName: string, networkType: string }[]> {
+      try {
+        const baseUrl = import.meta.env.VITE_NETWORK_MODE_ENDPOINT; // Asegúrate de que esta variable tenga el valor correcto
+        const url = new URL(`/cities/${networkType}`, baseUrl); // Corrige la concatenación aquí
+        const response = await fetch(url.toString(), {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        console.error('Error fetching cities by network type:', error);
+        throw error;
       }
     }
   
