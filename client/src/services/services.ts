@@ -112,8 +112,8 @@ export class Services implements ServicesInterface {
     
     async getNetworkModeByCity(city: string): Promise<{ networkMode: string, frequency: number }> {
       try {
-        const baseUrl = import.meta.env.VITE_NETWORK_MODE_ENDPOINT; // Asegúrate de que esta variable tenga el valor correcto
-        const url = new URL(`${baseUrl}/${city}`, baseUrl); // Corrige la concatenación aquí
+        const baseUrl = import.meta.env.VITE_NETWORK_MODE_ENDPOINT; 
+        const url = new URL(`${baseUrl}/${city}`, baseUrl); 
         const response = await fetch(url.toString(), {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },

@@ -33,6 +33,8 @@ export const calculateNetworkMode = async (req: Request, res: Response) => {
       }
     });
 
+    console.log('Network mode map to send:', modeMap);
+
     // Inserta o actualiza los datos en la tabla NetworkQualityMode
     for (const [city, { network, frequency }] of Object.entries(modeMap)) {
       // Verifica si la entrada ya existe para la ciudad
