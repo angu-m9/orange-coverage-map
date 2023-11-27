@@ -1,7 +1,8 @@
 export interface ModalInterface {
     to: string,
     display: boolean,
-    onClose: ()=> void,
-    button: string,
+    onClose?: ()=> void,
+    buttonText?: string,
     modalTitle: string,
+    buttonLink?: string
 }

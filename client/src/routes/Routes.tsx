@@ -11,49 +11,53 @@ import { services } from "../services/services";
 import Permission from "../components/pages/Permission/Permission";
 import Blocking from "../components/pages/Blocking/Blocking";
 
-
-
-
 export const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <Root />,
-        errorElement: <Blocking />,
-        children: [
-            {
-                path: '/login',
-                element: <Login />
-            },
-            {
-                path: '/register',
-                element: <Register />,
-                loader: services.getCompanies
-            },
-            {
-                path: '/send-data',
-                element: <SendData />
-            },
-            {
-                path: '/terms-conditions',
-                element: <Condicions />
-            },
-            {
-                path: '/login-admin',
-                element: <LoginAdmin />
-            },
-            {
-                path: '/map-coverage',
-                element: <MapCoverage />
-            },
-            {
-                path: '/data-list',
-                element: <DataList />,
-                loader: services.getDataList
-            },
-            {
-                path:'/permission',
-                element: <Permission />
-            }
-        ],
-    },
-]) 
+  {
+    element: <Root />,
+    errorElement: <Blocking />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+        index: true,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+        loader: services.getCompanies,
+      },
+      {
+        path: "/send-data",
+        element: <SendData />,
+      },
+      {
+        path: "/terms-conditions",
+        element: <Condicions />,
+      },
+    ],
+  },
+  {
+    element: <Root />,
+    errorElement: <Blocking />,
+    children: [
+      {
+        path: "/login-admin",
+        element: <LoginAdmin />,
+        index: true,
+      },
+      {
+        path: "/map-coverage",
+        element: <MapCoverage />,
+      },
+      {
+        path: "/data-list",
+        element: <DataList />,
+        loader: services.getDataList,
+      },
+      {
+        path: "/permission",
+        element: <Permission />,
+      },
+    ],
+  },
+]);

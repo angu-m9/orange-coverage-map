@@ -9,40 +9,31 @@ import "./register.style.css";
 import { CompaniesInterface } from "../../../services/service.module";
 import { createCookie } from "./register.module";
 
-
 const Register = () => {
   const [change, setChange] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [textError, setTextError] = useState("");
+  const [ModalError, setModalError] = useState(false);
   const [formData, setFormData] = useState<FieldValues>({});
   const {
     register,
     formState: { errors },
     handleSubmit,
     setValue,
-    watch
+    watch,
   } = useForm();
 
   const navigate = useNavigate();
 
-
-
-
+  const closeModal = () => {
+    setModalError(false);
+  };
 
   useEffect(() => {
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    
-    const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    console.log(isSafari);
-    console.log(isiOS);
-
-    console.log(navigator.userAgent)
-
-
-    // if (isiOS && isSafari) {
-    //   navigate('/blocking');
-    // }
-    
+    if (typeof window.InstallTrigger !== "undefined") {
+      navigate("/blocking");
+    } else if (typeof window.safari !== "undefined") {
+      navigate("/blocking");
+    }
   }, [navigate]);
 
   const { response } = useLoaderData() as { response: CompaniesInterface[] };
@@ -59,8 +50,14 @@ const Register = () => {
 
   // Efecto para rellenar el formulario con valores de localStorage cuando el componente se monta
   useEffect(() => {
-    const formFields = ["user_name", "user_lastname", "company_id", "postal_code", "user_check"];
-    formFields.forEach(field => {
+    const formFields = [
+      "user_name",
+      "user_lastname",
+      "company_id",
+      "postal_code",
+      "user_check",
+    ];
+    formFields.forEach((field) => {
       const savedValue = localStorage.getItem(field);
       if (savedValue !== null) {
         setValue(field, savedValue);
@@ -68,32 +65,24 @@ const Register = () => {
     });
   }, [setValue]);
 
-  const handleClose = () => {
-    setChange(false);
-  };
+  useEffect(() => {
+    const findCookie = document.cookie;
+    console.log(findCookie);
 
-  const handleCloseErrorModal = () => {
-    setShowErrorModal(false);
-  };
-
-  useEffect(()=>{
-    const galleta = document.cookie
-    console.log(galleta)
-
-    if (galleta) {
-      navigate('/send-data')
+    if (findCookie) {
+      navigate("/send-data");
     }
-  },[navigate])
-
+  }, [navigate]);
 
   const postRegister = async (data: FieldValues) => {
-    
     try {
       const response: FieldValues | undefined = await services.postRegisterUser(
         data
       );
 
-
+      if (response && response.user_id) {
+        setChange(true);
+      }
 
       const userUuid = response?.user_id; // Asumiendo que el servidor devuelve el UUID como user_id
       console.log("UUID received from server:", userUuid);
@@ -101,14 +90,15 @@ const Register = () => {
       console.log("UUID received from server:", userUuid);
       if (userUuid) {
         localStorage.setItem("userUuid", userUuid);
-        createCookie('userId', userUuid, 365); 
+        createCookie("userId", userUuid, 365);
       } else {
         console.error("No UUID present in the response");
+        setTextError("Error ya estas Registrado");
+        setModalError(true);
       }
 
       // Almacenar el UUID en el almacenamiento local
       // localStorage.setItem('userUuid', userUuid);
-
     } catch (error) {
       // Aquí manejamos el error de registro
       let message =
@@ -122,8 +112,10 @@ const Register = () => {
           message += ` Error: ${error.message}`;
         }
       }
-      setErrorMessage(message);
-      setShowErrorModal(true);
+      if (message) {
+        setTextError(message);
+        setModalError(true);
+      }
     }
   };
 
@@ -147,7 +139,7 @@ const Register = () => {
         <form className="row g-3" onSubmit={handleSubmit(postRegister)}>
           <div className="col-md-6">
             <label htmlFor="input_name" className="form-label">
-              Nombres
+              Nombre
             </label>
             <input
               type="text"
@@ -161,10 +153,10 @@ const Register = () => {
               })}
             />
             {errors.user_name?.type === "required" && (
-              <p className="text-danger fw-bold">nombre requerido</p>
+              <p className="text-danger fw-bold">Nombre requerido</p>
             )}
             {errors.user_name?.type === "pattern" && (
-              <p className="text-danger fw-bold">nombre invalido</p>
+              <p className="text-danger fw-bold">Nombre inválido</p>
             )}
           </div>
           <div className="col-md-6">
@@ -183,15 +175,15 @@ const Register = () => {
               })}
             />
             {errors.user_lastname?.type === "required" && (
-              <p className="text-danger fw-bold">apellidos requerido</p>
+              <p className="text-danger fw-bold">Apellidos requeridos</p>
             )}
             {errors.user_lastname?.type === "pattern" && (
-              <p className="text-danger fw-bold">apellidos invalido</p>
+              <p className="text-danger fw-bold">Apellidos inválidos</p>
             )}
           </div>
           <div className="col-md-4">
             <label htmlFor="company_select" className="form-label">
-              Compañia
+              Compañía
             </label>
             <select
               id="company_select"
@@ -199,7 +191,7 @@ const Register = () => {
               {...register("company_id", { required: true })}
             >
               <option value="" disabled>
-                elige una compañia
+                Elige una compañía
               </option>
               {response.map((company) => (
                 <option key={company.company_id} value={company.company_id}>
@@ -209,13 +201,13 @@ const Register = () => {
             </select>
 
             {errors.company_id?.type === "required" && (
-              <p className="text-danger fw-bold">compañia requerida</p>
+              <p className="text-danger fw-bold">Compañía requerida</p>
             )}
           </div>
 
           <div className="col-md-2">
             <label htmlFor="input_postal-code" className="form-label">
-              Codigo Postal
+              Código Postal
             </label>
             <input
               type="text"
@@ -228,10 +220,10 @@ const Register = () => {
               })}
             />
             {errors.postal_code?.type === "required" && (
-              <p className="text-danger fw-bold">codigo postal requerido</p>
+              <p className="text-danger fw-bold">Código postal requerido</p>
             )}
             {errors.postal_code?.type === "pattern" && (
-              <p className="text-danger fw-bold">codigo postal invalido</p>
+              <p className="text-danger fw-bold">Código postal inválido</p>
             )}
           </div>
 
@@ -248,15 +240,11 @@ const Register = () => {
               />
               <label className="form-check-label" htmlFor="input_check">
                 Estoy de acuerdo con la{" "}
-                <Link
-                  to={"/terms-conditions"}
-                >
-                  política de privacidad
-                </Link>
+                <Link to={"/terms-conditions"}>Política de privacidad</Link>
               </label>
               {errors.user_check?.type === "required" && (
                 <p className="text-danger fw-bold">
-                  debe aceptar los terminos y condiciones
+                  Debe aceptar los términos y condiciones
                 </p>
               )}
             </div>
@@ -267,7 +255,7 @@ const Register = () => {
               type="submit"
               className="btn btn-primary mt-2 button-submit"
             >
-              Me Registro
+              Me registro
             </button>
           </div>
         </form>
@@ -275,19 +263,17 @@ const Register = () => {
 
       <Modal
         to={"/send-data"}
-        button={"Continuar"}
         display={change}
-        onClose={handleClose}
         modalTitle={"¡Registro con éxito!"}
+        buttonLink="Aceptar"
       />
 
-      {/* Error Modal */}
-      <Modal
-        button={"Close"}
-        display={showErrorModal}
-        onClose={handleCloseErrorModal}
-        modalTitle={errorMessage}
-        to=""
+      {/*Error Modal*/}
+      <Modal to=""
+        display={ModalError}
+        buttonText="Aceptar"
+        modalTitle={textError}
+        onClose={closeModal}
       />
     </>
   );

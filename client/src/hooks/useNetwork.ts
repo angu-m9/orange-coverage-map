@@ -18,11 +18,11 @@ export const useNetwork = (userUuid) => {
 
       setNetworkState({
         online: navigator.onLine,
-        downlink: connection.downlink,
-        downlinkMax: connection.downlinkMax,
-        effectiveType: connection.effectiveType,
-        rtt: connection.rtt,
-        type: connection.type,
+        downlink: connection?.downlink,
+        downlinkMax: connection?.downlinkMax,
+        effectiveType: connection?.effectiveType,
+        rtt: connection?.rtt,
+        type: connection?.type,
         uuid: userUuid, // Continúas pasando el UUID a tu estado
       });
     };

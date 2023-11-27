@@ -52,7 +52,7 @@ const HeaderAdmin = ({ mapCoverage, dataList }: { mapCoverage: string, dataList:
               <li className="nav-item">
 
                 <Link to={'/login-admin'} className="nav-link">
-                  Cerrar Sesion
+                  Cerrar sesión
                 </Link>
               </li>
             </ul>

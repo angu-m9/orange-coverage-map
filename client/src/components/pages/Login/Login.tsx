@@ -19,10 +19,10 @@ const Login = (): React.JSX.Element => {
           <p>
             Ayúdanos a mejorar la calidad de red. Compartiendo tu información
             podremos detectar en qué zonas debemos invertir y mejorar nuestra
-            señal de red.
+            señal de red. 
           </p>
         </div>
-        <ButtonOrange textButton="Continuar" direction="/register" />
+        <ButtonOrange textButton="Obtén ahora tu Premio Orange" direction="/register" />
       </div>
     </>
   );

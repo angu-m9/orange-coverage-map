@@ -6,6 +6,8 @@ export const getCompanies = async (req: Request, res: Response) => {
     const companies = await Company.findAll();
     res.status(200).json(companies);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });      
+    }
   }
 };

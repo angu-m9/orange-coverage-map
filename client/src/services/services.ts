@@ -13,29 +13,12 @@ import {
 export class Services implements ServicesInterface {
   constructor() {}
 
-
-  //✅
-  async postRegisterUser(body: FieldValues): Promise<FieldValues | undefined> {
-    try {
-      const data = await fetch(registerEndPoint, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      const response: FieldValues = await data.json();
-      return response;
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(error.message);
-      }
-    }
-  }
-
   //✅
   async getDataList(): Promise<{ response: ListInterface[] } | undefined> {
     try {
       const data = await fetch(dataListEndpoint);
       const response: ListInterface[] = await data.json();
+      console.log(response)
       return { response };
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -107,6 +90,23 @@ export class Services implements ServicesInterface {
         }
       }
     }
+
+  //✅
+  async postRegisterUser(body: FieldValues): Promise<FieldValues | undefined> {
+    try {
+      const data = await fetch(registerEndPoint, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const response: FieldValues = await data.json();
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+    }
+  }
   
 }
 

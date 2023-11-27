@@ -22,7 +22,7 @@ const login = async (req: Request, res: Response) => {
     }
 
     console.log(`Comparing password for admin: ${admin_username}`);
-    const isPasswordValid = await bcrypt.compare(admin_password, admin.get('admin_password'));
+      const isPasswordValid = await bcrypt.compare(admin_password, admin.get('admin_password'));      
 
     if (!isPasswordValid) {
       console.log('Login failed: Password invalid for username', admin_username);

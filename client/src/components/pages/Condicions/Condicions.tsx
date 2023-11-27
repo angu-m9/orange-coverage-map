@@ -7,7 +7,7 @@ const Condicions = (): React.JSX.Element => {
     <>
       <div className="container py-4 px-3 mx-auto d-flex flex-column gap-3">
         <h1 className="titleOrange text-center text " data-testid="title-condicions">
-          Politica de privacidad
+          Política de privacidad
         </h1>
 
         <p data-testid="text-condicions">
@@ -55,7 +55,7 @@ const Condicions = (): React.JSX.Element => {
           </li>
           <li>
             Contacto: Para preguntas o inquietudes sobre nuestra política de
-            privacidad, contáctanos [enlace de contacto].
+            privacidad, contáctanos orange.contacto@hotmail.com.
           </li>
         </ol>
         <p data-testid="footer-text-condicions">

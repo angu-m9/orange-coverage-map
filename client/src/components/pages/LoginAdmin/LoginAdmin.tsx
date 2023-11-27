@@ -37,7 +37,7 @@ const LoginAdmin = (): React.JSX.Element => {
       <HeaderLoginAdmin />
       <div className="black">
         <div className="container py-4 px-3 mx-auto">
-          <h4>Identificate</h4>
+          <h4>Identifícate</h4>
           <form onSubmit={handleSubmit(postAdmin)}>
             <div className="mb-3">
               <label htmlFor="input__name" className="form-label">
@@ -54,10 +54,10 @@ const LoginAdmin = (): React.JSX.Element => {
                 })}
               />
               {errors.admin_username?.type === "required" && (
-                <p className="text-danger fw-bold">nombre es requerido</p>
+                <p className="text-danger fw-bold">Nombre es requerido</p>
               )}
               {errors.admin_username?.type === "pattern" && (
-                <p className="text-danger fw-bold">nombre no valido</p>
+                <p className="text-danger fw-bold">Nombre inválido</p>
               )}
             </div>
 
@@ -75,7 +75,7 @@ const LoginAdmin = (): React.JSX.Element => {
                 })}
               />
               {errors.admin_password?.type === "required" && (
-                <p className="text-danger fw-bold">contraseña es requerida</p>
+                <p className="text-danger fw-bold">Contraseña es requerida</p>
               )}
             </div>
             <div className="w-100 text-center">

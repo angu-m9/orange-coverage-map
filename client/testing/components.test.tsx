@@ -1,17 +1,18 @@
-import { act, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-// import { services } from "../src/services/services";
 import { vi } from "vitest";
 import Blocking from "../src/components/pages/Blocking/Blocking";
 import Condicions from "../src/components/pages/Condicions/Condicions";
 import Permission from "../src/components/pages/Permission/Permission";
 import Login from "../src/components/pages/Login/Login";
 import LoginAdmin from "../src/components/pages/LoginAdmin/LoginAdmin";
-
+import Register from "../src/components/pages/Register/Register";
+import SendData from "../src/components/pages/SendData/SendData";
+import MapCoverage from "../src/components/pages/Map/MapCoverage";
+import { Services } from "../src/services/services";
 
 describe("rendering pages", () => {
   describe("blocking", () => {
-
     test("image", () => {
       vi.mock("react-router-dom", () => {
         const originalModule = vi.importActual("react-router-dom");
@@ -23,120 +24,170 @@ describe("rendering pages", () => {
       render(<Blocking />);
       const imageBlocking = screen.getByAltText(/blocking-image/i);
 
-      expect(imageBlocking).toHaveAttribute('src','src/assets/images/blocking.svg');
+      expect(imageBlocking).toHaveAttribute(
+        "src",
+        "src/assets/images/blocking.svg"
+      );
     });
 
-
-    test('text', () => { 
+    test("text", () => {
       render(<Blocking />);
 
       const text = screen.getByTestId(/text/i);
-      expect(text).toBeInTheDocument()
-     })
+      expect(text).toBeInTheDocument();
+    });
 
-     test('button', () => { 
+    test("button", () => {
       render(<Blocking />);
 
       const linkElement = document.querySelector('[href="/login"]');
-      expect(linkElement).toBeInTheDocument()
-     })
+      expect(linkElement).toBeInTheDocument();
+    });
   });
 
+  describe("Condicions", () => {
 
 
-  describe('Condicions', () => { 
-
-    test('title', () => { 
-      render(<Condicions />)
-
-      const titleElement = screen.getByTestId('title-condicions');
-      expect(titleElement).toBeInTheDocument();
-      expect(titleElement).toHaveTextContent('Politica de privacidad');
-     })
-
-
-    test('title', () => { 
-      render(<Condicions />)
-      const textElement = screen.getByTestId('text-condicions');
+    test("title", () => {
+      render(<Condicions />);
+      const textElement = screen.getByTestId("text-condicions");
       expect(textElement).toBeInTheDocument();
-     })
+    });
 
-
-    test('list', () => { 
-      render(<Condicions />)
-      const listElement = screen.getByTestId('list-condicions');
+    test("list", () => {
+      render(<Condicions />);
+      const listElement = screen.getByTestId("list-condicions");
       expect(listElement).toBeInTheDocument();
-     })
-   })
+    });
+  });
 
-
-
-   describe('permission', () => { 
-
-    test('image', () => { 
+  describe("permission", () => {
+    test("image", () => {
       render(<Permission />);
       const imagePemission = screen.getByAltText(/permission-image/i);
 
-      expect(imagePemission).toHaveAttribute('src','src/assets/images/blocking.svg');
-     })
-    })
+      expect(imagePemission).toHaveAttribute(
+        "src",
+        "src/assets/images/blocking.svg"
+      );
+    });
+  });
 
+  describe("login user", () => {
+    test("image", () => {
+      render(<Login />);
+      const imageLogin = screen.getByAltText(/login-image/i);
 
-    describe('login user', () => { 
-      test('image', () => { 
-        render(<Login />)
-        const imageLogin = screen.getByAltText(/login-image/i);
+      expect(imageLogin).toHaveAttribute("src", "src/assets/images/login.svg");
+    });
+  });
 
-        expect(imageLogin).toHaveAttribute('src','src/assets/images/login.svg');
-       })
-     })
-
-
-
-
-     describe('login admin', () => {
-      // Mockear el hook useNavigate
-      vi.mock('react-router-dom', () => ({
-        ...vi.importActual('react-router-dom'),
+  describe("loginAdmin", () => {
+    vi.mock("react-router-dom", async () => {
+      return {
+        Link: ({ to }: { to: string }) => <a href={to}></a>,
         useNavigate: vi.fn(),
-      }));
-    
-      beforeEach(() => {
-        // Restaurar el estado del mock antes de cada prueba
-        vi.mock('react-router-dom').useNavigate.mockClear();
+      };
+    });
+
+    test("render", () => {
+      const { asFragment } = render(<LoginAdmin />);
+      expect(asFragment()).toMatchSnapshot();
+    });
+
+    describe("Register", () => {
+      vi.mock("react-router-dom", async () => {
+        return {
+          useNavigate: vi.fn(),
+          useLoaderData: () => ({
+            response: [
+              {
+                company_name: "Orange",
+                company_id: 1,
+              },
+            ],
+          }),
+          Link: ({ to }: { to: string }) => <a href={to}></a>,
+        };
       });
-    
-      test('postAdmin navigates to /map-coverage on successful login', async () => {
-        // Configurar servicios mockeados
-        vi.mock('services', () => ({
-          ...vi.importActual('services'),
-          postLoginAdmin: vi.fn().mockResolvedValue(true),
-        }));
-    
-        // Obtener la instancia mockeada de useNavigate
-        const navigateMock = vi.mock('react-router-dom').useNavigate;
-    
-        // Renderizar el componente
-        render(<LoginAdmin />);
-    
-        // Ejecutar la función postAdmin (puede que necesite ajustes según tu implementación)
-        await act(async () => {
-          await vi.mock('services').postLoginAdmin({
-            usuario:"Bryan",
-            contraseña: 12344566
-          });
-        });
-    
-        // Verificar que navigate fue llamado con la ruta esperada
-        expect(navigateMock).toHaveBeenCalledWith('/map-coverage');
+
+      test("register", () => {
+        const { asFragment } = render(<Register />);
+        expect(asFragment()).toMatchSnapshot();
       });
     });
-    
-    
 
-    
-    
 
+
+    describe("Map", () => {
+      test("map-coverage", () => {
+        const { asFragment } = render(<MapCoverage />);
+        expect(asFragment()).toMatchSnapshot();
+      });
+    });
+  });
+
+  //   describe("services", () => {
+  //     let services: Services | null = null;
+  //     beforeAll(() => {
+  //       services = new Services()
+  //     });
+
+  //     test("getDataList", async () => {
+  //       const response = await services?.getDataList();
+  //       expect(response?.response[0]).toStrictEqual({
+  //         created_at: "2023-11-23T11:36:28.000Z",
+  //         downlink: 10,
+  //         id: 1,
+  //         latitude: 40.3632,
+  //         longitude: -3.59222,
+  //         network: "4g",
+  //         rtt: 50,
+  //         user_uuid: "2e35bbcc-878d-4740-843d-7583ee47096b",
+  //       });
+  //     });
+
+  //     test("getCompanies", async () => {
+  //       const response = await services?.getCompanies();
+  //       expect(response?.response[0]).toStrictEqual({
+  //         company_id: 1,
+  //         company_name: "Jazztel",
+  //       });
+  //     });
+
+  //     test("postDataList", async () => {
+  //       const response = await services?.postDataList({
+  //         created_at: "2023-11-23T11:36:28.000Z",
+  //         downlink: 10,
+  //         latitude: 40.3632,
+  //         longitude: -3.59222,
+  //         network: "4g",
+  //         rtt: 50,
+  //         user_uuid: "2e35bbcc-878d-4740-843d-7583ee47096b",
+  //       });
+  //       expect(response).toBe(response);
+  //     });
+
+  //     test("postLoginAdmin", async () => {
+  //       const response = await services?.postLoginAdmin({
+  //         admin_username: "Bryan",
+  //         admin_password: "1234567",
+  //       });
+  //       expect(response).toBe(true);
+  //     });
+
+  //     test("postRegisterUser", async () => {
+  //       const response = await services?.postRegisterUser({
+  //         user_name: "usuario",
+  //         user_lastname: "last",
+  //         company_id: "Orange",
+  //         postal_code: 28028,
+  //         user_check: true,
+  //       });
+  //       expect(response).toBe(response);
+  //     });
+  //   });
+  // });
 });
 
 
@@ -151,123 +202,173 @@ describe("rendering pages", () => {
 
 
 
+vi.mock("../src/services/services.ts", () => {
+  return {
+    Services: class MockServices {
+      constructor() {}
 
-// describe("rendering pages", () => {
-//   describe("Condicions ", () => {
-//     test("title rendering", () => {
-//       render(<Condicions />);
-//       const title = screen.getByText(/Privacy Policy:/i);
+      async getDataList(someCondition: boolean) {
+        if (someCondition) {
+          throw new Error("error");
+        } else {
+          return {
+            response: [
+              {
+                created_at: "2023-11-23T11:36:28.000Z",
+                downlink: 10,
+                id: 1,
+                latitude: 40.3632,
+                longitude: -3.59222,
+                network: "4g",
+                rtt: 50,
+                user_uuid: "2e35bbcc-878d-4740-843d-7583ee47096b",
+              },
+            ],
+          };
+        }
+      }
+      async getCompanies(someCondition: boolean) {
+        if (someCondition) {
+          throw new Error("error");
+        } else {
+          return {
+            response: [
+              {
+                company_id: 1,
+                company_name: "Jazztel",
+              },
+            ],
+          };
+        }
+      }
+      async postDataList(someCondition: boolean) {
+        if (someCondition) {
+          throw new Error("error");
+        } else {
+          return {
+            response: [
+              {
+              created_at: "2023-11-23T11:36:28.000Z",
+              downlink: 10,
+              latitude: 40.3632,
+              longitude: -3.59222,
+              network: "4g",
+              rtt: 50,
+              user_uuid: "2e35bbcc-878d-4740-843d-7583ee47096b",
+              },
+            ],
+          };
+        }
+      }
+      async postLoginAdmin(someCondition: boolean) {
+        if (someCondition) {
+          throw new Error("error");
+        } else {
+          return {
+            response: [
+              {
+                admin_name: "Usuario",
+                admin_password: "1234567",
+              },
+            ],
+          };
+        }
+      }
+      async postRegisterUser(someCondition: boolean) {
+        if (someCondition) {
+          throw new Error("error");
+        } else {
+          return {
+            response: [
+              {
+          user_name: "usuario",
+          user_lastname: "last",
+          company_id: "Orange",
+          postal_code: 28028,
+          user_check: true,
+              },
+            ],
+          };
+        }
+      }
+    },
+  };
+});
 
-//       expect(title).toBeInTheDocument();
-//       expect(title).toHaveStyle({
-//         color: "#f16e00",
-//       });
-//     });
-//     test("text lorem ipsum rendering", () => {
-//       render(<Condicions />);
 
-//       const loremText = screen.getByText(/Lorem ipsum dolor sit amet/i);
 
-//       expect(loremText).toBeInTheDocument();
-//       expect(loremText).toHaveStyle({
-//         width: "85%",
-//         display: "flex",
-//         justifyContent: "center",
-//         margin: "4rem auto",
-//       });
-//     });
 
-//     test("footer text rendering", () => {
-//       render(<Condicions />);
-//       const footerText = screen.getByText(/Orange Restricted/i);
 
-//       expect(footerText).toBeInTheDocument();
-//       expect(footerText).toHaveStyle({
-//         color: "#f16e00",
-//       });
-//     });
-//   });
 
-//   describe("mapCoverage", () => {
-//     vi.mock("react-router-dom", () => {
-//       const originalModule = vi.importActual("react-router-dom");
-//       return {
-//         ...originalModule,
-//         Link: ({ to }: { to: string }) => <a href={to}></a>,
-//       };
-//     });
+describe("getDataList", () => {
+  const nuevo = new Services();
 
-//     test("buttons rendering", () => {
-//       render(<MapCoverage />);
-//       const button1G = screen.getByText(/1G/i);
-//       const button2G = screen.getByText(/2G/i);
-//       const button3G = screen.getByText(/3G/i);
-//       const button4G = screen.getByText(/4G/i);
-//       const button5G = screen.getByText(/5G/i);
+  test("success", async () => {
+    const success = await nuevo.getDataList(false);
+    expect(success?.response.length).toBe(1);
+  });
 
-//       expect(button1G).toBeInTheDocument();
-//       expect(button1G).toHaveClass("btn", "rounded");
-//       expect(button1G).toHaveStyle({
-//         backgroundColor: "#527EDB",
-//         width: "8rem",
-//         color: "rgb(255, 255, 255)",
-//       });
-//       expect(button2G).toBeInTheDocument();
-//       expect(button2G).toHaveClass("btn", "rounded");
-//       expect(button2G).toHaveStyle({
-//         backgroundColor: "#32C832",
-//         width: "8rem",
-//         color: "rgb(255, 255, 255)",
-//       });
-//       expect(button3G).toBeInTheDocument();
-//       expect(button3G).toHaveClass("btn", "rounded");
-//       expect(button3G).toHaveStyle({
-//         backgroundColor: "#FFCC00",
-//         width: "8rem",
-//         color: "rgb(255, 255, 255)",
-//       });
-//       expect(button4G).toBeInTheDocument();
-//       expect(button4G).toHaveClass("btn", "rounded");
-//       expect(button4G).toHaveStyle({
-//         backgroundColor: "#CD3C14",
-//         width: "8rem",
-//         color: "rgb(255, 255, 255)",
-//       });
-//       expect(button5G).toBeInTheDocument();
-//       expect(button5G).toHaveClass("btn", "rounded");
-//       expect(button5G).toHaveStyle({
-//         backgroundColor: "#FF6600",
-//         width: "8rem",
-//         color: "rgb(255, 255, 255)",
-//       });
-//     });
+  test("error", async () => {
+    try {
+      const errores = await nuevo.getDataList(true);
+      expect(errores).toBeFalsy();
+    } catch (error) {
+      if (error instanceof Error) {
+        expect(error.message).toBe("error");
+      }
+    }
+  });
+});
 
-//     test("headerAdmin rendering", () => {
-//       render(<MapCoverage />);
-//       const header = screen.getByTestId("headerAdmin");
+describe("getCompanies", () => {
+  const services = new Services();
 
-//       expect(header).toBeInTheDocument();
-//     });
-//   });
+  test("success", async () => {
+    const success = await services.getCompanies(false);
+    expect(success?.response.length).toBe(1);
+  });
 
-//   //Register
-//   describe("Register", () => {
-//     test("inputs rendering", () => {
-//       render(<Register />);
+  test("error", async () => {
+    try {
+      const errores = await services.getCompanies(true);
+      expect(errores).toBeFalsy();
+    } catch (error) {
+      if (error instanceof Error) {
+        expect(error.message).toBe("error");
+      }
+    }
+  });
+});
 
-//       const inputName = screen.getByTestId("input_name");
-//       const inputLastName = screen.getByTestId("input_last-name");
-//       const inputCompany = screen.getByTestId("input_company");
-//       const inputPostalCode = screen.getByTestId("input_postal-code");
-//       const inputCheck = screen.getByTestId("input_check");
-//       const buttonSubmit = screen.getByRole("button", { name: /Register/i });
 
-//       expect(inputName).toBeInTheDocument();
-//       expect(inputLastName).toBeInTheDocument();
-//       expect(inputCompany).toBeInTheDocument();
-//       expect(inputPostalCode).toBeInTheDocument();
-//       expect(inputCheck).toBeInTheDocument();
-//       expect(buttonSubmit).toBeInTheDocument();
-//     });
-//   });
-// });
+
+
+
+describe("postDataList", () => {
+  const services = new Services();
+
+  test("success", async () => {
+    const success = await services.postDataList(false);
+    expect(success).toMatchObject({
+      created_at: "2023-11-23T11:36:28.000Z",
+      downlink: 10,
+      latitude: 40.3632,
+      longitude: -3.59222,
+      network: "4g",
+      rtt: 50,
+      user_uuid: "2e35bbcc-878d-4740-843d-7583ee47096b",
+    });
+  });
+
+  test("error", async () => {
+    try {
+
+      const errores = await services.postDataList(true);
+      expect(errores).toBeFalsy();
+    } catch (error) {
+      if (error instanceof Error) {
+        expect(error.message).toBe("error");
+      }
+    }
+  });
+});

@@ -17,7 +17,7 @@ const Blocking = (): React.JSX.Element => {
           />
           <p data-testid="blocking-text">
             ¡Upps! Parece que tu navegador no es compatible. Prueba a utilizar
-            esta aplicación en un navagador como Chrome, Edge o Firefox.
+            esta aplicación en un navegador como Chrome o  Edge.
           </p>
         </div>
         <div className="w-100">

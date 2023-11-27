@@ -1,0 +1,431 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`rendering pages > loginAdmin > Map > map-coverage 1`] = `
+<DocumentFragment>
+  <nav
+    class="navbar navbar-expand-lg navbar-dark bg-dark"
+    data-testid="headerAdmin"
+  >
+    <div
+      class="container-fluid"
+    >
+      <div
+        class="navbar-brand"
+      >
+        <div
+          class="stretched-link"
+        >
+          <img
+            alt="Boosted - Back to Home"
+            height="50"
+            loading="lazy"
+            src="src/assets/images/logo-orange.svg"
+            width="50"
+          />
+        </div>
+      </div>
+      <button
+        aria-controls="navbarText"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        class="navbar-toggler"
+        data-bs-target="#navbarText"
+        data-bs-toggle="collapse"
+        type="button"
+      >
+        <span
+          class="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        class="collapse navbar-collapse align-items-end"
+        id="navbarText"
+      >
+        <ul
+          class="navbar-nav me-auto mb-2 mb-lg-0"
+        >
+          <li
+            class="nav-item"
+          >
+            <a
+              href="/map-coverage"
+            />
+          </li>
+          <li
+            class="nav-item"
+          >
+            <a
+              href="/data-list"
+            />
+          </li>
+          <li
+            class="nav-item"
+          >
+            <a
+              href="/login-admin"
+            />
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div
+    class="black"
+  >
+    <div
+      class="container py-4 px-3 mx-auto container__map"
+    >
+      <div
+        class="row"
+      >
+        <div
+          class="col-12 d-flex justify-content-center align-items-center flex-column"
+        >
+          <div>
+            ...cargando
+          </div>
+        </div>
+        <div
+          class="col-12 d-flex justify-content-center align-content-center flex-wrap gap-2 mt-3"
+        >
+          <button
+            class="btn rounded "
+            id="button4g"
+          >
+            4G
+            <img
+              alt="button4g"
+              src="src/assets/icons/4g.svg"
+            />
+          </button>
+          <button
+            class="btn rounded"
+            id="button3g"
+          >
+            3G
+            <img
+              alt="button3g"
+              src="src/assets/icons/3g.svg"
+            />
+          </button>
+          <button
+            class="btn rounded"
+            id="button2g"
+          >
+            2G
+            <img
+              alt="button2g"
+              src="src/assets/icons/2g.svg"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`rendering pages > loginAdmin > Register > register 1`] = `
+<DocumentFragment>
+  <header>
+    <nav
+      class="navbar navbar-dark bg-dark"
+    >
+      <div
+        class="container-fluid"
+      >
+        <div
+          class="navbar-brand"
+        >
+          <a
+            class="stretched-link"
+            href="#"
+          >
+            <img
+              alt="Boosted - Back to Home"
+              height="50"
+              loading="lazy"
+              src="src/assets/images/logo-orange.svg"
+              width="50"
+            />
+          </a>
+          <h1
+            class="title"
+          >
+            Registro
+          </h1>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div
+    class="container py-4 px-3 d-flex flex-column mt-4 container-form"
+  >
+    <form
+      class="row g-3"
+    >
+      <div
+        class="col-md-6"
+      >
+        <label
+          class="form-label"
+          for="input_name"
+        >
+          Nombre
+        </label>
+        <input
+          class="form-control"
+          data-testid="input_name"
+          id="input_name"
+          name="user_name"
+          type="text"
+        />
+      </div>
+      <div
+        class="col-md-6"
+      >
+        <label
+          class="form-label"
+          for="input_last-name"
+        >
+          Apellidos
+        </label>
+        <input
+          class="form-control"
+          data-testid="input_last-name"
+          id="input_last-name"
+          name="user_lastname"
+          type="text"
+        />
+      </div>
+      <div
+        class="col-md-4"
+      >
+        <label
+          class="form-label"
+          for="company_select"
+        >
+          Compañía
+        </label>
+        <select
+          class="form-select"
+          id="company_select"
+          name="company_id"
+        >
+          <option
+            disabled=""
+            value=""
+          >
+            Elige una compañía
+          </option>
+          <option
+            value="1"
+          >
+            Orange
+          </option>
+        </select>
+      </div>
+      <div
+        class="col-md-2"
+      >
+        <label
+          class="form-label"
+          for="input_postal-code"
+        >
+          Código Postal
+        </label>
+        <input
+          class="form-control"
+          data-testid="input_postal-code"
+          id="input_postal-code"
+          name="postal_code"
+          type="text"
+        />
+      </div>
+      <div
+        class="col-12"
+      >
+        <div
+          class="form-check"
+        >
+          <input
+            class="form-check-input"
+            data-testid="input_check"
+            id="input_check"
+            name="user_check"
+            type="checkbox"
+          />
+          <label
+            class="form-check-label"
+            for="input_check"
+          >
+            Estoy de acuerdo con la 
+            <a
+              href="/terms-conditions"
+            />
+          </label>
+        </div>
+      </div>
+      <div
+        class="button-register d-flex justify-content-center w-100"
+      >
+        <button
+          class="btn btn-primary mt-2 button-submit"
+          type="submit"
+        >
+          Me registro
+        </button>
+      </div>
+    </form>
+  </div>
+  <div
+    class="modal d-none d-flex  align-items-center h-100 container-modal"
+  >
+    <div
+      class="modal-dialog w-100 "
+    >
+      <div
+        class="container-content modal-content d-flex justify-content-center align-items-center gap-4 "
+      >
+        <div
+          class="modal-header d-flex justify-content-center"
+        >
+          <h5
+            class="modal-title fs-5"
+          >
+            ¡Registro con éxito!
+          </h5>
+        </div>
+        <div
+          class="modal-footer"
+        >
+          <a
+            href="/send-data"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="modal d-none d-flex  align-items-center h-100 container-modal"
+  >
+    <div
+      class="modal-dialog w-100 "
+    >
+      <div
+        class="container-content modal-content d-flex justify-content-center align-items-center gap-4 "
+      >
+        <div
+          class="modal-header d-flex justify-content-center"
+        >
+          <h5
+            class="modal-title fs-5"
+          />
+        </div>
+        <div
+          class="modal-footer"
+        >
+          <button
+            class="btn btn-primary button-modal"
+            type="button"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`rendering pages > loginAdmin > render 1`] = `
+<DocumentFragment>
+  <header>
+    <nav
+      class="navbar navbar-dark bg-dark"
+    >
+      <div
+        class="container-fluid"
+      >
+        <div
+          class="navbar-brand"
+        >
+          <span
+            class="stretched-link"
+          >
+            <img
+              alt="Boosted - Back to Home"
+              height="50"
+              loading="lazy"
+              src="src/assets/images/logo-orange.svg"
+              width="50"
+            />
+          </span>
+          <h1
+            class="title"
+          >
+            Login Administración
+          </h1>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div
+    class="black"
+  >
+    <div
+      class="container py-4 px-3 mx-auto"
+    >
+      <h4>
+        Identifícate
+      </h4>
+      <form>
+        <div
+          class="mb-3"
+        >
+          <label
+            class="form-label"
+            for="input__name"
+          >
+            Usuario
+          </label>
+          <input
+            class="form-control"
+            id="input__name"
+            name="admin_username"
+            placeholder="Usuario"
+            type="text"
+          />
+        </div>
+        <div
+          class="mb-3"
+        >
+          <label
+            class="form-label"
+            for="input__password"
+          >
+            Contraseña
+          </label>
+          <input
+            class="form-control"
+            id="input__password"
+            name="admin_password"
+            placeholder="Contraseña"
+            type="password"
+          />
+        </div>
+        <div
+          class="w-100 text-center"
+        >
+          <button
+            class="btn btn-primary button__login"
+            type="submit"
+          >
+            Entrar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;

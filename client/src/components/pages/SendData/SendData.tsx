@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../templates/Header/Header";
 import { useNetwork } from "../../../hooks/useNetwork";
 import { services } from "../../../services/services";
@@ -6,27 +6,40 @@ import ModalSucces from "../../templates/ModalSucces/ModalSucces";
 import ModalError from "../../templates/ModalError/ModalError";
 import "./sendData.style.css";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../templates/Modal/Modal";
 
 
 const SendData = (): React.JSX.Element => {
   const [ModalErr, setModalError] = useState(false);
   const [ModalSuccess, setModalSuccess] = useState(false);
-  // const [errorMessage, setErrorMessage] = useState('');
+  const [Modall, setModall] = useState(false)
   const networkInfo = useNetwork(null);
   const userUuid = localStorage.getItem("userUuid"); // Recuperamos el UUID del localStorage
 
   const navigate = useNavigate();
 
 
-  if (typeof window.InstallTrigger !== 'undefined') {
-    console.log('Estás usando Mozilla Firefox.');
-  } else if (typeof window.chrome !== 'undefined') {
-    console.log('Estás usando Google Chrome o un navegador basado en Chromium.');
-  } else if (typeof window.safari !== 'undefined') {
-    console.log('Estás usando Safari.');
-  } else {
-    console.log('No se pudo determinar el navegador.');
+  const closeModal =()=>{
+    setModall(false)
   }
+
+  useEffect(()=>{
+    if (typeof window.InstallTrigger !== "undefined") {
+      navigate("/blocking");
+    } else if (typeof window.safari !== "undefined") {
+      navigate("/blocking");
+    }
+
+
+      const findCookie = document.cookie;
+      console.log(findCookie);
+  
+      if (!findCookie) {
+        navigate("/login");
+      }
+
+  },[navigate])
+
 
   
 
@@ -56,19 +69,23 @@ const SendData = (): React.JSX.Element => {
 
             setModalSuccess(true);
 
+            setTimeout(()=>{
+              setModall(true)
+            },4000)
+
             setTimeout(() => {
               setModalSuccess(false);
             }, 3000);
-          } else {
-            navigate("/permission");
-            setModalError(true);
-            setTimeout(() => {
-              setModalError(false);
-            }, 3000);
-          }
+
+          } 
         } catch (error) {
           console.error("Error al enviar los datos de red:", error);
-          // setErrorMessage('Error al enviar los datos. Por favor, intente de nuevo.');
+          if (error) {
+            setModalError(true);
+              setTimeout(() => {
+                setModalError(false);
+              }, 3000);
+          }
         }
       },
       (error) => {
@@ -81,9 +98,8 @@ const SendData = (): React.JSX.Element => {
             navigate("/permission");
           }
         );
-    
+
         console.error("Error al obtener la geolocalización:", error);
-        // setErrorMessage('Error al obtener la geolocalización. Por favor, intente de nuevo.');
       }
     );
   };
@@ -107,6 +123,8 @@ const SendData = (): React.JSX.Element => {
         </div>
         <ModalSucces display={ModalSuccess}/>
         <ModalError display={ModalErr}/>
+        <Modal  display={Modall} buttonText="Aceptar"
+       modalTitle="Obtuviste 1 crédito" onClose={closeModal}/>
       </div>
     </>
   );
