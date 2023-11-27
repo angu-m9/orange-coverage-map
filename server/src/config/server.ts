@@ -5,6 +5,7 @@ import registerRouter from '../routes/registerRoutes';
 import companiesRouter from '../routes/companiesRouter';
 import adminRouter from '../routes/adminRouter';
 import networkModeRouter from '../routes/networkModeRouter';
+import citiesByNetworkTypeRouter from '../routes/citiesByNetworkTypeRouter';
 
 
 export const tokenSecret = process.env.TOKEN_SECRET || "defaultSecret";
@@ -22,6 +23,7 @@ app.use('/', locationRouter);
 app.use('/', adminRouter);
 app.use('/', companiesRouter);
 app.use('/', networkModeRouter);
+app.use('/', citiesByNetworkTypeRouter);
 
 app.listen(5000, () => {
   console.log('Servidor ejecutándose en http://localhost:5000');
