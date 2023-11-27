@@ -18,7 +18,16 @@ const SendData = (): React.JSX.Element => {
   const navigate = useNavigate();
 
 
-  console.log(navigator.userAgentData.brands);
+  if (typeof window.InstallTrigger !== 'undefined') {
+    console.log('Estás usando Mozilla Firefox.');
+  } else if (typeof window.chrome !== 'undefined') {
+    console.log('Estás usando Google Chrome o un navegador basado en Chromium.');
+  } else if (typeof window.safari !== 'undefined') {
+    console.log('Estás usando Safari.');
+  } else {
+    console.log('No se pudo determinar el navegador.');
+  }
+
   
 
   const sendLocation = (): void => {
