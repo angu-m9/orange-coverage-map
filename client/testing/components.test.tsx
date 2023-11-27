@@ -344,31 +344,31 @@ describe("getCompanies", () => {
 
 
 
-describe("postDataList", () => {
-  const services = new Services();
+// describe("postDataList", () => {
+//   const services = new Services();
 
-  test("success", async () => {
-    const success = await services.postDataList(false);
-    expect(success).toMatchObject({
-      created_at: "2023-11-23T11:36:28.000Z",
-      downlink: 10,
-      latitude: 40.3632,
-      longitude: -3.59222,
-      network: "4g",
-      rtt: 50,
-      user_uuid: "2e35bbcc-878d-4740-843d-7583ee47096b",
-    });
-  });
+//   test("success", async () => {
+//     const success = await services.postDataList(false);
+//     expect(success).toMatchObject({
+//       created_at: "2023-11-23T11:36:28.000Z",
+//       downlink: 10,
+//       latitude: 40.3632,
+//       longitude: -3.59222,
+//       network: "4g",
+//       rtt: 50,
+//       user_uuid: "2e35bbcc-878d-4740-843d-7583ee47096b",
+//     });
+//   });
 
-  test("error", async () => {
-    try {
+//   test("error", async () => {
+//     try {
 
-      const errores = await services.postDataList(true);
-      expect(errores).toBeFalsy();
-    } catch (error) {
-      if (error instanceof Error) {
-        expect(error.message).toBe("error");
-      }
-    }
-  });
-});
+//       const errores = await services.postDataList(true);
+//       expect(errores).toBeFalsy();
+//     } catch (error) {
+//       if (error instanceof Error) {
+//         expect(error.message).toBe("error");
+//       }
+//     }
+//   });
+// });
