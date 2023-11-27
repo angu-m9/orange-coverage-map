@@ -35,7 +35,9 @@ export class Services implements ServicesInterface {
   //✅
   async getDataList(): Promise<{ response: ListInterface[] } | undefined> {
     try {
-      const data = await fetch(dataListEndpoint);
+      const authHeader = localStorage.getItem('token');
+      const data = await fetch(dataListEndpoint, { method: "GET",
+      headers: { "content-type": "application/json", "authorization": authHeader ?? '' }}  );
       const response: ListInterface[] = await data.json();
       return { response };
     } catch (error: unknown) {
@@ -96,7 +98,6 @@ export class Services implements ServicesInterface {
         const response = await data.json();
   
         localStorage.setItem("token", response.token);
-  
         if (response) {
           return true;
         } else {
@@ -113,10 +114,11 @@ export class Services implements ServicesInterface {
     async getNetworkModeByCity(city: string): Promise<{ networkMode: string, frequency: number }> {
       try {
         const baseUrl = import.meta.env.VITE_NETWORK_MODE_ENDPOINT; 
-        const url = new URL(`${baseUrl}/${city}`, baseUrl); 
+        const url = new URL(`${baseUrl}/${city}`, baseUrl);
+        const authHeader = localStorage.getItem('token');
         const response = await fetch(url.toString(), {
           method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'authorization': authHeader ?? '' },
         });
   
         if (!response.ok) {

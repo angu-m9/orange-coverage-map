@@ -10,6 +10,7 @@ import Condicions from "../components/pages/Condicions/Condicions";
 import { services } from "../services/services";
 import Permission from "../components/pages/Permission/Permission";
 import Blocking from "../components/pages/Blocking/Blocking";
+import PrivateRoute from "../components/privateRoute/privateRoute";
 
 
 
@@ -43,11 +44,18 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/map-coverage',
-                element: <MapCoverage />
+                element: 
+                <PrivateRoute >
+                    <MapCoverage />
+                </PrivateRoute>
+                
             },
             {
                 path: '/data-list',
-                element: <DataList />,
+                element: 
+                <PrivateRoute >
+                    <DataList />
+                </PrivateRoute >,
                 loader: services.getDataList
             },
             {
