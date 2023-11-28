@@ -1,21 +1,22 @@
-import { object, string } from 'zod';
+import { z, ZodError, ZodObject } from 'zod';
 import { Request, Response, NextFunction } from 'express';
 
-const userSchema = object({
-    username: string().min(3),
-    email: string().email(),
+export const userSchema = z.object({
+    username: z.string().min(3),
+    email: z.string().email(),
 });
 
-export const validationMiddleware = (
+export const validationMiddleware = (schema: ZodObject<T>) => {
+    return(
     req: Request,
     res: Response,
     next: NextFunction
 ) => {
     try {
-        userSchema.parse(req.body); // Reemplaza req.body con el objeto que deseas validar
+        schema.parse(req.body); // Reemplaza req.body con el objeto que deseas validar
         next();
     } catch (error) {
-        if (error instanceof Error) {
+        if (error instanceof ZodError) {
             res.status(400).json({
                 error: 'Validation failed',
                 details: error.message,
@@ -24,4 +25,4 @@ export const validationMiddleware = (
         next(error);
     }
 }
-};
+}};

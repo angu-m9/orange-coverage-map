@@ -9,7 +9,7 @@ export const createUser = async (req: Request, res: Response) => {
     console.log('User created with ID:', user.id);
     res.status(201).json(user);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(200).json({ message: 'Usuario creado con éxito' });
   }
 };
 
@@ -33,7 +33,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
     const users = await User.findAll();
     res.status(200).json(users);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: 'Usuario creado con éxito' });
   }
 };
 
@@ -48,7 +48,7 @@ export const getUserById = async (req: Request, res: Response) => {
       res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: 'Usuario creado con éxito' });
   }
 };
 
@@ -71,7 +71,7 @@ export const updateUser = async (req: Request, res: Response) => {
       res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
-      res.status(500).json({ error: error.message }); 
+      res.status(500).json({ message: 'Usuario creado con éxito' }); 
   }
 };
 
@@ -88,6 +88,6 @@ export const deleteUser= async (req: Request, res: Response): Promise<void>  => 
       res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: 'Usuario creado con éxito' });
   }
 };
