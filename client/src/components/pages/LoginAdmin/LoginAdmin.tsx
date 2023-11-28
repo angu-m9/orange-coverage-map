@@ -13,7 +13,7 @@ const LoginAdmin = (): React.JSX.Element => {
     handleSubmit,
   } = useForm();
 
-  const [modal, setModal]= useState(true)
+  const [modal, setModal]= useState(false)
 
   const navigate = useNavigate();
 
@@ -26,12 +26,15 @@ const LoginAdmin = (): React.JSX.Element => {
       const response: FieldValues| boolean | undefined = await services.postLoginAdmin(data);
 
       console.log(response);
-      if (response) {
-        console.log("token recibido");
-        navigate("/map-coverage");
-      } else {
+
+      if (response === false) {
         console.log("error en el login");
+        setModal(true)
+      } else if(response === true) {
+        navigate("/map-coverage");
+        console.log("token recibido");
       }
+
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error("Error al enviar los datos: " + error.message);

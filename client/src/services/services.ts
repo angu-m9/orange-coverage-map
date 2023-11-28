@@ -95,13 +95,16 @@ export class Services implements ServicesInterface {
           body: JSON.stringify(body),
         });
         const response = await data.json();
+        console.log(response)
   
         localStorage.setItem("token", response.token);
-        if (response) {
-          return true;
-        } else {
+
+        if (response.message === "Invalid Username or Password") {
           return false;
+        } else {
+          return true;
         }
+        
       } catch (error) {
         if (error instanceof Error) {
           throw new Error(error.message);
