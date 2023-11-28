@@ -31,7 +31,7 @@ const Register = () => {
 
   useEffect(() => {
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    
+
     const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     console.log(isSafari);
     console.log(isiOS);
@@ -42,7 +42,7 @@ const Register = () => {
     // if (isiOS && isSafari) {
     //   navigate('/blocking');
     // }
-    
+
   }, [navigate]);
 
   const { response } = useLoaderData() as { response: CompaniesInterface[] };
@@ -76,31 +76,31 @@ const Register = () => {
     setShowErrorModal(false);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const galleta = document.cookie
     console.log(galleta)
 
     if (galleta) {
       navigate('/send-data')
     }
-  },[navigate])
+  }, [navigate])
+
+
 
 
   const postRegister = async (data: FieldValues) => {
-    
+
     try {
       const response: FieldValues | undefined = await services.postRegisterUser(
         data
       );
-
-
-
       const userUuid = response?.user_id; // Asumiendo que el servidor devuelve el UUID como user_id
       console.log("UUID received from server:", userUuid);
 
       console.log("UUID received from server:", userUuid);
       if (userUuid) {
-        createCookie('userId', userUuid, 365); 
+        localStorage.setItem("userUuid", userUuid);
+        createCookie('userId', userUuid, 365);
         navigate('/send-data'); 
       } else {
         console.error("No UUID present in the response");
