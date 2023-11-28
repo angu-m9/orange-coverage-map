@@ -7,6 +7,7 @@ interface AuthenticatedRequest extends Request {
   admin?: any; // Puedes cambiar 'any' al tipo específico de tu objeto admin si lo tienes definido
 }
 
+
 export const verifyAdminToken = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
   console.log(authHeader);
