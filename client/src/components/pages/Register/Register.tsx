@@ -147,8 +147,11 @@ const Register = () => {
               className="form-control"
               id="input_name"
               data-testid="input_name"
+              data-testid="input_name"
               {...register("user_name", {
                 required: true,
+                pattern:
+                  /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
                 pattern:
                   /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
               })}
@@ -163,14 +166,18 @@ const Register = () => {
           <div className="col-md-6">
             <label htmlFor="input_last-name" className="form-label">
               Apellidos
+              Apellidos
             </label>
             <input
               type="text"
               className="form-control"
               id="input_last-name"
               data-testid="input_last-name"
+              data-testid="input_last-name"
               {...register("user_lastname", {
                 required: true,
+                pattern:
+                  /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
                 pattern:
                   /^([A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?(\s[A-ZÁÉÍÓÚÜÑ]?[a-záéíóúüñÁÉÍÓÚÜÑ']+)?$/,
               })}
@@ -213,6 +220,7 @@ const Register = () => {
             <input
               type="text"
               className="form-control"
+              data-testid="input_postal-code"
               data-testid="input_postal-code"
               id="input_postal-code"
               {...register("postal_code", {
@@ -262,6 +270,9 @@ const Register = () => {
         </form>
       </div>
 
+
+
+
       <Modal
         to={"/send-data"}
         display={change}
@@ -278,6 +289,7 @@ const Register = () => {
       />
     </>
   );
+};
 };
 
 export default Register;

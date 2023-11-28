@@ -3,6 +3,11 @@ import ButtonOrange from "../../atoms/ButtonOrange";
 import "./condicions.style.css";
 
 const Condicions = (): React.JSX.Element => {
+import React from "react";
+import ButtonOrange from "../../atoms/ButtonOrange";
+import "./condicions.style.css";
+
+const Condicions = (): React.JSX.Element => {
   return (
     <>
       <div className="container py-4 px-3 mx-auto d-flex flex-column gap-3">

@@ -113,6 +113,7 @@ const DataList = (): React.JSX.Element => {
           </CsvDownloader>
         </div>
       </div>
+      </div>
     </>
   );
 };

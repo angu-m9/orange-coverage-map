@@ -30,6 +30,7 @@ export const router = createBrowserRouter([
                 path: '/register',
                 element: <Register />,
                 loader: services.getCompanies
+                loader: services.getCompanies
             },
             {
                 path: '/send-data',

@@ -42,6 +42,8 @@ CREATE TABLE Admins (
   admin_id INT AUTO_INCREMENT PRIMARY KEY,
   admin_username VARCHAR(50) NOT NULL,
   admin_password VARCHAR(255) NOT NULL
+  admin_username VARCHAR(50) NOT NULL,
+  admin_password VARCHAR(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE AdminSession (
@@ -50,6 +52,7 @@ CREATE TABLE AdminSession (
   token VARCHAR(255) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   expires_at TIMESTAMP,
+  FOREIGN KEY (admin_id) REFERENCES Admins (admin_id)
   FOREIGN KEY (admin_id) REFERENCES Admins (admin_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 INSERT INTO Company (company_name) VALUES ('Orange');

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+
 // Se añade un parámetro userUuid que debe pasarse al hook
 export const useNetwork = (userUuid) => {
   const [networkState, setNetworkState] = useState({

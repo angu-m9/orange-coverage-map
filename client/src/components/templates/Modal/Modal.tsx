@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ModalInterface } from "./modal.module";
 import "./modal.style.css";
@@ -14,6 +15,10 @@ const Modal = ({
   const modalClose = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const currentRef = modalClose.current;
+    if (currentRef) {
+      currentRef.style.display = display ? "block" : "none";
+    }
     const currentRef = modalClose.current;
     if (currentRef) {
       currentRef.style.display = display ? "block" : "none";

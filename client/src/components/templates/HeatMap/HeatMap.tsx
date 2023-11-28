@@ -141,3 +141,4 @@ const HeatMap = ({ filteredCities }) => {
 };
 
 export default HeatMap;
+

@@ -1,6 +1,8 @@
 import React from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
+const HeaderAdmin = ({ mapCoverage, dataList }: { mapCoverage: string, dataList: string }): React.JSX.Element => {
 const HeaderAdmin = ({ mapCoverage, dataList }: { mapCoverage: string, dataList: string }): React.JSX.Element => {
 
   const decoration = {
@@ -42,10 +44,12 @@ const HeaderAdmin = ({ mapCoverage, dataList }: { mapCoverage: string, dataList:
               <li className="nav-item">
                 <Link to="/map-coverage" className={`nav-link ${mapCoverage}`} style={decoration}>
                   Mapa
+                  Mapa
                 </Link>
               </li>
               <li className="nav-item">
                 <Link to="/data-list" className={`nav-link ${dataList}`} style={decoration}>
+                  Datos
                   Datos
                 </Link>
               </li>

@@ -67,5 +67,7 @@ const MapCoverage = (): React.JSX.Element => {
     </>
   );
 };
+};
 
 export default MapCoverage;
+
