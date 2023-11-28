@@ -10,11 +10,12 @@ import Condicions from "../components/pages/Condicions/Condicions";
 import { services } from "../services/services";
 import Permission from "../components/pages/Permission/Permission";
 import Blocking from "../components/pages/Blocking/Blocking";
+import Error404 from "../components/pages/Error404/Error404";
 
 export const router = createBrowserRouter([
   {
     element: <Root />,
-    errorElement: <Blocking />,
+    errorElement: <Error404 />,
     children: [
       {
         path: "/login",
