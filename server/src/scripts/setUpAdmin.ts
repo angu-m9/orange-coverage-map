@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import AdminModel from '../models/adminModel';
 import db from '../data/db';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const saltRounds = 10;
 
@@ -12,10 +14,9 @@ const setupAdmin = async () => {
     await db.sync(); 
     console.log('DB Synced successfully.');
 
-    const adminUsername = 'jlmontesinos';
-    const adminPassword = 'J0urn3y{:)}.1';
+    const adminUsername = process.env.DB_NAME_ADMIN;
+    const adminPassword = process.env.DB_PASSWORD_ADMIN;
 
- 
     const existingAdmin = await AdminModel.findOne({ where: { admin_username: adminUsername } });
     if (existingAdmin) {
       console.log(`Admin user ${adminUsername} already exists`);

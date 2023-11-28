@@ -11,7 +11,9 @@ export const getCitiesByNetworkType = async (req: Request, res: Response) => {
 
     res.json(cities);
   } catch (error) {
-    console.error('Error al obtener ciudades por tipo de red:', error);
-    res.status(500).send(error.message);
+    if (error instanceof Error) {
+      console.error('Error al obtener ciudades por tipo de red:', error);
+      res.status(500).send(error.message); 
+    }
   }
 };

@@ -26,7 +26,7 @@ app.use('/', citiesByNetworkTypeRouter);
 
 
 
-const PORT = process.env.NODE_ENV === 'test' ? 5001 : 5000;
+const PORT = 5000;
 
 
 export const server = app.listen(PORT, () => {

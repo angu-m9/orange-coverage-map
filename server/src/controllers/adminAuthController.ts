@@ -2,11 +2,9 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import AdminModel from '../models/adminModel';
-import AdminSessionModel, { AdminSessionAttributes } from '../models/adminSessionModel'; 
+import AdminSessionModel from '../models/adminSessionModel'; 
 import { tokenSecret, tokenExpiration } from '../config/server';
 import  parseTokenExpiration from '../utils/tokenHelpers'; 
-import { FindOrCreateOptions } from 'sequelize';
-
 
 const login = async (req: Request, res: Response) => {
   console.log('Received login request with body:', req.body);
@@ -24,8 +22,7 @@ const login = async (req: Request, res: Response) => {
     }
 
     console.log(`Comparing password for admin: ${admin_username}`);
-    const isPasswordValid = bcrypt.compare(admin_password, admin.get('admin_password') as string);
-    
+      const isPasswordValid = await bcrypt.compare(admin_password, admin.get('admin_password'));      
 
     if (!isPasswordValid) {
       console.log('Login failed: Password invalid for username', admin_username);
@@ -42,14 +39,12 @@ const login = async (req: Request, res: Response) => {
     
 
     const [session, created] = await AdminSessionModel.findOrCreate({
-      where: { admin_id: admin.get('admin_id') as number },
+      where: { admin_id: admin.get('admin_id') },
       defaults: {
-        admin_id: admin.get('admin_id') as number,
         token: token,
-        expires_at: expirationDate,
+        expires_at: expirationDate
       }
-    } as FindOrCreateOptions<AdminSessionAttributes>);
-
+    });
 
     if (!created) {
       session.token = token;
