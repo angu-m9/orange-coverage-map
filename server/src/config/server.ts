@@ -20,6 +20,11 @@ app.use('/', locationRouter);
 app.use('/', adminRouter);
 app.use('/', companiesRouter);
 
-app.listen(5000, () => {
+
+
+const PORT = process.env.NODE_ENV === 'test' ? 5001 : 5000;
+
+
+export const server = app.listen(PORT, () => {
   console.log('Servidor ejecutándose en http://localhost:5000');
 });

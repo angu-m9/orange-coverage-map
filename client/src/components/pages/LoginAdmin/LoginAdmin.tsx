@@ -3,7 +3,8 @@ import HeaderLoginAdmin from "../../templates/HeaderLoginAdmin/HeaderLoginAdmin"
 import { useNavigate } from "react-router-dom";
 import { services } from "../../../services/services";
 import "./logindAdmin.style.css";
-import React from "react";
+import React, { useState } from "react";
+import Modal from "../../templates/Modal/Modal";
 
 const LoginAdmin = (): React.JSX.Element => {
   const {
@@ -12,7 +13,13 @@ const LoginAdmin = (): React.JSX.Element => {
     handleSubmit,
   } = useForm();
 
+  const [modal, setModal]= useState(true)
+
   const navigate = useNavigate();
+
+  const closeModal =()=>{
+    setModal(false)
+  }
 
   const postAdmin = async (data: FieldValues): Promise<void> => {
     try {
@@ -86,6 +93,7 @@ const LoginAdmin = (): React.JSX.Element => {
           </form>
         </div>
       </div>
+      <Modal display={modal} buttonText="Aceptar" modalTitle="Usuario no registrado" onClose={closeModal}/>
     </>
   );
 };
