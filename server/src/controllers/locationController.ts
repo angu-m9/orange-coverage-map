@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import LocationNetworkQuality from '../models/locationNetworkQualityModel';
+import LocationNetworkQuality from '../models/locationNetworkQualityModel'
 import User from '../models/userModel'; // Asegúrate de importar el modelo de usuario
 
 export const postLocation = async (req: Request, res: Response) => {

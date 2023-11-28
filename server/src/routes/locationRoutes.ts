@@ -21,13 +21,13 @@ export default locationRouter;*/
 // src/routes/locationRoutes.ts
 
 import express from 'express';
-import { createLocation } from '../controllers/locationController';
+import { postLocation } from '../controllers/locationController';
 import { validationMiddleware } from '../middlewares/validationMiddleware';
 import { locationDataSchema } from '../middlewares/locationValidationMiddleware';
 
 const locationRouter = express.Router();
 
-locationRouter.post('/createLocation', validationMiddleware(locationDataSchema), createLocation);
+locationRouter.post('/postLocation', validationMiddleware(locationDataSchema), postLocation);
 
 export default locationRouter;
 

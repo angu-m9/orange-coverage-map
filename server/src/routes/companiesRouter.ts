@@ -11,12 +11,12 @@ export default companiesRouter;*/
 // src/routes/companyRoutes.ts
 
 import express from 'express';
-import { createCompany } from '../controllers/companyController';
+import { getCompanies } from '../controllers/companyController';
 import { validationMiddleware } from '../middlewares/validationMiddleware';
 import { companySchema } from '../middlewares/companyValidationMiddleware';
 
-const companyRouter = express.Router();
+const companiesRouter = express.Router();
 
-companyRouter.post('/createCompany', validationMiddleware(companySchema), createCompany);
+companiesRouter.post('/getCompanies', validationMiddleware(companySchema), getCompanies);
 
-export default companyRouter;
+export default companiesRouter;

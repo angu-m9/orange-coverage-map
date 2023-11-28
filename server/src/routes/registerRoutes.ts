@@ -10,7 +10,7 @@ export default registerRouter;*/
 import express from 'express';
 import { validationMiddleware } from '../middlewares/validationMiddleware';
 import { registerUserSchema } from '../middlewares/registerValidationMiddleware';
-import { createUser } from '../data/controllers/userController';
+import { createUser } from '../controllers/userController';
 
 const registerRouter = express.Router();
 
