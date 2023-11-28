@@ -2,6 +2,7 @@ import { Router } from 'express';
 import adminAuthController from '../controllers/adminAuthController';
 import { verifyAdminToken } from '../middlewares/verifyAdminToken';
 
+
 const adminRouter = Router();
 
 adminRouter.post('/admins', adminAuthController.login);
