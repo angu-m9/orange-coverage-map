@@ -3,7 +3,11 @@ import jwt from 'jsonwebtoken';
 import { tokenSecret } from '../config/server';
 import AdminModel from '../models/adminModel';
 
-export const verifyAdminToken = async (req: Request, res: Response, next: NextFunction) => {
+interface AuthenticatedRequest extends Request {
+  admin?: any; // Puedes cambiar 'any' al tipo específico de tu objeto admin si lo tienes definido
+}
+
+export const verifyAdminToken = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(403).json({ message: 'Authorization token not provided' });
 
