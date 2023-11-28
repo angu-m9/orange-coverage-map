@@ -13,14 +13,23 @@ const DataList = (): React.JSX.Element => {
     if (Array.isArray(response) && response.length > 0 && formattedResponse.length === 0) {
       const formattedData = response.map((row) => {
         const date = new Date(row.created_at);
+        console.log(date);
         return {
           ...row,
-          created_at: isNaN(date.getTime()) ? 'Fecha inválida' : date.toLocaleDateString(),
+          created_at: isNaN(date.getTime()) ? 'Fecha inválida' : date.toLocaleString('es-ES', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          }),
         };
       });
       setFormattedResponse(formattedData);
     }
   }, [response]);
+  
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;

@@ -7,6 +7,10 @@ const HeaderAdmin = ({ mapCoverage, dataList }: { mapCoverage: string, dataList:
     textDecoration: 'none'
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark" data-testid='headerAdmin'>
@@ -51,7 +55,7 @@ const HeaderAdmin = ({ mapCoverage, dataList }: { mapCoverage: string, dataList:
               </li>
               <li className="nav-item">
 
-                <Link to={'/login-admin'} className="nav-link">
+                <Link to='/login-admin'onClick={handleLogout} className="nav-link">
                   Cerrar sesión
                 </Link>
               </li>
