@@ -34,6 +34,10 @@ const LocationNetworkQuality = sequelize.define('LocationNetworkQuality', {
     type: DataTypes.FLOAT,
     allowNull: false
   },
+  city: {
+    type: DataTypes.STRING, 
+    allowNull: false
+  },
   created_at: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW

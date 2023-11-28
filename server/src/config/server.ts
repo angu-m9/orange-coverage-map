@@ -4,6 +4,8 @@ import cors from 'cors';
 import registerRouter from '../routes/registerRoutes';
 import companiesRouter from '../routes/companiesRouter';
 import adminRouter from '../routes/adminRouter';
+import networkModeRouter from '../routes/networkModeRouter';
+import citiesByNetworkTypeRouter from '../routes/citiesByNetworkTypeRouter';
 
 
 export const tokenSecret = process.env.TOKEN_SECRET || "defaultSecret";
@@ -19,6 +21,8 @@ app.use('/', registerRouter );
 app.use('/', locationRouter);
 app.use('/', adminRouter);
 app.use('/', companiesRouter);
+app.use('/', networkModeRouter);
+app.use('/', citiesByNetworkTypeRouter);
 
 
 

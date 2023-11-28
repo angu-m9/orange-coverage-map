@@ -90,7 +90,8 @@ const Register = () => {
       console.log("UUID received from server:", userUuid);
       if (userUuid) {
         localStorage.setItem("userUuid", userUuid);
-        createCookie("userId", userUuid, 365);
+        createCookie('userId', userUuid, 365);
+        navigate('/send-data'); 
       } else {
         console.error("No UUID present in the response");
         setTextError("Error ya estas Registrado");

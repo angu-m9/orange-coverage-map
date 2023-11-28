@@ -48,6 +48,10 @@ export interface ServicesInterface {
   getDataList: () => Promise<{ response: ListInterface[] } | undefined>;
 
   getCompanies: () => Promise<{ response: CompaniesInterface[] } | undefined>;
+
+  getNetworkModeByCity: (city: string) => Promise<{ networkMode: string, frequency: number }>;
+
+  getCitiesByNetworkType: (networkType: string) => Promise<{ cityName: string, networkType: string }[]>;
 }
 
 export const dataListEndpoint = import.meta.env.VITE_DATA_LIST;
@@ -55,3 +59,4 @@ export const adminsEndpoint = import.meta.env.VITE_ADMINS;
 export const networkQualityEndpoint = import.meta.env.VITE_NETWORK_QUALITY;
 export const registerEndPoint = import.meta.env.VITE_REGISTER_USER;
 export const companiesEndPoint = import.meta.env.VITE_COMPANIES;
+export const networkModeEndpoint = import.meta.env.VITE_NETWORK_MODE_ENDPOINT;

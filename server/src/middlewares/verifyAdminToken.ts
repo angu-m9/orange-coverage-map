@@ -9,13 +9,15 @@ interface AuthenticatedRequest extends Request {
 
 export const verifyAdminToken = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
-  if (!authHeader) return res.status(403).json({ message: 'Authorization token not provided' });
+  console.log(authHeader);
+  if (!authHeader) return res.status(401).json({ message: 'Authorization token not provided' });
 
-  const token = authHeader.split(' ')[1];
-  if (!token) return res.status(403).json({ message: 'Authorization token not provided' });
+  // const token = authHeader.split(' ')[1];
+  // console.log(token);
+  // if (!token) return res.status(403).json({ message: 'Authorization token not provided' });
 
   try {
-    const decoded = jwt.verify(token, tokenSecret) as jwt.JwtPayload;
+    const decoded = jwt.verify(authHeader, tokenSecret) as jwt.JwtPayload;
     const admin = await AdminModel.findByPk(decoded.adminId);
     if (!admin) return res.status(403).json({ message: 'Invalid token or admin not found' });
 

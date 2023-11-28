@@ -36,6 +36,7 @@ const DataList = (): React.JSX.Element => {
     { id: "longitude", displayName: "Longitud" },
     { id: "rtt", displayName: "RTT" },
     { id: "downlink", displayName: "Downlink" },
+    { id: "city", displayName: "Ciudad" },
   ];
 
   const pageNumbers = [];

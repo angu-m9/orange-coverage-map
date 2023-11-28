@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
 import LocationNetworkQuality from '../models/locationNetworkQualityModel';
-import User from '../models/userModel'; // Asegúrate de importar el modelo de usuario
+import User from '../models/userModel';
+import { geocode } from '../utils/geocode'; 
 
 export const postLocation = async (req: Request, res: Response) => {
   try {
     const { latitude, longitude, rtt, downlink, network, userUuid } = req.body;
-    
+    const city = await geocode(latitude, longitude);
     // Verifica si el usuario con el UUID proporcionado existe
     const user = await User.findOne({ where: { uuid: userUuid } });
     if (!user) {
@@ -19,6 +20,7 @@ export const postLocation = async (req: Request, res: Response) => {
       longitude,
       rtt,
       downlink,
+      city,
       network
     });
 

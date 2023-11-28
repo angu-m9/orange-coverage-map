@@ -1,174 +1,143 @@
 import { useState, useEffect } from 'react';
-import { GoogleMap, Polygon, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, Polygon, InfoWindow, useJsApiLoader } from '@react-google-maps/api';
+import { services } from '../../../services/services';
 
+const libraries = ['visualization'];
 
-// api key de google
-const googleMapsApiKey = 'AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg';
+const HeatMap = ({ filteredCities }) => {
+  const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+  const geoJsonPath = import.meta.env.VITE_GEOJSON_PATH;
+  const containerStyle = { width: '100%', height: '550px' };
+  const spainCenter = { lat: 40.4637, lng: -3.7492 };
 
-//getJson con datos de delimitaciones territoriales
-const urlGeoJson = "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/provincias-espanolas/exports/geojson?lang=en&timezone=Europe%2FBerlin";
-
-
-//funciona para extraer datos del geoJson
-async function fetchJson(url: string) {
-  try {
-    const data = await fetch(url);
-    const response = await data.json();
-    console.log(response)
-    return response
-  } catch (error) {
-    throw new Error(error)
-  }
-}
-
-//estilos del mapa
-const containerStyle = {
-  width: '100%',
-  height: '550px'
-};
-
-
-
-
-//inicio de componente
-const HeatMap = () => {
-
-
-  //ubicacion de España
-  const spainCenter = {
-    lat: 40.4637,
-    lng: -3.7492,
-  };
-
-
-  const library = ['visualization']
-  //datos para cargar api de google de manera asincronica y devuelve un objeto (isLoaded) que indica si la carga a sido exitosa
-  const { isLoaded }: { isLoaded: boolean; loadError: Error | undefined; } = useJsApiLoader({
-
+  const [provincesData, setProvincesData] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState(null);
+  const [networkModeInfo, setNetworkModeInfo] = useState({});
+  
+  const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey,
-    library, 
+    libraries,
   });
 
-
-  //estados del mapa
-  const [map, setMap] = useState(null);
-  const [provincesData, setProvincesData] = useState([]);
-
-  
-  //obtener datos de delimitaciones territoriales cuando se monta el componente
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const geoJson = await fetchJson(urlGeoJson);
-        setProvincesData(geoJson.features);
-      } catch (error) {
-        console.error("Error fetching GeoJSON:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(()=>{
-    const getData =async()=>{
-      try {
-        const data = await fetch('https://mocki.io/v1/2378b24d-712f-410a-86a5-aefbdfe24f56')
-        const response = await data.json()
-        console.log(response)
-      } catch (error) {
-        console.log(error)
-      }
+    if (isLoaded) {
+      loadGeoJsonData();
     }
-    getData()
-  },[])
+  }, [isLoaded]);
 
+  const loadGeoJsonData = async () => {
+    try {
+      const response = await fetch(geoJsonPath);
+      console.log('GeoJSON data loaded:', provincesData);
+      const data = await response.json();
+      setProvincesData(data.features);
+    } catch (error) {
+      console.error('Error fetching GeoJSON:', error);
+    }
+  };
 
-  //si loaded falla el api se renderizara este componente
-  if (!isLoaded) {
-    return <div>...cargando</div>;
-  }
-
-
-  //metodo que pintara el poligono segun calidad de wifi
-  const getColor = (intensity) => {
-    let fillColor;
-
-    if (intensity === 2) { fillColor = "green"; }
-    else if (intensity === 3) { fillColor = "yellow"; }
-    else if (intensity === 4) { fillColor = "red";}
-
-    return fillColor;
+  const handlePolygonClick = async (item) => {
+    const itemName = item.properties.texto; // o 'provincia' o el nombre correcto de la propiedad
+    if (!itemName) {
+      console.error('El nombre de la provincia no está definido.');
+      return;
+    }
+    try {
+      const modeInfo = await services.getNetworkModeByCity(itemName);
+      setNetworkModeInfo(prevInfo => ({
+        ...prevInfo,
+        [itemName]: modeInfo[itemName], // Asegúrate de que modeInfo[itemName] es la estructura correcta
+      }));
+    } catch (error) {
+      console.error('Error fetching network mode by item:', error);
+    }
   };
 
 
-  const heatmapData = [
-    { location: { lat: 40.416775, lng: -3.703790 }, weight: 10 },
-    { location: { lat: 40.416775, lng: -3.703790 }, weight: 20 },
-  ];
-  
+  useEffect(() => {
+    const fetchNetworkModeInfo = async () => {
+      const networkInfo = {};
+      for (const city of filteredCities) {
+        try {
+          const response = await services.getNetworkModeByCity(city.cityName);
+          networkInfo[city.cityName] = response;
+        } catch (error) {
+          console.error('Error fetching network mode by city:', error);
+        }
+      }
+      setNetworkModeInfo(networkInfo);
+    };
 
-  
+    fetchNetworkModeInfo();
+  }, [filteredCities]);
+
+  const renderPolygons = () => provincesData.map((province, index) => {
+    // Cambia 'cityName' por la propiedad correcta que identifica a la ciudad en filteredCities
+    const isFiltered = filteredCities.some(city => province.properties.texto === city.texto);
+    const fillColor = isFiltered ? 'green' : 'red';
 
 
-  //componente HeatMap
+    // console.log(`Rendering province: ${province.properties.provincia || province.properties.city}, Filtered: ${isFiltered}`);
+    if (province.geometry.type === 'MultiPolygon') {
+      return province.geometry.coordinates.map((polygon, polygonIndex) => (
+        <Polygon
+          key={`${index}-${polygonIndex}`}
+          paths={polygon[0].map(coords => ({ lat: coords[1], lng: coords[0] }))}
+          options={{ fillColor, fillOpacity: 0.35, strokeColor: 'white', strokeWeight: 1 }}
+          onMouseOver={() => setSelectedProvince(province.properties)}
+          onClick={() => handlePolygonClick(province)}
+        />
+      ));
+    } else {
+      return (
+        <Polygon
+          key={index}
+          paths={province.geometry.coordinates[0].map(coords => ({ lat: coords[1], lng: coords[0] }))}
+          options={{ fillColor, fillOpacity: 0.35, strokeColor: 'white', strokeWeight: 1 }}
+          onMouseOver={() => setSelectedProvince(province.properties)}
+          onClick={() => handlePolygonClick(province)}
+        />
+      );
+    }
+  });
+
+  const getInfoContent = () => {
+    if (!selectedProvince) return null;
+    const modeInfo = networkModeInfo[selectedProvince.provincia];
+    
+    return modeInfo ? (
+      <div>
+        <h1>{selectedProvince.provincia || 'Provincia no disponible'}</h1>
+        <p>Código: {selectedProvince.codigo || 'Código no disponible'}</p>
+        <p>Moda de Red: {modeInfo.network}</p>
+        <p>Frecuencia: {modeInfo.frequency}</p>
+      </div>
+    ) : (
+      <div>
+        <h1>{selectedProvince.provincia || 'Provincia no disponible'}</h1>
+        <p>Código: {selectedProvince.codigo || 'Código no disponible'}</p>
+        <p>Moda de Red: Información no disponible</p>
+        <p>Frecuencia: Información no disponible</p>
+      </div>
+    );
+  };
+
+  if (!isLoaded) return <div>Loading...</div>;
+
   return (
-
-    //componente principal que renderiza el mapa de google
-    <GoogleMap
-      mapContainerStyle={containerStyle} //estilos del mapa
-      center={spainCenter} //ubica la direccion del mapa
-      zoom={6} //zoom del mapa
-      onLoad={(map) => setMap(map)} //funcion que se llama cuando el mapa se carga
-    >
-
-
-
-
-      {/* le indica al componente que si map y provincesData tienen valor renderize el mapa */}
-      {map && provincesData && (
-        <>
-
-        {/* mapear datos obtenidos de provincesData para renderizar los poligonos */}
-          {provincesData.map((province, index) => (
-            //componente que renderiza un poligono en el mapa de google
-            <Polygon
-
-              key={index} //clave para el poligono que es el indice de cada elemento dentro de provincesData
-
-              //contiene un array de objetos con las coordenadas de cada poligono que dibuja en el mapa
-              paths={province.geometry.coordinates[0].map(coord => ({ lat: coord[1], lng: coord[0] }))}
-
-
-              //personalizar poligonos
-              options={{
-                //color de relleno del poligono
-
-                fillColor: 'red', // Utiliza la intensidad del polígono para dar un colo diferente
-
-
-
-                //
-                strokeColor: 'green',
-
-                //ancho del borde del poligono
-                strokeWeight: 2,
-              }}
-            />
-          ))}
-
-
-
-
-          {/* coloca el puntero en la ubicacion indicada  */}
-          <Marker position={spainCenter} />
-        </>
+    <GoogleMap mapContainerStyle={containerStyle} center={spainCenter} zoom={6}>
+      {renderPolygons()}
+      {selectedProvince && (
+        <InfoWindow
+          position={{ lat: selectedProvince.geo_point_2d.lat, lng: selectedProvince.geo_point_2d.lon }}
+          onCloseClick={() => setSelectedProvince(null)}
+        >
+          {getInfoContent()}
+        </InfoWindow>
       )}
-
-      
     </GoogleMap>
   );
-}
+};
 
 export default HeatMap;
-

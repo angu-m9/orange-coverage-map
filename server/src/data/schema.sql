@@ -24,14 +24,24 @@ CREATE TABLE LocationNetworkQuality (
   longitude FLOAT NOT NULL,
   rtt FLOAT NOT NULL,
   downlink FLOAT NOT NULL,
+  city VARCHAR(255), 
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_uuid) REFERENCES Users(uuid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE NetworkQualityMode (
+  mode_id INT AUTO_INCREMENT PRIMARY KEY,
+  city VARCHAR(255) NOT NULL,
+  most_common_network CHAR(8) NOT NULL,
+  frequency INT NOT NULL,
+  last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 CREATE TABLE Admins (
   admin_id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(50) NOT NULL,
-  hashed_password VARCHAR(255) NOT NULL
+  admin_username VARCHAR(50) NOT NULL,
+  admin_password VARCHAR(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE AdminSession (
@@ -40,13 +50,19 @@ CREATE TABLE AdminSession (
   token VARCHAR(255) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   expires_at TIMESTAMP,
-  FOREIGN KEY (admin_id) REFERENCES Admin(admin_id)
+  FOREIGN KEY (admin_id) REFERENCES Admins (admin_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
+INSERT INTO Company (company_name) VALUES ('Orange');
 INSERT INTO Company (company_name) VALUES ('Jazztel');
 INSERT INTO Company (company_name) VALUES ('Simyo');
-INSERT INTO Company (company_name) VALUES ('Orange');
+
 
 SELECT * FROM Users;
 SELECT * FROM LocationNetworkQuality;
 SELECT * FROM Company;
+SELECT * FROM Admins;
+SELECT * FROM AdminSession;
+SELECT * FROM NetworkQualityMode;
+
+INSERT INTO NetworkQualityMode (city, most_common_network, frequency) VALUES ('Madrid','4g' ,'5');
+INSERT INTO NetworkQualityMode (city, most_common_network, frequency) VALUES ('Barcelona','4g' ,'6');
