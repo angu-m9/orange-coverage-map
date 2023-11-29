@@ -3,8 +3,9 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import AdminModel from '../models/adminModel';
 import AdminSessionModel from '../models/adminSessionModel'; 
-import { tokenSecret, tokenExpiration } from '../config/server';
+import { tokenSecret, tokenExpiration } from '../config/app';
 import  parseTokenExpiration from '../utils/tokenHelpers'; 
+
 
 const login = async (req: Request, res: Response) => {
   console.log('Received login request with body:', req.body);
@@ -22,7 +23,7 @@ const login = async (req: Request, res: Response) => {
     }
 
     console.log(`Comparing password for admin: ${admin_username}`);
-      const isPasswordValid = await bcrypt.compare(admin_password, admin.get('admin_password'));      
+      const isPasswordValid = await bcrypt.compare(admin_password, admin.get('admin_password') as string);      
 
     if (!isPasswordValid) {
       console.log('Login failed: Password invalid for username', admin_username);
@@ -39,9 +40,11 @@ const login = async (req: Request, res: Response) => {
     
 
     const [session, created] = await AdminSessionModel.findOrCreate({
-      where: { admin_id: admin.get('admin_id') },
+      where: { admin_id: admin.get('admin_id') as number},
       defaults: {
+        admin_id: admin.get('admin_id') as number,
         token: token,
+
         expires_at: expirationDate
       }
     });

@@ -1,8 +1,11 @@
 // NetworkQualityModeController.ts
 import { Request, Response } from 'express';
 import LocationNetworkQuality from '../models/locationNetworkQualityModel';
-import NetworkQualityMode from '../models/networkQualityModeModel'; // Asegúrate de tener este modelo
+import NetworkQualityMode from '../models/networkQualityModeModel'; 
+import NetworkModeMapEntry from '../interfaces/NetworkQualityModeInterface';
 import db from '../data/db'; 
+
+
 
 export const calculateNetworkMode = async (req: Request, res: Response) => {
   try {
@@ -21,38 +24,39 @@ export const calculateNetworkMode = async (req: Request, res: Response) => {
     });
 
     // Transforma los resultados en un formato más útil
-    const modeMap = {};
+    const modeMap: Record<string, NetworkModeMapEntry> = {};
     networkModes.forEach((mode) => {
       const city = mode.getDataValue('city');
-      const network = mode.getDataValue('network');
+      const most_common_network = mode.getDataValue('network');
       const frequency = mode.getDataValue('frequency');
 
       // Solo toma el más común si aún no se ha tomado uno para la ciudad
       if (!modeMap[city]) {
-        modeMap[city] = { network, frequency };
+        modeMap[city] = { most_common_network, frequency };
       }
     });
 
     console.log('Network mode map to send:', modeMap);
 
     // Inserta o actualiza los datos en la tabla NetworkQualityMode
-    for (const [city, { network, frequency }] of Object.entries(modeMap)) {
-      // Verifica si la entrada ya existe para la ciudad
-      const existingMode = await NetworkQualityMode.findOne({ where: { city } });
+ // Inserta o actualiza los datos en la tabla NetworkQualityMode
+for (const [city, { most_common_network, frequency }] of Object.entries(modeMap)) {
+  // Verifica si la entrada ya existe para la ciudad
+  const existingMode = await NetworkQualityMode.findOne({ where: { city } });
 
-      if (existingMode) {
-        // Actualiza si ya existe
-        await existingMode.update({ most_common_network: network, frequency });
-      } else {
-        // Crea una nueva entrada si no existe
-        await NetworkQualityMode.create({ city, most_common_network: network, frequency });
-      }
-    }
+  if (existingMode) {
+    // Actualiza si ya existe
+    await existingMode.update({ most_common_network, frequency });
+  } else {
+    // Crea una nueva entrada si no existe
+    await NetworkQualityMode.create({ city, most_common_network, frequency });
+  }
+}
 
     // Envía los modos calculados como respuesta.
     res.json(modeMap);
   } catch (error) {
     console.error('Error al calcular el modo de la red:', error);
-    res.status(500).send(error.message);
+    res.status(500).send((error as Error).message);
   }
 };

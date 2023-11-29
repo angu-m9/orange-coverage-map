@@ -2,10 +2,10 @@ import db from '../data/db';
 import { Model, DataTypes } from 'sequelize';
 
 export interface AdminSessionAttributes {
-  session_id: number;
-  admin_id: number;
-  token: string;
-  created_at: Date;
+  session_id?: number | null;
+  admin_id: number  | null;
+  token: string  | null;
+  created_at: Date  | null;
   expires_at?: Date | null;
 }
 
