@@ -8,6 +8,9 @@ Este servicio integral de Orange permite a los usuarios contribuir activamente a
 
 Los usuarios pueden compartir sus experiencias de conectividad mediante inputs directos en la aplicación de Orange, proporcionando información valiosa sobre la calidad de la señal de red en ubicaciones específicas.
 
+## Caracteristicas
+
+Este proyecto incluye el uso de APIs de navegador, permisos explícitos de usuario, mapas, layouts en mapas, geocoder, compatibilidad de navegadores, cookies, generación de identificadores unívocos, rutas y APIs protegidas por autorización, librería gráfica externa, paginación de datos, exportar ficheros, y cifrado de datos.
 
 ## Herramientas tecnológicas
 
@@ -147,7 +150,6 @@ npm install supertest@6.3.3
 npm install typescript@5.2.2
 ```  
 
-
 ## Variables de entorno
 
 Para ejecutar este proyecto, se necesitan añadir las siguientes variables de entorno. Para conseguirlo necesitarías una cuenta de Google, y pedir tu API_KEY propia. 
@@ -161,6 +163,7 @@ Antes de correr la aplicación es necesario crear el esquema de una base de dato
 Para proteger la información sensible hay que crear variables globales del entorno y guardarlas en el archivo: 
 
 `.env`
+
 
 ## Developers
 
@@ -179,11 +182,6 @@ SCRUM + KANBAN
 ```
 
  ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white) ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white) 
-
-
-## Caracteristicas
-
-- Responsive Design
 
 
 ## Roadmap
