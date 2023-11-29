@@ -62,7 +62,11 @@ export const router = createBrowserRouter([
             {
                 path:'/permission',
                 element: <Permission />
-            }
+            },
+            {
+                path:'/blocking',
+                element: <Blocking />
+            },
         ],
     },
 ]) 
