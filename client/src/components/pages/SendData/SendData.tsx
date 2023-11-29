@@ -124,7 +124,7 @@ const SendData = (): React.JSX.Element => {
         <ModalSucces display={ModalSuccess}/>
         <ModalError display={ModalErr}/>
         <Modal  display={Modall} buttonText="Aceptar"
-       modalTitle="Obtuviste 1 crédito" onClose={closeModal}/>
+       modalTitle="¡Enhorabuena! Obtuviste 1 crédito" onClose={closeModal}/>
       </div>
     </>
   );

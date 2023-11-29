@@ -75,7 +75,7 @@ const HeatMap = ({ filteredCities }) => {
   const renderPolygons = () => provincesData.map((province, index) => {
     // Cambia 'cityName' por la propiedad correcta que identifica a la ciudad en filteredCities
     const isFiltered = filteredCities.some(city => province.properties.texto === city.texto);
-    const fillColor = isFiltered ? 'green' : 'red';
+    const fillColor = isFiltered ? '#026014' : '#026014';
 
 
     // console.log(`Rendering province: ${province.properties.provincia || province.properties.city}, Filtered: ${isFiltered}`);
@@ -84,7 +84,7 @@ const HeatMap = ({ filteredCities }) => {
         <Polygon
           key={`${index}-${polygonIndex}`}
           paths={polygon[0].map(coords => ({ lat: coords[1], lng: coords[0] }))}
-          options={{ fillColor, fillOpacity: 0.35, strokeColor: 'white', strokeWeight: 1 }}
+          options={{ fillColor, fillOpacity: 0.75, strokeColor: 'white', strokeWeight: 2 }}
           onMouseOver={() => setSelectedProvince(province.properties)}
           onClick={() => handlePolygonClick(province)}
         />
@@ -94,7 +94,7 @@ const HeatMap = ({ filteredCities }) => {
         <Polygon
           key={index}
           paths={province.geometry.coordinates[0].map(coords => ({ lat: coords[1], lng: coords[0] }))}
-          options={{ fillColor, fillOpacity: 0.35, strokeColor: 'white', strokeWeight: 1 }}
+          options={{ fillColor, fillOpacity: 0.75, strokeColor: 'white', strokeWeight: 2 }}
           onMouseOver={() => setSelectedProvince(province.properties)}
           onClick={() => handlePolygonClick(province)}
         />
@@ -104,13 +104,15 @@ const HeatMap = ({ filteredCities }) => {
 
   const getInfoContent = () => {
     if (!selectedProvince) return null;
+    // Accede a la información de red para la provincia seleccionada
     const modeInfo = networkModeInfo[selectedProvince.provincia];
     
+    // Devuelve el contenido del InfoWindow con la información de red más común y la frecuencia
     return modeInfo ? (
       <div>
         <h1>{selectedProvince.provincia || 'Provincia no disponible'}</h1>
         <p>Código: {selectedProvince.codigo || 'Código no disponible'}</p>
-        <p>Moda de Red: {modeInfo.network}</p>
+        <p>Moda de Red: {modeInfo.most_common_network}</p> {/* Actualizado para usar most_common_network */}
         <p>Frecuencia: {modeInfo.frequency}</p>
       </div>
     ) : (
@@ -122,7 +124,7 @@ const HeatMap = ({ filteredCities }) => {
       </div>
     );
   };
-
+  
   if (!isLoaded) return <div>Loading...</div>;
 
   return (

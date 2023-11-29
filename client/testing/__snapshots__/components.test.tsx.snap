@@ -82,17 +82,17 @@ exports[`rendering pages > loginAdmin > Map > map-coverage 1`] = `
           class="col-12 d-flex justify-content-center align-items-center flex-column"
         >
           <div>
-            ...cargando
+            Loading...
           </div>
         </div>
         <div
           class="col-12 d-flex justify-content-center align-content-center flex-wrap gap-2 mt-3"
         >
           <button
-            class="btn rounded "
+            class="btn rounded"
             id="button4g"
           >
-            4G
+            4G 
             <img
               alt="button4g"
               src="src/assets/icons/4g.svg"
@@ -102,7 +102,7 @@ exports[`rendering pages > loginAdmin > Map > map-coverage 1`] = `
             class="btn rounded"
             id="button3g"
           >
-            3G
+            3G 
             <img
               alt="button3g"
               src="src/assets/icons/3g.svg"
@@ -112,7 +112,7 @@ exports[`rendering pages > loginAdmin > Map > map-coverage 1`] = `
             class="btn rounded"
             id="button2g"
           >
-            2G
+            2G 
             <img
               alt="button2g"
               src="src/assets/icons/2g.svg"
@@ -425,6 +425,37 @@ exports[`rendering pages > loginAdmin > render 1`] = `
           </button>
         </div>
       </form>
+    </div>
+  </div>
+  <div
+    class="modal d-none d-flex  align-items-center h-100 container-modal"
+  >
+    <div
+      class="modal-dialog w-100 "
+    >
+      <div
+        class="container-content modal-content d-flex justify-content-center align-items-center gap-4 "
+      >
+        <div
+          class="modal-header d-flex justify-content-center"
+        >
+          <h5
+            class="modal-title fs-5"
+          >
+            Usuario no registrado
+          </h5>
+        </div>
+        <div
+          class="modal-footer"
+        >
+          <button
+            class="btn btn-primary button-modal"
+            type="button"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </DocumentFragment>

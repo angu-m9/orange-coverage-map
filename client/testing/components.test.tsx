@@ -7,7 +7,6 @@ import Permission from "../src/components/pages/Permission/Permission";
 import Login from "../src/components/pages/Login/Login";
 import LoginAdmin from "../src/components/pages/LoginAdmin/LoginAdmin";
 import Register from "../src/components/pages/Register/Register";
-import SendData from "../src/components/pages/SendData/SendData";
 import MapCoverage from "../src/components/pages/Map/MapCoverage";
 import { Services } from "../src/services/services";
 
@@ -126,78 +125,6 @@ describe("rendering pages", () => {
       });
     });
   });
-
-  //   describe("services", () => {
-  //     let services: Services | null = null;
-  //     beforeAll(() => {
-  //       services = new Services()
-  //     });
-
-  //     test("getDataList", async () => {
-  //       const response = await services?.getDataList();
-  //       expect(response?.response[0]).toStrictEqual({
-  //         created_at: "2023-11-23T11:36:28.000Z",
-  //         downlink: 10,
-  //         id: 1,
-  //         latitude: 40.3632,
-  //         longitude: -3.59222,
-  //         network: "4g",
-  //         rtt: 50,
-  //         user_uuid: "2e35bbcc-878d-4740-843d-7583ee47096b",
-  //       });
-  //     });
-
-  //     test("getCompanies", async () => {
-  //       const response = await services?.getCompanies();
-  //       expect(response?.response[0]).toStrictEqual({
-  //         company_id: 1,
-  //         company_name: "Jazztel",
-  //       });
-  //     });
-
-  //     test("postDataList", async () => {
-  //       const response = await services?.postDataList({
-  //         created_at: "2023-11-23T11:36:28.000Z",
-  //         downlink: 10,
-  //         latitude: 40.3632,
-  //         longitude: -3.59222,
-  //         network: "4g",
-  //         rtt: 50,
-  //         user_uuid: "2e35bbcc-878d-4740-843d-7583ee47096b",
-  //       });
-  //       expect(response).toBe(response);
-  //     });
-
-  //     test("postLoginAdmin", async () => {
-  //       const response = await services?.postLoginAdmin({
-  //         admin_username: "Bryan",
-  //         admin_password: "1234567",
-  //       });
-  //       expect(response).toBe(true);
-  //     });
-
-  //     test("postRegisterUser", async () => {
-  //       const response = await services?.postRegisterUser({
-  //         user_name: "usuario",
-  //         user_lastname: "last",
-  //         company_id: "Orange",
-  //         postal_code: 28028,
-  //         user_check: true,
-  //       });
-  //       expect(response).toBe(response);
-  //     });
-  //   });
-  // });
-});
-
-
-
-
-
-
-
-
-
 
 
 
@@ -338,37 +265,5 @@ describe("getCompanies", () => {
       }
     }
   });
+})
 });
-
-
-
-
-
-// describe("postDataList", () => {
-//   const services = new Services();
-
-//   test("success", async () => {
-//     const success = await services.postDataList(false);
-//     expect(success).toMatchObject({
-//       created_at: "2023-11-23T11:36:28.000Z",
-//       downlink: 10,
-//       latitude: 40.3632,
-//       longitude: -3.59222,
-//       network: "4g",
-//       rtt: 50,
-//       user_uuid: "2e35bbcc-878d-4740-843d-7583ee47096b",
-//     });
-//   });
-
-//   test("error", async () => {
-//     try {
-
-//       const errores = await services.postDataList(true);
-//       expect(errores).toBeFalsy();
-//     } catch (error) {
-//       if (error instanceof Error) {
-//         expect(error.message).toBe("error");
-//       }
-//     }
-//   });
-// });
