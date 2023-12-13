@@ -17,6 +17,10 @@ const setupAdmin = async () => {
     const adminUsername = process.env.DB_NAME_ADMIN;
     const adminPassword = process.env.DB_PASSWORD_ADMIN;
 
+    if (adminUsername === undefined || adminPassword === undefined) {
+      throw new Error("Las variables de entorno DB_NAME_ADMIN y DB_PASSWORD_ADMIN deben estar definidas");
+    }
+
     const existingAdmin = await AdminModel.findOne({ where: { admin_username: adminUsername } });
     if (existingAdmin) {
       console.log(`Admin user ${adminUsername} already exists`);
