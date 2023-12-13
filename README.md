@@ -8,14 +8,13 @@ Este servicio integral de Orange permite a los usuarios contribuir activamente a
 
 Los usuarios pueden compartir sus experiencias de conectividad mediante inputs directos en la aplicación de Orange, proporcionando información valiosa sobre la calidad de la señal de red en ubicaciones específicas.
 
-## Caracteristicas
+## Características
 
-Este proyecto incluye el uso de APIs de navegador, permisos explícitos de usuario, mapas, layouts en mapas, geocoder, compatibilidad de navegadores, cookies, generación de identificadores unívocos, rutas y APIs protegidas por autorización, librería gráfica externa, paginación de datos, exportar ficheros, y cifrado de datos.
+Este proyecto abarca el uso de diversas tecnologías y técnicas avanzadas, entre las cuales se incluyen APIs de navegador, permisos explícitos de usuario, mapas, layouts en mapas, geocodificación, compatibilidad de navegadores, cookies, generación de identificadores únicos, rutas y APIs protegidas por autorización, así como el uso de bibliotecas gráficas externas, paginación de datos, exportación de archivos y cifrado de datos. 
 
 ## Herramientas tecnológicas
 
 Una herramienta tecnológica o tech stack es un conjunto de herramientas y tecnologías que trabajan de manera unida para construir un producto y solucionar un problema o necesidad. Estas herramientas y tecnologías pueden ser lenguajes de programación, motores de bases de datos, servidores web y frameworks.
-
 En este proyecto podemos identificar los siguientes tech stacks:
 
 **Frontend:**
@@ -26,7 +25,6 @@ En este proyecto podemos identificar los siguientes tech stacks:
 
 
 **Backend:**
-
 - **Express Stack**: Express es un marco de aplicación web para Node.js, diseñado para construir aplicaciones web y API. La dependencia `express` es parte de este stack.
 
 - **Sequelize Stack**: Sequelize es un ORM (Object-Relational Mapping) para Node.js y soporta los dialectos PostgreSQL, MySQL, SQLite y MSSQL. La dependencia `sequelize` es parte de este stack.
@@ -42,7 +40,7 @@ En este proyecto podemos identificar los siguientes tech stacks:
 
 ## Instalación
 
-Clona este repositorio desde GitHub en tu máquina local: 
+Para instalar este proyecto localmente, clona este repositorio desde GitHub en tu máquina local: 
 
 ```github
   https://github.com/angu-m9/orange-coverage-map.git
@@ -50,18 +48,19 @@ Clona este repositorio desde GitHub en tu máquina local:
 
 
 ## Dependencias
-Se puede instalar todas las dependecias con:
+Para las dependencias del Frontend, ejecuta el siguiente comando desde el directorio que contiene el archivo package.json correspondiente al Frontend.
 ```
 npm install
 ```
-Para las depencendias de Front desde el directorio donde se encuentra el archivo package.json del Frontend.
-
-Para las depencendias de Back desde el directorio donde se encuentra el archivo package.json del Backend.
+Para las dependencias del Backend, ejecuta el siguiente comando desde el directorio que contiene el archivo package.json correspondiente al Backend. 
+```
+npm install
+```
 
 
 ## Dependencias del Frontend
 
-En el caso de necesitar hacer las installaciones de forma individual se puede. Desde el directorio donde se encuentra el archivo package.json del FRONT, instala las siguientes dependencias en la terminal.
+Si es necesario realizar instalaciones de forma individual, puedes hacerlo desde el directorio que contiene el archivo package.json. Utiliza el siguiente comando para instalar las siguientes dependencias en la terminal. 
 
 dependencies:
 ```bash
@@ -76,8 +75,6 @@ npm install detect-browser@5.3.0
 npm install dotenv@16.3.1
 npm install jsdom@22.1.0
 npm install json-server@0.17.4
-npm install leaflet@1.9.4
-npm install leaflet.heat@0.2.0
 npm install react@18.2.0
 npm install react-csv@2.2.2
 npm install react-csv-downloader@3.0.0
@@ -114,7 +111,7 @@ npm install vitest@0.34.6
 ```
 ## Dependencias del Backend
 
-En el caso de necesitar hacer las installaciones de forma individual se puede.  Desde el directorio donde se encuentra el archivo package.json, instala las siguientes dependencias en la terminal.
+Si es necesario realizar instalaciones de forma individual, puedes hacerlo desde el directorio que contiene el archivo package.json. Utiliza el siguiente comando para instalar las siguientes dependencias en la terminal. 
 
 dependencies:
 ```bash
@@ -125,7 +122,6 @@ npm install dotenv@16.3.1
 npm install express@4.18.2
 npm install jest@29.7.0
 npm install jsonwebtoken@9.0.2
-npm install multer@*
 npm install mysql2@3.6.2
 npm install sequelize@6.33.0
 npm install ts-jest@29.1.1
@@ -140,7 +136,6 @@ npm install @types/cors@2.8.15
 npm install @types/dotenv@8.2.0
 npm install @types/express@4.17.20
 npm install @types/jsonwebtoken@9.0.4
-npm install @types/multer@1.4.9
 npm install @types/node@20.8.7
 npm install @types/sequelize@4.28.17
 npm install @types/supertest@2.0.14
@@ -186,9 +181,9 @@ SCRUM + KANBAN
 
 ## Roadmap
 
-- Crear una librería para poder integrar esta solución en cualquier frontal. Es decir, de manera transparenta o visible para el usuario se podría recolectar la información de su calidad de red y almacenarse en BB.DD
+**Crear una librería**: Desarrollar una biblioteca que permita integrar esta solución en cualquier interfaz de usuario. Es decir, de manera transparente o visible para el usuario, se podrían recolectar datos sobre la calidad de su red y almacenarlos en la base de datos.
 
-- Incentivar al usuario a recolectar datos. Mediante gamificación se permitiría premiar al usuario que envia datos por distintas localizaciones pudiendo optar a premios Orange (Bonos de datos, SVAs, etc)
+**Incentivar la recolección de datos**: Implementar estrategias de gamificación para motivar a los usuarios a enviar datos desde diversas ubicaciones. Esto les permitiría participar en la obtención de premios de Orange, como bonos de datos, Servicios de Valor Agregado (SVAs), entre otros. 
 
 
 ## Referencia de Estilo
@@ -204,5 +199,5 @@ https://boosted.orange.com/
 
 ## Agradecemientos 
 
-Agradecemos la amable orientación de José Luis Montesinos.
+Queremos expresar nuestro sincero agradecimiento a José Luis Montesinos por su invaluable orientación y apoyo. Su experiencia y dedicación han sido fundamentales para el desarrollo de este proyecto, marcando una diferencia significativa en nuestro camino. Estamos agradecidos por su generosidad al compartir su conocimiento y guía, elementos clave que han contribuido al éxito de nuestro trabajo. Gracias, José Luis, por ser una fuente de inspiración y mentor en este viaje.
 
